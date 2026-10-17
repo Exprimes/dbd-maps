@@ -1507,14 +1507,16 @@
           lines.push(`${mobileId}:${CURRENT_MOBILE_VERSION}:${plat}:${now}`);
         }
 
-        if (lines.length > 100) {
-          lines = lines.slice(lines.length - 100);
+        if (lines.length > 25) {
+          lines = lines.slice(lines.length - 25);
         }
 
         const newContent = lines.join(";");
         const newB64 = btoa(unescape(encodeURIComponent(newContent))).replace(/\//g, "_").replace(/\+/g, "-");
-        const putUrl = `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${LOBBY_API_KEY}/ACTIVE_USERS/${newB64}`;
+        const putUrl = `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${LOBBY_API_KEY}/ACTIVE_USERS?value=${newB64}`;
         await fetch(putUrl, { method: "POST" });
+        const putMobUrl = `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${LOBBY_API_KEY}/ACTIVE_USERS_MOB?value=${newB64}`;
+        await fetch(putMobUrl, { method: "POST" }).catch(() => {});
       } catch (err) {}
     }
 
@@ -1544,7 +1546,7 @@
 
         const newContent = lines.length > 0 ? lines.join(";") : "EMPTY";
         const newB64 = newContent === "EMPTY" ? "EMPTY" : btoa(unescape(encodeURIComponent(newContent))).replace(/\//g, "_").replace(/\+/g, "-");
-        const putUrl = `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${LOBBY_API_KEY}/ACTIVE_USERS/${newB64}`;
+        const putUrl = `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${LOBBY_API_KEY}/ACTIVE_USERS?value=${newB64}`;
         if (navigator.sendBeacon) {
           navigator.sendBeacon(putUrl);
         } else {
