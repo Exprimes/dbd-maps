@@ -947,7 +947,7 @@
       // Si on est dans un Lobby et qu'on a sélectionné la carte soi-même : diffuser à tout le monde !
       if (!fromSync && currentLobbyCode) {
         lastSyncedMapName = map.name;
-        fetch(`https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/731ciu40/${currentLobbyCode}/${encodeURIComponent(map.name)}`, { method: "POST" })
+        fetch(`https://ntfy.sh/dbdmaps731-${currentLobbyCode}`, { method: "POST", body: map.name })
           .catch(() => {});
         showToast("📤 Carte diffusée au Lobby : " + map.name);
       }
@@ -1071,15 +1071,34 @@
       }
     }
 
-    const LOBBY_API_KEY = "731ciu40";
+    const RELAY_BASE = "https://ntfy.sh/dbdmaps731-";
+
+    async function relayGetLatest(key) {
+      const resp = await fetch(`${RELAY_BASE}${key}/json?poll=1&since=latest&t=${Date.now()}`, { cache: "no-store" });
+      if (!resp.ok) return null;
+      const raw = await resp.text();
+      let last = null;
+      for (const line of raw.split("\n")) {
+        if (!line.trim()) continue;
+        try {
+          const ev = JSON.parse(line);
+          if (ev.event === "message") {
+            if (ev.attachment && ev.attachment.url) {
+              const attRes = await fetch(ev.attachment.url, { cache: "no-store" });
+              if (attRes.ok) last = (await attRes.text()).trim();
+            } else {
+              last = ev.message || "";
+            }
+          }
+        } catch (e) {}
+      }
+      return last;
+    }
 
     async function pollLobbyOnce() {
       if (!currentLobbyCode) return;
       try {
-        const url = `https://keyvalue.immanuel.co/api/KeyVal/GetValue/${LOBBY_API_KEY}/${currentLobbyCode}?t=${Date.now()}`;
-        const resp = await fetch(url, { cache: "no-store" });
-        if (!resp.ok) return;
-        let val = await resp.text();
+        let val = await relayGetLatest(currentLobbyCode);
         if (val) {
           val = val.trim().replace(/^"|"$/g, "");
           if (val && val !== "null" && val !== "LOBBY_CREATED" && val.toLowerCase() !== lastSyncedMapName.toLowerCase()) {
@@ -1118,10 +1137,9 @@
         const customName = parts.length > 1 ? parts[1] : "Carte Custom";
         lobbySyncMsg.textContent = "⚡ Réception de la carte custom : " + customName;
         try {
-          const customUrl = `https://keyvalue.immanuel.co/api/KeyVal/GetValue/${LOBBY_API_KEY}/${currentLobbyCode}_CUSTOM?t=${Date.now()}`;
-          const res = await fetch(customUrl, { cache: "no-store" });
-          if (res.ok) {
-            let b64 = (await res.text()).trim().replace(/^"|"$/g, "");
+          let b64 = await relayGetLatest(`${currentLobbyCode}_CUSTOM`);
+          if (b64) {
+            b64 = b64.trim().replace(/^"|"$/g, "");
             if (b64) {
               const customMapObj = {
                 name: customName,
@@ -1185,8 +1203,9 @@
         code += chars.charAt(Math.floor(Math.random() * chars.length));
       }
       try {
-        await fetch(`https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${LOBBY_API_KEY}/${code}/LOBBY_CREATED`, {
-          method: "POST"
+        await fetch(`${RELAY_BASE}${code}`, {
+          method: "POST",
+          body: "LOBBY_CREATED"
         });
       } catch (e) {}
       startLobbyListener(code);
@@ -1463,96 +1482,11 @@
         }
 
         const now = Math.floor(Date.now() / 1000);
-        const getUrl = `https://keyvalue.immanuel.co/api/KeyVal/GetValue/${LOBBY_API_KEY}/ACTIVE_USERS?t=${Date.now()}`;
-        
-        let existingB64 = "";
-        try {
-          const resp = await fetch(getUrl, { cache: "no-store" });
-          if (resp.ok) {
-            existingB64 = (await resp.text()).trim().replace(/"/g, "");
-          }
-        } catch (e) {}
-
-        let content = "";
-        if (existingB64 && existingB64 !== "EMPTY") {
-          try {
-            let normalized = existingB64.replace(/_/g, "/").replace(/-/g, "+");
-            let mod = normalized.length % 4;
-            if (mod > 0) normalized += "=".repeat(4 - mod);
-            content = decodeURIComponent(escape(atob(normalized)));
-          } catch (e) {}
-        }
-
-        let lines = [];
-        let updated = false;
-        if (content) {
-          for (const part of content.split(";")) {
-            const tokens = part.split(":");
-            if (tokens.length >= 4) {
-              if (tokens[0] === mobileId) {
-                lines.push(`${mobileId}:${CURRENT_MOBILE_VERSION}:${plat}:${now}`);
-                updated = true;
-              } else {
-                const ts = parseInt(tokens[3]);
-                // Garder les enregistrements des 7 derniers jours
-                if (!isNaN(ts) && (now - ts) < 604800) {
-                  lines.push(part);
-                }
-              }
-            }
-          }
-        }
-
-        if (!updated) {
-          lines.push(`${mobileId}:${CURRENT_MOBILE_VERSION}:${plat}:${now}`);
-        }
-
-        if (lines.length > 25) {
-          lines = lines.slice(lines.length - 25);
-        }
-
-        const newContent = lines.join(";");
-        const newB64 = btoa(unescape(encodeURIComponent(newContent))).replace(/\//g, "_").replace(/\+/g, "-");
-        const putUrl = `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${LOBBY_API_KEY}/ACTIVE_USERS?value=${newB64}`;
-        await fetch(putUrl, { method: "POST" });
-        const putMobUrl = `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${LOBBY_API_KEY}/ACTIVE_USERS_MOB?value=${newB64}`;
-        await fetch(putMobUrl, { method: "POST" }).catch(() => {});
+        await fetch(`${RELAY_BASE}ACTIVE_USERS_MOB`, {
+          method: "POST",
+          body: `${mobileId}:${CURRENT_MOBILE_VERSION}:${plat}:${now}`
+        }).catch(() => {});
       } catch (err) {}
-    }
-
-    async function removeMobileTelemetryHeartbeat() {
-      try {
-        const mobileId = localStorage.getItem("dbd_mobile_client_id");
-        if (!mobileId) return;
-
-        const getUrl = `https://keyvalue.immanuel.co/api/KeyVal/GetValue/${LOBBY_API_KEY}/ACTIVE_USERS`;
-        const resp = await fetch(getUrl);
-        if (!resp.ok) return;
-        const existingB64 = (await resp.text()).trim().replace(/"/g, "");
-        if (!existingB64 || existingB64 === "EMPTY") return;
-
-        let normalized = existingB64.replace(/_/g, "/").replace(/-/g, "+");
-        let mod = normalized.length % 4;
-        if (mod > 0) normalized += "=".repeat(4 - mod);
-        const content = decodeURIComponent(escape(atob(normalized)));
-
-        let lines = [];
-        for (const part of content.split(";")) {
-          const tokens = part.split(":");
-          if (tokens.length >= 4 && tokens[0] !== mobileId) {
-            lines.push(part);
-          }
-        }
-
-        const newContent = lines.length > 0 ? lines.join(";") : "EMPTY";
-        const newB64 = newContent === "EMPTY" ? "EMPTY" : btoa(unescape(encodeURIComponent(newContent))).replace(/\//g, "_").replace(/\+/g, "-");
-        const putUrl = `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${LOBBY_API_KEY}/ACTIVE_USERS?value=${newB64}`;
-        if (navigator.sendBeacon) {
-          navigator.sendBeacon(putUrl);
-        } else {
-          fetch(putUrl, { method: "POST", keepalive: true });
-        }
-      } catch (e) {}
     }
 
     // Envoyer immédiatement le battement de cœur télémétrique
