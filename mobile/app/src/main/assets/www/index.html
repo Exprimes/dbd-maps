@@ -579,25 +579,6 @@
     .toast.show {
       transform: translateX(-50%) translateY(0);
     }
-
-    .btn-header-lang {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
-      border-radius: 8px;
-      padding: 6px 10px;
-      font-size: 0.75rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      transition: all 0.2s;
-    }
-    .btn-header-lang:hover {
-      background: rgba(37, 99, 235, 0.35);
-      border-color: #3b82f6;
-    }
   </style>
 </head>
 <body>
@@ -621,9 +602,6 @@
         </div>
       </div>
       <div class="header-actions">
-        <button class="btn-header-lang" id="btnLangToggle" title="Changer de langue / Switch language">
-          <span id="langFlag">🇬🇧</span> <span id="langCode">EN</span>
-        </button>
         <a href="https://discord.gg/sHVttN4ZdZ" target="_blank" style="text-decoration:none; display:inline-flex; align-items:center; gap:4px; background:rgba(88,101,242,0.22); border:1px solid #5865F2; color:#fff; border-radius:8px; padding:6px 10px; font-size:0.75rem; font-weight:700;" title="Discord Omni Community">💬 Discord</a>
         
         <button class="btn-header-lobby" id="btnHeaderLobby">
@@ -902,13 +880,12 @@
         list.forEach(map => {
           const card = document.createElement("div");
           card.className = "map-card";
-          const displayName = getMapDisplayName(map);
           card.innerHTML = `
             <div class="map-thumb-wrap">
-              <img src="${map.src}" alt="${displayName}" loading="lazy" onerror="if(!this.dataset.retry){this.dataset.retry='1';const s=this.getAttribute('src')||'';this.src=s.startsWith('http')?s:('https://exprimes.github.io/dbd-maps/'+s.replace(/^\/+/,''));}else{this.src='app_icon.png';}">
+              <img src="${map.src}" alt="${map.name}" loading="lazy" onerror="if(!this.dataset.retry){this.dataset.retry='1';const s=this.getAttribute('src')||'';this.src=s.startsWith('http')?s:('https://exprimes.github.io/dbd-maps/'+s.replace(/^\/+/,''));}else{this.src='app_icon.png';}">
             </div>
             <div class="map-info">
-              <span class="map-title">${displayName}</span>
+              <span class="map-title">${map.name}</span>
               <span class="map-creator">${map.creator}</span>
             </div>
           `;
@@ -916,7 +893,7 @@
           mapsGrid.appendChild(card);
         });
       }
-      const suffix = (currentLang === "en") ? (list.length > 1 ? " Maps" : " Map") : (list.length > 1 ? " Cartes" : " Carte"); mapCountBadge.textContent = list.length + suffix;
+      mapCountBadge.textContent = list.length + (list.length > 1 ? " Cartes" : " Carte");
     }
 
     renderMaps(MAPS);
@@ -929,7 +906,7 @@
         renderMaps(MAPS);
         return;
       }
-      const filtered = MAPS.filter(m => cleanStr(m.name).includes(q) || cleanStr(MAP_NAMES_EN[m.name] || "").includes(q) || cleanStr(m.creator).includes(q));
+      const filtered = MAPS.filter(m => cleanStr(m.name).includes(q) || cleanStr(m.creator).includes(q));
       renderMaps(filtered);
     });
 
@@ -951,8 +928,7 @@
     let initialScale = 1;
 
     function openViewer(map, fromSync) {
-      window._currentOpenMap = map;
-      viewerTitle.textContent = getMapDisplayName(map);
+      viewerTitle.textContent = map.name;
       viewerImg.onerror = function() {
         if (!this.dataset.triedFb) {
           this.dataset.triedFb = "1";
@@ -1539,227 +1515,6 @@
       const iosBanner = document.getElementById("iosInstallBanner");
       if (iosBanner) iosBanner.style.display = "flex";
     }
-
-    // --- DICTIONNAIRE MULTILINGUE OFFICIEL (FR / EN) ---
-    const MAP_NAMES_EN = {
-      "Abattoir Putride": "Rancid Abattoir",
-      "Aile Est du Commissariat de Raccoon City": "R.P.D. - East Wing",
-      "Aile Ouest du Commissariat de Raccoon City": "R.P.D. - West Wing",
-      "Aire de Corbeaux": "Eyrie of Crows",
-      "Atelier Misérable": "Misery's Workshop",
-      "Cabane du Sang": "Blood Lodge",
-      "Cellier Sinistre": "Grim Pantry",
-      "Centre de Traitement": "Treatment Theatre",
-      "Champs Pourris": "Rotten Fields",
-      "Chapelle du Père Campbell": "Father Campbell's Chapel",
-      "Dernière Demeure d'Azarov": "Azarov's Resting Place",
-      "Entrepôt de Charbon": "Coal Tower",
-      "Entrepôt Grondant": "Groaning Storehouse",
-      "Fonderie de Souffrance": "Ironworks of Misery",
-      "Forêt Profonde": "Deep Forest",
-      "Freddy Fazbear's Pizza": "Freddy Fazbear's Pizza",
-      "Gas Haven": "Gas Haven",
-      "Illusion du Farceur": "Trickster's Illusion",
-      "Jardin de la Joie": "Garden of Joy",
-      "La Ferme Thompson": "Thompson House",
-      "La Maison Maternelle": "Mother's Dwelling",
-      "La Place Dévastée": "The Shattered Square",
-      "Le Complexe Souterrain": "The Underground Complex",
-      "Le Jeu": "The Game",
-      "Le Pôle Rose": "The Pale Rose",
-      "Le Temple de Purgation": "Temple of Purgation",
-      "Mine du Lac d'Ormond": "Mount Ormond Resort",
-      "Place de Greenville": "Greenville Square",
-      "Puits d'Asphyxie": "Suffocation Pit",
-      "Refuge Perdu": "Disturbed Ward",
-      "Ruines Oubliées": "Forgotten Ruins",
-      "Résidence Familiale": "Family Residence",
-      "Sables Morts": "Dead Sands",
-      "Salle des Aliénés": "Disturbed Ward",
-      "Saloon de Dead Dawg": "Dead Dawg Saloon",
-      "Sanctuaire du Courroux": "Sanctum of Wrath",
-      "Site d'Atterrissage de Toba": "Toba Landing",
-      "Station du Mont Ormond": "Mount Ormond Resort",
-      "Terrain de la Casse": "Wrecker's Yard",
-      "Vallon des Tourments": "Torment Creek",
-      "École Maternelle de Badham": "Badham Preschool",
-      "École Primaire Midwich": "Midwich Elementary School",
-      "Épave du Nostromo": "Nostromo Wreckage",
-      "Étable en Ruine": "Fractured Cowshed"
-    };
-
-    let currentLang = "fr";
-
-    function getMapDisplayName(map) {
-      if (!map) return "";
-      if (currentLang === "en") {
-        return MAP_NAMES_EN[map.name] || map.name;
-      }
-      return map.name;
-    }
-
-    const APP_I18N = {
-      fr: {
-        searchPlaceholder: "Rechercher une carte...",
-        availableMaps: "Cartes Disponibles",
-        mapCountSuffix: " Cartes",
-        mapCountSingular: " Carte",
-        noResults: "Aucune carte ne correspond à votre recherche.",
-        btnCheckUpdates: "Vérifier les mises à jour",
-        updateModalTitle: "🚀 Mises à Jour & Version",
-        updateModalDesc: "Vérifiez si une nouvelle version de l'application DBD MAP Mobile est disponible.",
-        currentVerLabel: "Version actuelle installée :",
-        lastCheckNever: "Dernière vérification : non effectuée",
-        searchUpdateBtn: "Rechercher une mise à jour",
-        lobbyModalTitle: "👥 Lobby Manager",
-        lobbyModalDesc: "Rejoignez ou créez un Lobby : n'importe quel joueur (PC ou mobile) peut changer la carte pour tout le monde en direct !",
-        activeLobbyLabel: "LOBBY ACTIF",
-        waitingLobbyMap: "En attente d'une carte du Lobby...",
-        leaveLobbyBtn: "Quitter le Lobby",
-        joinLobbyLabel: "Rejoindre un code de Lobby :",
-        joinBtn: "Rejoindre",
-        orDivider: "OU",
-        createLobbyBtn: "Créer un nouveau Lobby",
-        viewerSyncBadge: "⚡ Synchronisé via Lobby",
-        viewerTip: "💡 Pincez pour zoomer • Glissez pour bouger",
-        toastLobbyConnected: "✅ Connecté au Lobby ",
-        toastLobbyMapReceived: "🎮 Carte reçue du Lobby : ",
-        toastLobbyCustomReceived: "🎨 Carte custom reçue du Lobby : ",
-        toastLobbyBroadcast: "📤 Carte diffusée au Lobby : ",
-        toastLobbyLeft: "Lobby quitté."
-      },
-      en: {
-        searchPlaceholder: "Search for a map...",
-        availableMaps: "Available Maps",
-        mapCountSuffix: " Maps",
-        mapCountSingular: " Map",
-        noResults: "No maps found matching your search.",
-        btnCheckUpdates: "Check for updates",
-        updateModalTitle: "🚀 Updates & Version",
-        updateModalDesc: "Check if a new version of DBD MAP Mobile is available.",
-        currentVerLabel: "Currently installed version:",
-        lastCheckNever: "Last check: not performed",
-        searchUpdateBtn: "Check for updates",
-        lobbyModalTitle: "👥 Lobby Manager",
-        lobbyModalDesc: "Join or create a Lobby: any player (PC or mobile) can switch the map live for the entire team!",
-        activeLobbyLabel: "ACTIVE LOBBY",
-        waitingLobbyMap: "Waiting for a map from the Lobby...",
-        leaveLobbyBtn: "Leave Lobby",
-        joinLobbyLabel: "Join a Lobby code:",
-        joinBtn: "Join",
-        orDivider: "OR",
-        createLobbyBtn: "Create a new Lobby",
-        viewerSyncBadge: "⚡ Synced via Lobby",
-        viewerTip: "💡 Pinch to zoom • Drag to pan",
-        toastLobbyConnected: "✅ Connected to Lobby ",
-        toastLobbyMapReceived: "🎮 Map received from Lobby: ",
-        toastLobbyCustomReceived: "🎨 Custom map received from Lobby: ",
-        toastLobbyBroadcast: "📤 Map shared with Lobby: ",
-        toastLobbyLeft: "Left Lobby."
-      }
-    };
-
-    function applyAppLanguage(lang) {
-      if (!APP_I18N[lang]) lang = "fr";
-      currentLang = lang;
-      localStorage.setItem("dbd_lang", lang);
-      document.documentElement.lang = lang;
-
-      const t = APP_I18N[lang];
-      const langFlag = document.getElementById("langFlag");
-      const langCode = document.getElementById("langCode");
-      if (langFlag && langCode) {
-        if (lang === "fr") {
-          langFlag.textContent = "🇬🇧";
-          langCode.textContent = "EN";
-        } else {
-          langFlag.textContent = "🇫🇷";
-          langCode.textContent = "FR";
-        }
-      }
-
-      // UI text updates
-      const searchInput = document.getElementById("searchInput");
-      if (searchInput) searchInput.placeholder = t.searchPlaceholder;
-
-      const sectionTitle = document.querySelector(".section-title");
-      if (sectionTitle) sectionTitle.textContent = t.availableMaps;
-
-      const noResults = document.getElementById("noResults");
-      if (noResults) noResults.textContent = t.noResults;
-
-      const btnFooterUpdate = document.querySelector("#btnFooterUpdate span:last-child");
-      if (btnFooterUpdate) btnFooterUpdate.textContent = t.btnCheckUpdates;
-
-      const updateTitle = document.querySelector("#updateModal .modal-title");
-      if (updateTitle) updateTitle.textContent = t.updateModalTitle;
-
-      const updateDesc = document.querySelector("#updateModal .lobby-desc");
-      if (updateDesc) updateDesc.textContent = t.updateModalDesc;
-
-      const lobbyTitle = document.querySelector("#lobbyModal .modal-title");
-      if (lobbyTitle) lobbyTitle.textContent = t.lobbyModalTitle;
-
-      const lobbyDesc = document.querySelector("#lobbyModal .lobby-desc");
-      if (lobbyDesc) lobbyDesc.innerHTML = (lang === "en")
-        ? "Join or create a Lobby: <strong>any player (PC or mobile) can switch the map live for the entire team!</strong>"
-        : "Rejoignez ou créez un Lobby : <strong>n'importe quel joueur (PC ou mobile) peut changer la carte pour tout le monde en direct !</strong>";
-
-      const btnLeaveLobby = document.getElementById("btnLeaveLobby");
-      if (btnLeaveLobby) btnLeaveLobby.textContent = t.leaveLobbyBtn;
-
-      const btnJoinLobby = document.getElementById("btnJoinLobby");
-      if (btnJoinLobby) btnJoinLobby.textContent = t.joinBtn;
-
-      const btnCreateLobby = document.getElementById("btnCreateLobby");
-      if (btnCreateLobby) btnCreateLobby.textContent = t.createLobbyBtn;
-
-      const viewerTip = document.querySelector(".viewer-footer-tip");
-      if (viewerTip) viewerTip.textContent = t.viewerTip;
-
-      const viewerSyncBadge = document.getElementById("viewerSyncBadge");
-      if (viewerSyncBadge) viewerSyncBadge.textContent = t.viewerSyncBadge;
-
-      // Re-render currently displayed maps to refresh names
-      if (typeof MAPS !== "undefined" && Array.isArray(MAPS) && MAPS.length > 0) {
-        const q = cleanStr(searchInput ? searchInput.value.trim() : "");
-        if (!q) {
-          renderMaps(MAPS);
-        } else {
-          const filtered = MAPS.filter(m => {
-            const frName = cleanStr(m.name);
-            const enName = cleanStr(MAP_NAMES_EN[m.name] || "");
-            const creator = cleanStr(m.creator);
-            return frName.includes(q) || enName.includes(q) || creator.includes(q);
-          });
-          renderMaps(filtered);
-        }
-      }
-
-      // If viewer is open, refresh its title
-      const viewerModal = document.getElementById("viewerModal");
-      const viewerTitle = document.getElementById("viewerTitle");
-      if (viewerModal && viewerModal.style.display === "flex" && viewerTitle && window._currentOpenMap) {
-        viewerTitle.textContent = getMapDisplayName(window._currentOpenMap);
-      }
-    }
-
-    document.getElementById("btnLangToggle").addEventListener("click", () => {
-      const nextLang = (currentLang === "fr") ? "en" : "fr";
-      applyAppLanguage(nextLang);
-    });
-
-    // Initial detection on load
-    (function initAppLang() {
-      let saved = localStorage.getItem("dbd_lang");
-      if (!saved) {
-        const navLang = (navigator.language || navigator.userLanguage || "").toLowerCase();
-        saved = navLang.startsWith("fr") ? "fr" : "en";
-      }
-      currentLang = saved;
-      setTimeout(() => applyAppLanguage(saved), 50);
-    })();
-
   </script>
 </body>
 </html>
