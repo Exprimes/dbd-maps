@@ -556,28 +556,73 @@
       font-size: 0.85rem;
       color: var(--text-muted);
     }
+
+    /* LANG SWITCHER */
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 30px;
+      padding: 3px 4px;
+      gap: 2px;
+      backdrop-filter: blur(8px);
+      margin-bottom: 16px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .lang-btn:hover {
+      color: #ffffff;
+    }
+    .lang-btn.active {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.45);
+    }
   </style>
 </head>
 <body>
 
   <div class="wrapper">
     <header>
+      <!-- SELECTEUR DE LANGUE FR / EN -->
+      <div style="display:flex; justify-content:center;">
+        <div class="lang-switcher" id="langSwitcher">
+          <button type="button" class="lang-btn active" id="btnLangFr" onclick="setLanguage('fr')">
+            <span>🇫🇷</span> <span>Français</span>
+          </button>
+          <button type="button" class="lang-btn" id="btnLangEn" onclick="setLanguage('en')">
+            <span>🇬🇧</span> <span>English</span>
+          </button>
+        </div>
+      </div>
       <div class="brand-pill">
         <img src="omni_logo.jpg" alt="Logo Omni Community">
         <span>DBD MAP • By Exprimes | Omni Community</span>
       </div>
-      <h1>Choisissez votre Téléchargement</h1>
-      <p class="subtitle">
-        Deux versions officielles créées sur mesure : le logiciel overlay pour votre PC et l'application autonome pour votre téléphone ou console.
-      </p>
+      <h1 data-i18n="heroTitle">Choisissez votre Téléchargement</h1>
+      <p class="subtitle" data-i18n="heroSub">Deux versions officielles créées sur mesure : le logiciel overlay pour votre PC et l'application autonome pour votre téléphone ou console.</p>
 
       <div class="global-badges">
-        <span class="badge">🗺️ 44 Cartes HD en Français</span>
-        <span class="badge">👥 Lobby Synchronisé PC & Mobile</span>
-        <span class="badge">⚡ Raccourcis Clavier In-Game (F8 / F9)</span>
-        <span class="badge">👁️ Reconnaissance Auto OCR</span>
-        <span class="badge">🚀 Vérificateur de Mises à Jour Intégré</span>
-        <span class="badge">💯 100% Gratuit & Sans Pub</span>
+        <span class="badge" data-i18n="badgeMaps">🗺️ 44 Cartes HD en Français</span>
+        <span class="badge" data-i18n="badgeLobby">👥 Lobby Synchronisé PC & Mobile</span>
+        <span class="badge" data-i18n="badgeHotkeys">⚡ Raccourcis Clavier In-Game (F8 / F9)</span>
+        <span class="badge" data-i18n="badgeOcr">👁️ Reconnaissance Auto OCR</span>
+        <span class="badge" data-i18n="badgeUpdater">🚀 Vérificateur de Mises à Jour Intégré</span>
+        <span class="badge" data-i18n="badgeFree">💯 100% Gratuit & Sans Pub</span>
       </div>
     
       <!-- BANNIÈRE OFFICIELLE DISCORD OMNI COMMUNITY -->
@@ -587,11 +632,11 @@
             <img src="omni_logo.jpg" alt="Omni Community" style="width: 46px; height: 46px; border-radius: 50%; border: 2px solid #5865F2; object-fit: cover;">
             <div>
               <div style="font-weight: 800; font-size: 1.05rem; color: #ffffff; display: flex; align-items: center; gap: 8px;">
-                <span>💬 Rejoindre le Discord Officiel</span>
+                <span data-i18n="discordTitle">💬 Rejoindre le Discord Officiel</span>
                 <span style="background: #5865F2; color: #ffffff; font-size: 0.72rem; padding: 2px 8px; border-radius: 10px; font-weight: 800;">OMNI COMMUNITY</span>
               </div>
               <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 3px;">
-                Mises à jour régulières, support direct, retours de bugs & salon Dead by Daylight !
+                <span data-i18n="discordSub">Mises à jour régulières, support direct, retours de bugs & salon Dead by Daylight !</span>
               </div>
             </div>
           </div>
@@ -609,19 +654,17 @@
       <!-- COLONNE 1 : LOGICIEL POUR PC (WINDOWS) -->
       <!-- ============================================== -->
       <div class="platform-card card-pc">
-        <div class="platform-tag tag-pc">POUR ORDINATEUR</div>
+        <div class="platform-tag tag-pc" data-i18n="pcTag">POUR ORDINATEUR</div>
         
         <div class="platform-header">
           <div class="platform-icon">💻</div>
           <div>
-            <div class="platform-title">Version PC (v1.3.5)</div>
-            <div class="platform-sub sub-pc">Plateforme : Windows 10 & 11 (64 bits)</div>
+            <div class="platform-title" data-i18n="pcTitle">Version PC (v1.3.5)</div>
+            <div class="platform-sub sub-pc" data-i18n="pcSub">Plateforme : Windows 10 & 11 (64 bits)</div>
           </div>
         </div>
 
-        <p class="platform-desc">
-          À installer sur votre ordinateur pour jouer à Dead by Daylight avec l'overlay transparent directement sur votre écran de jeu.
-        </p>
+        <p class="platform-desc" data-i18n="pcDesc">À installer sur votre ordinateur pour jouer à Dead by Daylight avec l'overlay transparent directement sur votre écran de jeu.</p>
 
         <ul class="features-list">
           <li><span class="check-pc">✓</span> <strong>Overlay en jeu :</strong> affichez la carte par-dessus DBD sans lag</li>
@@ -638,8 +681,8 @@
              download="DBDMaps.exe" 
              class="download-btn btn-pc"
              onclick="openLocationModal(event, this.href, 'DBDMaps.exe')">
-            <span class="btn-main-text">💻 Télécharger pour PC (.EXE)</span>
-            <span class="btn-sub-text">Fichier Exécutable direct • Prêt à lancer</span>
+            <span class="btn-main-text" data-i18n="pcDlExe">💻 Télécharger pour PC (.EXE)</span>
+            <span class="btn-sub-text" data-i18n="pcDlExeSub">Fichier Exécutable direct • Prêt à lancer</span>
           </a>
 
           <!-- TELECHARGEMENT ZIP PC -->
@@ -647,7 +690,7 @@
              download="DBDMaps_Distribution.zip" 
              class="download-btn btn-pc-zip"
              onclick="openLocationModal(event, this.href, 'DBDMaps_Distribution.zip')">
-            <span>📦 Télécharger en format ZIP (Dossier compressé)</span>
+            <span data-i18n="pcDlZip">📦 Télécharger en format ZIP (Dossier compressé)</span>
           </a>
         </div>
       </div>
@@ -656,13 +699,13 @@
       <!-- COLONNE 2 : LOGICIEL POUR TÉLÉPHONE (ANDROID) -->
       <!-- ============================================== -->
       <div class="platform-card card-mobile">
-        <div class="platform-tag tag-mobile">POUR SMARTPHONE & CONSOLE</div>
+        <div class="platform-tag tag-mobile" data-i18n="mobTag">POUR SMARTPHONE & CONSOLE</div>
 
         <div class="platform-header">
           <div class="platform-icon">📱</div>
           <div>
-            <div class="platform-title">Version Mobile (v1.3.5)</div>
-            <div class="platform-sub sub-mobile">Compatible : Android & Apple iOS (iPhone / iPad)</div>
+            <div class="platform-title" data-i18n="mobTitle">Version Mobile (v1.3.5)</div>
+            <div class="platform-sub sub-mobile" data-i18n="mobSub">Compatible : Android & Apple iOS (iPhone / iPad)</div>
           </div>
         </div>
 
@@ -684,20 +727,20 @@
           <a href="https://github.com/Exprimes/dbd-maps/releases/download/v1.3.5/DBDMaps.apk" 
              download="DBDMaps.apk" 
              class="download-btn btn-mobile">
-            <span class="btn-main-text">🤖 Télécharger pour Android (.APK)</span>
-            <span class="btn-sub-text">Fichier certifié • Installation rapide</span>
+            <span class="btn-main-text" data-i18n="mobDlApk">🤖 Télécharger pour Android (.APK)</span>
+            <span class="btn-sub-text" data-i18n="mobDlApkSub">Fichier certifié • Installation rapide</span>
           </a>
 
           <!-- BOUTON IPHONE IOS DIRECT -->
           <a href="app.html?v=1.3.5" class="download-btn btn-ios" style="text-decoration:none;">
-            <span class="btn-main-text">🍏 Ouvrir sur iPhone / iPad (iOS)</span>
-            <span class="btn-sub-text">Lancement direct • 44 Cartes & Lobby HD</span>
+            <span class="btn-main-text" data-i18n="mobDlIos">🍏 Ouvrir sur iPhone / iPad (iOS)</span>
+            <span class="btn-sub-text" data-i18n="mobDlIosSub">Lancement direct • 44 Cartes & Lobby HD</span>
           </a>
 
           <!-- LIEN GUIDE INSTALLATION PLEIN ECRAN -->
           <button type="button" onclick="openIosModal()" style="background:rgba(255,255,255,0.06); border:1px dashed rgba(255,255,255,0.25); color:#6ee7b7; border-radius:10px; padding:10px 14px; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:3px;">
-            <span style="font-weight:700; font-size:0.88rem;">📱 Comment mettre l'icône sur l'écran d'accueil ?</span>
-            <span style="font-size:0.75rem; color:#9ca3af;">Guide Safari ➔ Mode plein écran autonome</span>
+            <span style="font-weight:700; font-size:0.88rem;" data-i18n="mobIosGuide">📱 Comment mettre l'icône sur l'écran d'accueil ?</span>
+            <span style="font-size:0.75rem; color:#9ca3af;" data-i18n="mobIosGuideSub">Guide Safari ➔ Mode plein écran autonome</span>
           </button>
         </div>
       </div>
@@ -709,9 +752,9 @@
       <div class="changelog-header">
         <div class="changelog-title">
           <span>🚀</span>
-          <span>Dernières Nouveautés — Version 1.3.5</span>
+          <span data-i18n="clTitle">Dernières Nouveautés — Version 1.3.5</span>
         </div>
-        <span class="badge" style="background:#238636; color:#fff; border-color:#2ea043;">Dernière Version Officielle</span>
+        <span class="badge" style="background:#238636; color:#fff; border-color:#2ea043;" data-i18n="clBadge">Dernière Version Officielle</span>
       </div>
       <div class="changelog-grid">
         <div class="changelog-item">
@@ -739,22 +782,22 @@
 
     <!-- GUIDE D'UTILISATION -->
     <div class="info-section">
-      <div class="info-title">💡 Comment installer et utiliser ?</div>
+      <div class="info-title" data-i18n="howTitle">💡 Comment installer et utiliser ?</div>
       <div class="steps-grid">
         <div class="step-box">
-          <div class="step-num">1. Sur PC Windows</div>
+          <div class="step-num" data-i18n="howStep1Title">1. Sur PC Windows</div>
           <div class="step-text">Cliquez sur le bouton bleu pour télécharger <strong>DBDMaps.exe</strong>. Lancez-le et retrouvez son emplacement exact à tout moment dans l'onglet <strong>Paramètres ➔ Emplacement du logiciel</strong>.</div>
         </div>
         <div class="step-box">
-          <div class="step-num">2. Sur Android (.APK)</div>
+          <div class="step-num" data-i18n="howStep2Title">2. Sur Android (.APK)</div>
           <div class="step-text">Cliquez sur <strong>Télécharger pour Android (.APK)</strong>. Ouvrez le fichier téléchargé et validez l'installation en 1 clic.</div>
         </div>
         <div class="step-box">
-          <div class="step-num">3. Sur iPhone (iOS)</div>
+          <div class="step-num" data-i18n="howStep3Title">3. Sur iPhone (iOS)</div>
           <div class="step-text">Ouvrez le site avec <strong>Safari</strong> ➔ <strong>Partager ⬆️</strong> ➔ <strong>« Sur l'écran d'accueil ➕ »</strong>. Laissez bien coché <strong>« Ouvrir comme app web » (vert 🟢)</strong> et appuyez sur <strong>Ajouter</strong>.</div>
         </div>
         <div class="step-box">
-          <div class="step-num">4. Jouer en Équipe (Lobby)</div>
+          <div class="step-num" data-i18n="howStep4Title">4. Jouer en Équipe (Lobby)</div>
           <div class="step-text">Dans l'onglet <strong>Lobby</strong>, un joueur crée un code (ex: <em>ABC12</em>) et les autres le rejoignent. Dès qu'un joueur clique sur une carte ou que l'OCR la détecte, elle s'affiche chez tout le monde !</div>
         </div>
       </div>
@@ -889,6 +932,168 @@
     function closeLocationModal() {
       document.getElementById("locationModal").style.display = "none";
     }
+  </script>
+
+
+  <!-- SYSTEME BILINGUE FR / EN -->
+  <script>
+    const I18N = {
+      fr: {
+        pageTitle: "DBD MAP • Téléchargement PC & Mobile (Omni Community)",
+        brand: "DBD MAP • By Exprimes | Omni Community",
+        heroTitle: "Choisissez votre Téléchargement",
+        heroSub: "Deux versions officielles créées sur mesure : le logiciel overlay pour votre PC et l'application autonome pour votre téléphone ou console.",
+        badgeMaps: "🗺️ 44 Cartes HD en Français",
+        badgeLobby: "👥 Lobby Synchronisé PC & Mobile",
+        badgeHotkeys: "⚡ Raccourcis Clavier In-Game (F8 / F9)",
+        badgeOcr: "👁️ Reconnaissance Auto OCR",
+        badgeUpdater: "🚀 Vérificateur de Mises à Jour Intégré",
+        badgeFree: "💯 100% Gratuit & Sans Pub",
+        discordTitle: "💬 Rejoindre le Discord Officiel",
+        discordSub: "Mises à jour régulières, support direct, retours de bugs & salon Dead by Daylight !",
+        discordBtn: "Rejoindre ➔",
+        pcTag: "POUR ORDINATEUR",
+        pcTitle: "Version PC (v1.3.5)",
+        pcSub: "Plateforme : Windows 10 & 11 (64 bits)",
+        pcDesc: "À installer sur votre ordinateur pour jouer à Dead by Daylight avec l'overlay transparent directement sur votre écran de jeu.",
+        pcFeat1: "Overlay en jeu :", pcFeat1Text: " affichez la carte par-dessus DBD sans lag",
+        pcFeat2: "Raccourcis In-Game (F8 / F9) :", pcFeat2Text: " actifs même en plein écran exclusif",
+        pcFeat3: "Reconnaissance OCR 100% auto :", pcFeat3Text: " détection Ligne 1 instantanée sans faux positifs",
+        pcFeat4: "44 cartes HD embarquées :", pcFeat4Text: " schémas officiels HD mis à jour (Léry & Hawkins)",
+        pcFeat5: "Bouton 🔄 Synchroniser :", pcFeat5Text: " télécharge les nouvelles cartes sans réinstaller",
+        pcFeat6: "Trouver le fichier :", pcFeat6Text: " bouton pour localiser l'exécutable sur votre PC",
+        pcDlExe: "💻 Télécharger pour PC (.EXE)",
+        pcDlExeSub: "Fichier Exécutable direct • Prêt à lancer",
+        pcDlZip: "📦 Télécharger en format ZIP (Dossier compressé)",
+        mobTag: "POUR SMARTPHONE & CONSOLE",
+        mobTitle: "Version Mobile (v1.3.5)",
+        mobSub: "Compatible : Android & Apple iOS (iPhone / iPad)",
+        mobDesc: "À installer sur votre smartphone. Indispensable pour les joueurs Console (Xbox & PlayStation) en écran compagnon.",
+        mobFeat1: "Joueurs Xbox & PlayStation :", mobFeat1Text: " posez le téléphone à côté de la manette",
+        mobFeat2: "Lobby synchronisé :", mobFeat2Text: " changez la carte pour toute votre équipe en direct",
+        mobFeat3: "Écran toujours allumé :", mobFeat3Text: " ne s'éteint jamais pendant vos parties",
+        mobFeat4: "Tactile & Zoom précis :", mobFeat4Text: " pincez à 2 doigts et glissez pour explorer",
+        mobFeat5: "44 cartes HD officielles :", mobFeat5Text: " affichage instantané et fluide",
+        mobFeat6: "Bouton 🔄 Synchroniser :", mobFeat6Text: " mise à jour instantanée des cartes",
+        mobDlApk: "🤖 Télécharger pour Android (.APK)",
+        mobDlApkSub: "Fichier certifié • Installation rapide",
+        mobDlIos: "🍏 Ouvrir sur iPhone / iPad (iOS)",
+        mobDlIosSub: "Lancement direct • 44 Cartes & Lobby HD",
+        mobIosGuide: "📱 Comment mettre l'icône sur l'écran d'accueil ?",
+        mobIosGuideSub: "Guide Safari ➔ Mode plein écran autonome",
+        clTitle: "Dernières Nouveautés — Version 1.3.5",
+        clBadge: "Dernière Version Officielle",
+        howTitle: "💡 Comment installer et utiliser ?",
+        howStep1Title: "1. Sur PC Windows",
+        howStep1Text: "Cliquez sur le bouton bleu pour télécharger <strong>DBDMaps.exe</strong>. Lancez-le et retrouvez son emplacement exact à tout moment dans l'onglet <strong>Paramètres ➔ Emplacement du logiciel</strong>.",
+        howStep2Title: "2. Sur Android (.APK)",
+        howStep2Text: "Cliquez sur <strong>Télécharger pour Android (.APK)</strong>. Ouvrez le fichier téléchargé et validez l'installation en 1 clic.",
+        howStep3Title: "3. Sur iPhone (iOS)",
+        howStep3Text: "Ouvrez le site avec <strong>Safari</strong> ➔ <strong>Partager ⬆️</strong> ➔ <strong>« Sur l'écran d'accueil ➕ »</strong>. Laissez bien coché <strong>« Ouvrir comme app web » (vert 🟢)</strong> et appuyez sur <strong>Ajouter</strong>.",
+        howStep4Title: "4. Jouer en Équipe (Lobby)",
+        howStep4Text: "Dans l'onglet <strong>Lobby</strong>, un joueur crée un code (ex: <em>ABC12</em>) et les autres le rejoignent. Dès qu'un joueur clique sur une carte ou que l'OCR la détecte, elle s'affiche chez tout le monde !",
+        footerText: "DBD MAP • Développé par <strong>Exprimes</strong> pour <strong>Omni Community</strong> • 100% Gratuit pour toute la communauté Dead by Daylight"
+      },
+      en: {
+        pageTitle: "DBD MAP • PC & Mobile Download (Omni Community)",
+        brand: "DBD MAP • By Exprimes | Omni Community",
+        heroTitle: "Choose your Download",
+        heroSub: "Two tailored official versions: the overlay software for your PC and the standalone web app for your phone or console.",
+        badgeMaps: "🗺️ 44 HD Maps (EN & FR)",
+        badgeLobby: "👥 Synchronized PC & Mobile Lobby",
+        badgeHotkeys: "⚡ In-Game Hotkeys (F8 / F9)",
+        badgeOcr: "👁️ Automatic OCR Map Detection",
+        badgeUpdater: "🚀 Built-in Auto-Update Checker",
+        badgeFree: "💯 100% Free & Ad-Free",
+        discordTitle: "💬 Join the Official Discord",
+        discordSub: "Regular updates, live support, bug reports & Dead by Daylight community!",
+        discordBtn: "Join ➔",
+        pcTag: "FOR COMPUTER",
+        pcTitle: "PC Version (v1.3.5)",
+        pcSub: "Platform: Windows 10 & 11 (64-bit)",
+        pcDesc: "Install on your computer to play Dead by Daylight with a hardware-accelerated transparent overlay directly over your game screen.",
+        pcFeat1: "In-game overlay:", pcFeat1Text: " display the map over DBD with zero lag or frame drops",
+        pcFeat2: "In-game hotkeys (F8 / F9):", pcFeat2Text: " active even in exclusive fullscreen mode",
+        pcFeat3: "100% Auto OCR detection:", pcFeat3Text: " instant Line 1 detection with zero false positives",
+        pcFeat4: "44 built-in HD maps:", pcFeat4Text: " updated official HD callout layouts (Léry & Hawkins)",
+        pcFeat5: "🔄 Sync button:", pcFeat5Text: " downloads new maps without reinstalling",
+        pcFeat6: "Find executable:", pcFeat6Text: " quick button to locate the program file on your PC",
+        pcDlExe: "💻 Download for PC (.EXE)",
+        pcDlExeSub: "Direct Executable • Ready to run",
+        pcDlZip: "📦 Download ZIP format (Compressed folder)",
+        mobTag: "FOR SMARTPHONE & CONSOLE",
+        mobTitle: "Mobile Version (v1.3.5)",
+        mobSub: "Compatible: Android & Apple iOS (iPhone / iPad)",
+        mobDesc: "Install on your smartphone. Essential second-screen companion for Console players (Xbox & PlayStation).",
+        mobFeat1: "Xbox & PlayStation players:", mobFeat1Text: " place your phone right next to your controller",
+        mobFeat2: "Synchronized Lobby:", mobFeat2Text: " switch the map live for your whole team instantly",
+        mobFeat3: "Always-on display:", mobFeat3Text: " screen stays awake during your gaming sessions",
+        mobFeat4: "Smooth touch & zoom:", mobFeat4Text: " pinch with 2 fingers and drag to inspect callouts",
+        mobFeat5: "44 official HD maps:", mobFeat5Text: " fast, smooth, high-resolution rendering",
+        mobFeat6: "🔄 Sync button:", mobFeat6Text: " instant cloud map update",
+        mobDlApk: "🤖 Download for Android (.APK)",
+        mobDlApkSub: "Certified file • Fast install",
+        mobDlIos: "🍏 Open on iPhone / iPad (iOS)",
+        mobDlIosSub: "Instant launch • 44 HD Maps & Lobby",
+        mobIosGuide: "📱 How to add the icon to your home screen?",
+        mobIosGuideSub: "Safari Guide ➔ Standalone fullscreen mode",
+        clTitle: "Latest Features — Version 1.3.5",
+        clBadge: "Latest Official Version",
+        howTitle: "💡 How to install and use?",
+        howStep1Title: "1. On Windows PC",
+        howStep1Text: "Click the blue button to download <strong>DBDMaps.exe</strong>. Launch it and easily locate the file anytime under <strong>Settings ➔ Software file location</strong>.",
+        howStep2Title: "2. On Android (.APK)",
+        howStep2Text: "Click <strong>Download for Android (.APK)</strong>. Open the downloaded file and validate the one-tap installation.",
+        howStep3Title: "3. On iPhone (iOS)",
+        howStep3Text: "Open this site in <strong>Safari</strong> ➔ <strong>Share ⬆️</strong> ➔ <strong>"Add to Home Screen ➕"</strong>. Keep <strong>"Open as web app" (green 🟢)</strong> checked, then tap <strong>Add</strong>.",
+        howStep4Title: "4. Team Play (Lobby)",
+        howStep4Text: "In the <strong>Lobby</strong> tab, one player creates a code (e.g. <em>ABC12</em>) and teammates join. As soon as a player picks a map or OCR detects it, it displays for everyone live!",
+        footerText: "DBD MAP • Developed by <strong>Exprimes</strong> for <strong>Omni Community</strong> • 100% Free for the Dead by Daylight community"
+      }
+    };
+
+    function setLanguage(lang) {
+      if (!I18N[lang]) lang = "fr";
+      localStorage.setItem("dbd_lang", lang);
+      document.documentElement.lang = lang;
+
+      const btnFr = document.getElementById("btnLangFr");
+      const btnEn = document.getElementById("btnLangEn");
+      if (btnFr && btnEn) {
+        if (lang === "fr") {
+          btnFr.classList.add("active");
+          btnEn.classList.remove("active");
+        } else {
+          btnEn.classList.add("active");
+          btnFr.classList.remove("active");
+        }
+      }
+
+      const t = I18N[lang];
+      document.title = t.pageTitle;
+
+      // Update elements with data-i18n
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const k = el.getAttribute("data-i18n");
+        if (t[k]) {
+          if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+            el.placeholder = t[k];
+          } else {
+            el.innerHTML = t[k];
+          }
+        }
+      });
+    }
+
+    // Auto-detect language
+    (function initLang() {
+      let saved = localStorage.getItem("dbd_lang");
+      if (!saved) {
+        const navLang = (navigator.language || navigator.userLanguage || "").toLowerCase();
+        saved = navLang.startsWith("fr") ? "fr" : "en";
+      }
+      setLanguage(saved);
+    })();
   </script>
 
 </body>
