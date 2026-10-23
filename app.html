@@ -1039,8 +1039,14 @@
     let currentLanguage = localStorage.getItem("dbd_map_lang") || "FR";
     if (currentLanguage !== "FR" && currentLanguage !== "EN") currentLanguage = "FR";
 
+    // Nettoyage de tout ancien cache pollué
+    try {
+      localStorage.removeItem("dbd_custom_maps");
+    } catch (e) {}
+
     function getActiveMaps() {
-      return currentLanguage === "EN" ? DEFAULT_MAPS_EN : DEFAULT_MAPS_FR;
+      const list = currentLanguage === "EN" ? DEFAULT_MAPS_EN : DEFAULT_MAPS_FR;
+      return list.map(m => ({ ...m }));
     }
 
     let MAPS = getActiveMaps();
@@ -1159,8 +1165,10 @@
         currentLanguage = e.target.value;
         localStorage.setItem("dbd_map_lang", currentLanguage);
         MAPS = getActiveMaps();
+        if (searchInput) searchInput.value = "";
+        if (clearBtn) clearBtn.style.display = "none";
         updateLanguageUI();
-        filterMaps();
+        renderMaps(MAPS);
         showToast(currentLanguage === "EN" ? "🇬🇧 English Maps active (44)" : "🇫🇷 Cartes Françaises actives (44)");
       });
     }
@@ -1228,7 +1236,11 @@
         });
       }
       if (mapCountBadge) {
-        mapCountBadge.textContent = currentLanguage === "EN" ? `${mapsToRender.length} Maps (EN)` : `${mapsToRender.length} Cartes (FR)`;
+        if (!searchInput || !searchInput.value) {
+          mapCountBadge.textContent = currentLanguage === "EN" ? "44 Maps (EN)" : "44 Cartes (FR)";
+        } else {
+          mapCountBadge.textContent = currentLanguage === "EN" ? `${mapsToRender.length}/44 Maps (EN)` : `${mapsToRender.length}/44 Cartes (FR)`;
+        }
       }
     }
 
@@ -1791,19 +1803,9 @@
 
     async function syncMapsFromGitHub() {
       btnHeaderSync.classList.add("spinning");
-      showToast("🔄 Rafraîchissement des cartes...");
 
-      // 1. Réinitialiser la recherche si le joueur était sur un filtre
-      if (searchInput && searchInput.value) {
-        searchInput.value = "";
-        if (clearBtn) clearBtn.style.display = "none";
-      }
-
-      // 2. Toujours afficher immédiatement les cartes locales
-      if (!MAPS || MAPS.length === 0) {
-        MAPS = [...DEFAULT_MAPS];
-      }
-      renderMaps(MAPS);
+      // Toujours réaligner sur les 44 cartes propres de la langue active
+      MAPS = getActiveMaps();
 
       try {
         const mapsUrls = [
@@ -1821,37 +1823,35 @@
           } catch (err) {}
         }
 
-        let addedCount = 0;
         if (Array.isArray(remoteMaps) && remoteMaps.length > 0) {
+          const expectedCreator = currentLanguage === "EN" ? "Maps EN" : "Maps FR";
           remoteMaps.forEach(rm => {
             if (isObsoleteMap(rm.name)) return;
+            // Ne traiter STRICTEMENT que les cartes correspondant à la langue sélectionnée
+            if (rm.creator && rm.creator !== expectedCreator) return;
+
             let fullSrc = rm.src;
             if (!fullSrc.startsWith("http")) {
               fullSrc = "https://exprimes.github.io/dbd-maps/" + fullSrc.replace(/^\/+/, "");
             }
             const existing = MAPS.find(m => cleanStr(m.name) === cleanStr(rm.name));
-            if (!existing) {
-              MAPS.push({ ...rm, src: fullSrc });
-              addedCount++;
-            } else {
+            if (existing) {
               existing.src = fullSrc;
             }
           });
-          MAPS = MAPS.filter(m => !isObsoleteMap(m.name));
-          MAPS.sort((a, b) => a.name.localeCompare(b.name, "fr", { sensitivity: "base" }));
-          localStorage.setItem("dbd_custom_maps", JSON.stringify(MAPS));
         }
 
-        renderMaps(MAPS);
-
-        if (addedCount > 0) {
-          showToast(`🎉 ${addedCount} nouvelle(s) carte(s) ajoutée(s) ! (${MAPS.length} cartes au total)`);
+        if (searchInput && searchInput.value) {
+          filterMaps();
         } else {
-          showToast(`✅ Vos ${MAPS.length} cartes sont parfaitement synchronisées !`);
+          renderMaps(MAPS);
         }
       } catch (e) {
-        renderMaps(MAPS);
-        showToast(`✅ Vos ${MAPS.length} cartes sont prêtes.`);
+        if (searchInput && searchInput.value) {
+          filterMaps();
+        } else {
+          renderMaps(MAPS);
+        }
       } finally {
         setTimeout(() => btnHeaderSync.classList.remove("spinning"), 600);
       }
