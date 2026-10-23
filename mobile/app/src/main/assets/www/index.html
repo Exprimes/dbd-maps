@@ -131,6 +131,102 @@
       color: #fff;
       border-color: #2ea043;
     }
+        .btn-header-oled {
+      background-color: #21262d;
+      color: #8b949e;
+      border: 1px solid #30363d;
+      width: 36px;
+      height: 36px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      flex-shrink: 0;
+    }
+    .btn-header-oled:active {
+      transform: scale(0.92);
+    }
+    .btn-header-oled.active {
+      background-color: #000000;
+      color: #3fb950;
+      border-color: #2ea043;
+      box-shadow: 0 0 10px rgba(46, 160, 67, 0.45);
+    }
+
+    /* =========================================================================
+       MODE ULTRA-NOIR OLED PUR 100% (ÉCONOMIE DE BATTERIE ÉCRANS OLED / AMOLED)
+       ========================================================================= */
+    body.oled-mode {
+      background-color: #000000 !important;
+      color: #f0f6fc !important;
+    }
+    body.oled-mode header {
+      background: #000000 !important;
+      border-bottom: 1px solid #1a1e24 !important;
+    }
+    body.oled-mode .search-box input {
+      background-color: #050505 !important;
+      border: 1px solid #22262d !important;
+    }
+    body.oled-mode .search-box input:focus {
+      border-color: #3fb950 !important;
+    }
+    body.oled-mode .lang-selector-bar {
+      background: transparent !important;
+    }
+    body.oled-mode .lang-selector-wrapper {
+      background-color: #050505 !important;
+      border: 1px solid #22262d !important;
+    }
+    body.oled-mode .lang-dropdown {
+      background-color: #050505 !important;
+      color: #fff !important;
+    }
+    body.oled-mode .map-card {
+      background-color: #050505 !important;
+      border: 1px solid #1c2128 !important;
+    }
+    body.oled-mode .map-card:active {
+      border-color: #3fb950 !important;
+    }
+    body.oled-mode .map-thumb-wrap {
+      background-color: #000000 !important;
+    }
+    body.oled-mode footer {
+      background-color: #000000 !important;
+      border-top: 1px solid #161b22 !important;
+    }
+    body.oled-mode .footer-update-btn {
+      background: #050505 !important;
+      border-color: #22262d !important;
+    }
+    body.oled-mode .modal-content {
+      background-color: #000000 !important;
+      border: 1px solid #22262d !important;
+    }
+    body.oled-mode .modal-header {
+      background-color: #000000 !important;
+      border-bottom: 1px solid #161b22 !important;
+    }
+    body.oled-mode .lobby-active-box {
+      background-color: #050505 !important;
+      border-color: #22262d !important;
+    }
+    body.oled-mode #viewerModal {
+      background-color: #000000 !important;
+    }
+    body.oled-mode .viewer-header {
+      background: rgba(0, 0, 0, 0.98) !important;
+      border-bottom: 1px solid #1a1e24 !important;
+    }
+    body.oled-mode .btn-floating-back {
+      background: rgba(0, 0, 0, 0.92) !important;
+      border-color: #22262d !important;
+    }
+
     .btn-header-sync {
       background-color: #21262d;
       color: #8b949e;
@@ -792,6 +888,7 @@
           <span id="lobbyStatusDot">⚪</span>
           <span id="lobbyStatusText">Lobby</span>
         </button>
+        <button class="btn-header-oled" id="btnHeaderOled" title="Mode Éco Batterie OLED (Noir Pur 100%)">🌙</button>
         <button class="btn-header-sync" id="btnHeaderSync" title="Vérifier nouvelles cartes">🔄</button>
         <button class="btn-header-update" id="btnHeaderUpdate" title="Vérifier les mises à jour">🚀</button>
       </div>
@@ -817,7 +914,10 @@
 
   <main>
     <div class="section-header">
-      <span class="section-title">Cartes Disponibles</span>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span class="section-title">Cartes Disponibles</span>
+        <span class="badge" id="oledStatusBadge" style="display:none; background:#04260f; color:#3fb950; border:1px solid #2ea043; font-size:0.68rem; font-weight:700; padding:2px 7px; border-radius:10px;">⚡ OLED ACTIF</span>
+      </div>
       <span class="badge" id="mapCountBadge">44 Cartes</span>
     </div>
     <div class="maps-grid" id="mapsGrid"></div>
@@ -1158,7 +1258,47 @@
       inputActivePseudo.addEventListener("input", (e) => setLocalPlayerName(e.target.value));
     }
 
-    // Changement de Langue via menu déroulant
+        // ==========================================
+    // 🌙 GESTION DU MODE ULTRA-NOIR OLED PUR 100%
+    // ==========================================
+    const btnHeaderOled = document.getElementById("btnHeaderOled");
+    const oledStatusBadge = document.getElementById("oledStatusBadge");
+    let isOledMode = localStorage.getItem("dbd_oled_mode") === "true";
+
+    function applyOledMode(enabled, notify = false) {
+      isOledMode = enabled;
+      localStorage.setItem("dbd_oled_mode", enabled ? "true" : "false");
+      if (enabled) {
+        document.body.classList.add("oled-mode");
+        if (btnHeaderOled) {
+          btnHeaderOled.classList.add("active");
+          btnHeaderOled.innerHTML = "🌙";
+          btnHeaderOled.title = "Mode Éco OLED actif (Noir Pur 100%) - Cliquez pour désactiver";
+        }
+        if (oledStatusBadge) oledStatusBadge.style.display = "inline-flex";
+        if (notify) showToast("🌙 Mode Ultra-Noir OLED activé (Pixels éteints pour batterie)");
+      } else {
+        document.body.classList.remove("oled-mode");
+        if (btnHeaderOled) {
+          btnHeaderOled.classList.remove("active");
+          btnHeaderOled.innerHTML = "🌙";
+          btnHeaderOled.title = "Activer le Mode Éco OLED (Noir Pur 100%)";
+        }
+        if (oledStatusBadge) oledStatusBadge.style.display = "none";
+        if (notify) showToast("☀️ Mode Normal activé");
+      }
+    }
+
+    if (btnHeaderOled) {
+      btnHeaderOled.addEventListener("click", () => {
+        applyOledMode(!isOledMode, true);
+      });
+    }
+
+    // Initialiser le mode OLED selon la préférence sauvegardée
+    applyOledMode(isOledMode, false);
+
+// Changement de Langue via menu déroulant
     if (mapLangSelect) {
       mapLangSelect.value = currentLanguage;
       mapLangSelect.addEventListener("change", (e) => {
