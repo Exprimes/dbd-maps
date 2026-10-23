@@ -4,13 +4,13 @@
   "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.exe",
   "apk_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.apk",
   "relay_base_url": "https://ntfy.envs.net/",
-  "changelog": "⚡ Micro Hotfix v2.0.1 : Nouveau relais Lobby haute disponibilité (ntfy.envs.net) + correction définitive de l'erreur 429 Too Many Requests.",
+  "changelog": "\u26A1 Micro Hotfix v2.0.1 : Nouveau relais Lobby haute disponibilit\u00E9 (ntfy.envs.net) \u002B correction d\u00E9finitive de l\u0027erreur 429 Too Many Requests.",
   "discord_url": "https://discord.gg/sHVttN4ZdZ",
   "mobile_version": "2.0.1",
   "admin_alert": {
-    "enabled": false,
+    "enabled": true,
     "min_version": "2.0.1",
-    "message": "",
-    "date": "23/10/2026 23:42"
+    "message": "Une nouvelle mise \u00E0 jour importante de DBD MAP est disponible ! Veuillez mettre \u00E0 jour le logiciel pour continuer \u00E0 profiter de toutes les cartes et fonctionnalit\u00E9s.",
+    "date": "23/10/2026 23:47"
   }
 }
