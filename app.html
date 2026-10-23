@@ -1743,7 +1743,7 @@
 
       // Récupérer les membres récents
       try {
-        const resp = await fetch(`${RELAY_BASE}${code}_MEMBERS/json?poll=1&since=12h&t=${Date.now()}`, { cache: "no-store" });
+        const resp = await fetch(`${RELAY_BASE}${code}_MEMBERS/json?poll=1&since=12h&_cb=${Date.now()}`, { cache: "no-store" });
         if (resp.ok) {
           const txt = await resp.text();
           for (const line of txt.split("\n")) {
@@ -1790,7 +1790,7 @@
     }
 
     async function relayGetLatest(key) {
-      const resp = await fetch(`${RELAY_BASE}${key}/json?poll=1&since=latest&t=${Date.now()}`, { cache: "no-store" });
+      const resp = await fetch(`${RELAY_BASE}${key}/json?poll=1&since=latest&_cb=${Date.now()}`, { cache: "no-store" });
       if (!resp.ok) return null;
       const raw = await resp.text();
       let last = null;
@@ -1825,6 +1825,7 @@
       } catch (e) {}
     }
 
+    let mapStreamSource = null;
     function startLobbyListener(code, hostFlag = false) {
       stopLobbyListener();
       currentLobbyCode = code.toUpperCase();
@@ -1835,7 +1836,27 @@
 
       startMemberPresence(currentLobbyCode);
       pollLobbyOnce();
-      lobbyPollTimer = setInterval(pollLobbyOnce, 1200);
+      lobbyPollTimer = setInterval(pollLobbyOnce, 1500);
+
+      // Flux SSE temps réel pour synchronisation instantanée des cartes
+      try {
+        if (mapStreamSource) { mapStreamSource.close(); mapStreamSource = null; }
+        mapStreamSource = new EventSource(`${RELAY_BASE}${currentLobbyCode}/sse`);
+        mapStreamSource.onmessage = async (e) => {
+          if (e.data) {
+            try {
+              const ev = JSON.parse(e.data);
+              if (ev.event === "message" && ev.message) {
+                let val = ev.message.trim().replace(/^"|"$/g, "");
+                if (val && val !== "null" && val !== "LOBBY_CREATED" && val.toLowerCase() !== lastSyncedMapName.toLowerCase()) {
+                  lastSyncedMapName = val;
+                  await onMapReceivedFromLobby(val);
+                }
+              }
+            } catch (err) {}
+          }
+        };
+      } catch (err) {}
     }
 
     function stopLobbyListener() {
@@ -1843,6 +1864,10 @@
       if (lobbyPollTimer) {
         clearInterval(lobbyPollTimer);
         lobbyPollTimer = null;
+      }
+      if (mapStreamSource) {
+        try { mapStreamSource.close(); } catch (e) {}
+        mapStreamSource = null;
       }
       currentLobbyCode = "";
       isHost = false;
@@ -1938,7 +1963,7 @@
       
       // Vérification préalable du nombre de joueurs dans le lobby
       try {
-        const resp = await fetch(`${RELAY_BASE}${code}_MEMBERS/json?poll=1&since=12h&t=${Date.now()}`, { cache: "no-store" });
+        const resp = await fetch(`${RELAY_BASE}${code}_MEMBERS/json?poll=1&since=12h&_cb=${Date.now()}`, { cache: "no-store" });
         if (resp.ok) {
           const txt = await resp.text();
           const activeIds = new Set();
