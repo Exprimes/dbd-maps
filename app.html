@@ -1383,6 +1383,8 @@
         noResults.style.display = "block";
       } else {
         noResults.style.display = "none";
+        // Optimisation haute performance : insertion en 1 seule passe DOM via DocumentFragment
+        const fragment = document.createDocumentFragment();
         mapsToRender.forEach(map => {
           const card = document.createElement("div");
           card.className = "map-card";
@@ -1390,6 +1392,7 @@
           const img = document.createElement("img");
           img.className = "map-card-thumb";
           img.loading = "lazy";
+          img.decoding = "async";
           img.alt = map.name;
           img.src = map.src;
           img.onerror = function() {
@@ -1421,8 +1424,9 @@
           card.appendChild(info);
 
           card.addEventListener("click", () => openViewer(map, false));
-          mapsGrid.appendChild(card);
+          fragment.appendChild(card);
         });
+        mapsGrid.appendChild(fragment);
       }
       if (mapCountBadge) {
         if (!searchInput || !searchInput.value) {
@@ -1449,7 +1453,12 @@
       renderMaps(filtered);
     }
 
-    searchInput.addEventListener("input", filterMaps);
+    let searchRafId = null;
+    function onSearchInputOptimized() {
+      if (searchRafId) cancelAnimationFrame(searchRafId);
+      searchRafId = requestAnimationFrame(filterMaps);
+    }
+    searchInput.addEventListener("input", onSearchInputOptimized);
     clearBtn.addEventListener("click", () => {
       searchInput.value = "";
       filterMaps();
@@ -1512,7 +1521,8 @@
     }
 
     function updateTransform() {
-      viewerImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+      // translate3d force l'accélération matérielle GPU (120Hz ProMotion sur iOS et écrans fluides Android)
+      viewerImg.style.transform = `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale})`;
     }
 
     btnCloseViewer.addEventListener("click", closeViewer);
