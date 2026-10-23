@@ -11,7 +11,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>DBD MAP • 44 Cartes HD Mobile & Console</title>
+  <title>DBD MAP OMNI • 44 Cartes HD Mobile & Console</title>
   <meta name="description" content="DBD MAP Web App • Explorez en direct les 44 cartes HD officielles de Dead by Daylight avec lobby synchronisé en temps réel et callouts d'horloge 1 à 12.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://exprimes.github.io/dbd-maps/app.html">
@@ -42,8 +42,10 @@
     }
     header {
       background: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
-      padding: 12px 16px;
-      padding-top: max(12px, env(safe-area-inset-top));
+      padding: 10px 16px 12px 16px;
+      padding-top: max(14px, calc(env(safe-area-inset-top, 0px) + 12px));
+      padding-left: max(16px, env(safe-area-inset-left, 0px));
+      padding-right: max(16px, env(safe-area-inset-right, 0px));
       border-bottom: 1px solid #30363d;
       position: sticky;
       top: 0;
@@ -97,26 +99,27 @@
     }
     @media (max-width: 440px) {
       .title-group span {
-        max-width: 95px;
+        max-width: 130px;
         overflow: hidden;
         text-overflow: ellipsis;
       }
       .header-actions {
-        gap: 4px;
+        gap: 6px;
       }
       .btn-header-lobby {
-        padding: 5px 7px;
-        font-size: 0.72rem;
+        padding: 6px 10px;
+        font-size: 0.75rem;
       }
     }
     .btn-header-lobby {
       background-color: #21262d;
       color: #58a6ff;
       border: 1px solid #30363d;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 700;
-      padding: 6px 10px;
-      border-radius: 14px;
+      padding: 7px 12px;
+      border-radius: 18px;
+      min-height: 36px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -132,13 +135,13 @@
       background-color: #21262d;
       color: #8b949e;
       border: 1px solid #30363d;
-      width: 30px;
-      height: 30px;
-      border-radius: 15px;
+      width: 36px;
+      height: 36px;
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       cursor: pointer;
     }
     .btn-header-sync:active {
@@ -153,13 +156,13 @@
       background-color: #21262d;
       color: #f1c40f;
       border: 1px solid #30363d;
-      width: 30px;
-      height: 30px;
-      border-radius: 15px;
+      width: 36px;
+      height: 36px;
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       cursor: pointer;
       position: relative;
       transition: all 0.2s;
@@ -498,19 +501,72 @@
       flex-direction: column;
     }
     .viewer-header {
-      background: rgba(13, 17, 23, 0.94);
-      backdrop-filter: blur(10px);
+      background: rgba(13, 17, 23, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       padding: 10px 14px;
+      padding-top: max(14px, calc(env(safe-area-inset-top, 0px) + 12px));
+      padding-left: max(14px, calc(env(safe-area-inset-left, 0px) + 8px));
+      padding-right: max(14px, calc(env(safe-area-inset-right, 0px) + 8px));
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      gap: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
       z-index: 10;
+    }
+    .btn-viewer-back {
+      background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      padding: 7px 13px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+      flex-shrink: 0;
+      transition: transform 0.1s ease, background 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-viewer-back:active {
+      transform: scale(0.93);
+      background: #b02a1b;
+    }
+    .btn-floating-back {
+      position: absolute;
+      bottom: max(16px, calc(env(safe-area-inset-bottom, 0px) + 14px));
+      left: 16px;
+      background: rgba(22, 27, 34, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #f0f6fc;
+      border: 1px solid #30363d;
+      border-radius: 20px;
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+      z-index: 20;
+      transition: all 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-floating-back:active {
+      transform: scale(0.94);
+      background: #30363d;
     }
     .viewer-title-box {
       display: flex;
       flex-direction: column;
-      max-width: 65%;
+      flex: 1;
+      min-width: 0;
     }
     .viewer-title {
       font-size: 0.95rem;
@@ -603,6 +659,111 @@
     .toast.show {
       transform: translateX(-50%) translateY(0);
     }
+  
+    /* SÉLECTEUR DE LANGUE DÉROULANT */
+    .lang-selector-bar {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .lang-selector-wrapper {
+      position: relative;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 2px 10px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .lang-selector-wrapper:focus-within {
+      border-color: #58a6ff;
+      box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2);
+    }
+    .lang-icon {
+      font-size: 0.95rem;
+      margin-right: 8px;
+      pointer-events: none;
+    }
+    .lang-dropdown {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #e6edf3;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 7px 24px 7px 0;
+      outline: none;
+      cursor: pointer;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+    .lang-dropdown option {
+      background: #161b22;
+      color: #e6edf3;
+      padding: 8px;
+    }
+    .dropdown-chevron {
+      position: absolute;
+      right: 12px;
+      font-size: 0.65rem;
+      color: #8b949e;
+      pointer-events: none;
+    }
+
+    /* SLOTS SQUAD 4 JOUEURS DU LOBBY */
+    .squad-slot {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .squad-slot.filled {
+      border-color: #238636;
+      background: rgba(35, 134, 54, 0.08);
+    }
+    .squad-slot.empty {
+      border-style: dashed;
+      opacity: 0.55;
+    }
+    .squad-platform {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 7px;
+      background: #21262d;
+      border-radius: 6px;
+      border: 1px solid #30363d;
+      flex-shrink: 0;
+    }
+    .squad-name {
+      flex: 1;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #f0f6fc;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .squad-status {
+      font-size: 0.72rem;
+      color: #8b949e;
+      flex-shrink: 0;
+    }
+    .squad-host-crown {
+      color: #f1c40f;
+      font-size: 0.75rem;
+      font-weight: 800;
+      margin-left: 4px;
+    }
+
   </style>
 </head>
 <body>
@@ -621,12 +782,11 @@
       <div class="brand">
         <img src="app_icon.png" alt="Logo">
         <div class="title-group">
-          <h1>DBD MAP</h1>
-          <span>By Exprimes • Omni Community</span>
+          <h1>DBD MAP OMNI</h1>
         </div>
       </div>
       <div class="header-actions">
-        <a href="https://discord.gg/sHVttN4ZdZ" target="_blank" style="text-decoration:none; display:inline-flex; align-items:center; gap:4px; background:rgba(88,101,242,0.22); border:1px solid #5865F2; color:#fff; border-radius:8px; padding:6px 10px; font-size:0.75rem; font-weight:700;" title="Discord Omni Community">💬 Discord</a>
+        
         
         <button class="btn-header-lobby" id="btnHeaderLobby">
           <span id="lobbyStatusDot">⚪</span>
@@ -642,6 +802,17 @@
       <input type="text" id="searchInput" placeholder="Rechercher une carte..." autocomplete="off">
       <button class="clear-btn" id="clearBtn">✕</button>
     </div>
+
+    <div class="lang-selector-bar">
+      <div class="lang-selector-wrapper">
+        <span class="lang-icon">🌐</span>
+        <select id="mapLangSelect" class="lang-dropdown">
+          <option value="FR">🇫🇷 Cartes Françaises (44 cartes)</option>
+          <option value="EN">🇬🇧 Cartes Anglaises / English (44 maps)</option>
+        </select>
+        <span class="dropdown-chevron">▼</span>
+      </div>
+    </div>
   </header>
 
   <main>
@@ -656,7 +827,7 @@
   </main>
 
   <footer>
-    <span id="footerVersionText">DBD MAP • Omni Community • v1.3.5</span>
+    <span id="footerVersionText">DBD MAP OMNI • By Exprimes</span>
     <button class="footer-update-btn" id="btnFooterUpdate">
       <span>🚀</span>
       <span>Vérifier les mises à jour</span>
@@ -702,26 +873,44 @@
 
   <!-- MODAL LOBBY MANAGER -->
   <div class="modal-overlay" id="lobbyModal">
-    <div class="modal-card">
+    <div class="modal-card" style="max-height:92vh; overflow-y:auto;">
       <div class="modal-header">
-        <span class="modal-title">👥 Lobby Manager</span>
+        <span class="modal-title">👥 Lobby Manager (4 Joueurs)</span>
         <button class="modal-close" id="btnCloseLobby">✕</button>
       </div>
       <div class="modal-body">
         <p class="lobby-desc">
-          Rejoignez ou créez un Lobby : <strong>n'importe quel joueur (PC ou mobile) peut changer la carte pour tout le monde en direct !</strong>
+          Rejoignez ou créez une escouade de 4 joueurs : <strong>n'importe quel joueur (PC ou mobile) peut changer la carte pour tout le monde en direct !</strong>
         </p>
 
         <!-- Affichage quand connecté -->
         <div class="lobby-active-box" id="lobbyActiveBox">
-          <span style="font-size:0.75rem; color:#8b949e; text-transform:uppercase; font-weight:700;">Lobby Actif</span>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <span style="font-size:0.75rem; color:#8b949e; text-transform:uppercase; font-weight:700;">Lobby Actif</span>
+            <span class="badge" id="lobbySquadLimitBadge" style="background:#238636; color:#fff; font-size:0.75rem; font-weight:800; padding:2px 8px; border-radius:10px;">👥 1/4 Joueurs</span>
+          </div>
           <div class="lobby-code-display" id="lobbyCodeDisplay">------</div>
-          <div class="lobby-sync-msg" id="lobbySyncMsg">En attente d'une carte du Lobby...</div>
-          <button class="btn btn-danger" id="btnLeaveLobby" style="margin-top:12px; width:100%;">Quitter le Lobby</button>
+          
+          <div style="margin: 10px 0 12px 0; text-align:left;">
+            <label style="font-size:0.72rem; color:#8b949e; font-weight:700; display:block; margin-bottom:4px;">Votre Pseudo :</label>
+            <input type="text" id="inputActivePseudo" maxlength="20" placeholder="Votre Pseudo" style="width:100%; box-sizing:border-box; padding:8px 10px; border-radius:6px; border:1px solid #30363d; background:#161b22; color:#fff; font-size:0.85rem; font-weight:700; outline:none;">
+          </div>
+
+          <!-- Les 4 slots de l'équipe -->
+          <div id="squadContainer" style="display:flex; flex-direction:column; gap:8px; margin: 12px 0;"></div>
+
+          <div class="lobby-sync-msg" id="lobbySyncMsg" style="margin: 8px 0;">En attente d'une carte du Lobby...</div>
+          <button class="btn btn-danger" id="btnLeaveLobby" style="margin-top:10px; width:100%;">Quitter le Lobby</button>
         </div>
 
         <!-- Formulaire de connexion -->
         <div id="lobbyJoinForm">
+          <div style="margin-bottom: 12px; text-align: left;">
+            <label style="font-size:0.75rem; font-weight:700; color:#c9d1d9; margin-bottom:4px; display:block;">Votre Pseudo :</label>
+            <input type="text" id="inputPlayerPseudo" placeholder="Votre Pseudo (ex: Survivant)" maxlength="20" style="width:100%; box-sizing:border-box; padding:10px 12px; border-radius:8px; border:1px solid #30363d; background-color:#0d1117; color:#fff; font-size:0.9rem; font-weight:700; outline:none;">
+            <div style="font-size:0.7rem; color:#2ea043; margin-top:4px;" id="pseudoSavedIndicator">💾 Pseudo enregistré</div>
+          </div>
+
           <label style="font-size:0.75rem; font-weight:700; color:#c9d1d9; margin-bottom:4px; display:block;">Rejoindre un code de Lobby :</label>
           <div class="input-code-group">
             <input type="text" id="inputLobbyCode" placeholder="ABC123" maxlength="6" autocomplete="off">
@@ -741,6 +930,10 @@
   <!-- MODAL PLEIN ÉCRAN CARTE -->
   <div id="viewerModal">
     <div class="viewer-header">
+      <button class="btn-viewer-back" id="btnBackViewer" title="Retour aux cartes">
+        <span style="font-size:1.05rem; line-height:1;">⬅️</span>
+        <span>Retour</span>
+      </button>
       <div class="viewer-title-box">
         <span class="viewer-title" id="viewerTitle">Carte</span>
         <span class="viewer-badge-sync" id="viewerSyncBadge" style="display:none;">⚡ Synchronisé via Lobby</span>
@@ -753,58 +946,63 @@
     <div class="viewer-body" id="viewerBody">
       <img id="viewerImg" src="" alt="Carte">
       <div class="viewer-footer-tip">💡 Pincez pour zoomer • Glissez pour bouger</div>
+      <button class="btn-floating-back" id="btnFloatingBack" title="Retour aux cartes">
+        <span>⬅️</span>
+        <span>Retour aux cartes</span>
+      </button>
     </div>
   </div>
 
   <div class="toast" id="toastMsg">Notification</div>
 
   <script>
-    // Liste initiale des cartes françaises embarquées en local
-    let DEFAULT_MAPS = [
-      { name: "Abattoir Putride", creator: "Exprimes", src: "maps/Exprimes/Abattoir Putride.png" },
-      { name: "Aire de Corbeaux", creator: "Exprimes", src: "maps/Exprimes/Aire de Corbeaux.png" },
-      { name: "Atelier Misérable", creator: "Exprimes", src: "maps/Exprimes/Atelier Misérable.png" },
-      { name: "Cabane du Sang", creator: "Exprimes", src: "maps/Exprimes/Cabane du Sang.png" },
-      { name: "Cellier Sinistre", creator: "Exprimes", src: "maps/Exprimes/Cellier Sinistre.png" },
-      { name: "Centre de Traitement", creator: "Exprimes", src: "maps/Exprimes/Centre de Traitement.png" },
-      { name: "Champs Pourris", creator: "Exprimes", src: "maps/Exprimes/Champs Pourris.png" },
-      { name: "Chapelle du Père Campbell", creator: "Exprimes", src: "maps/Exprimes/Chapelle du Père Campbell.png" },
-      { name: "Dernière Demeure d'Azarov", creator: "Exprimes", src: "maps/Exprimes/Dernière Demeure d'Azarov.png" },
-      { name: "École Maternelle de Badham", creator: "Exprimes", src: "maps/Exprimes/École Maternelle de Badham.png" },
-      { name: "École Primaire Midwich", creator: "Exprimes", src: "maps/Exprimes/École Primaire Midwich.png" },
-      { name: "Entrepôt de Charbon", creator: "Exprimes", src: "maps/Exprimes/Entrepôt de Charbon.png" },
-      { name: "Entrepôt Grondant", creator: "Exprimes", src: "maps/Exprimes/Entrepôt Grondant.png" },
-      { name: "Épave du Nostromo", creator: "Exprimes", src: "maps/Exprimes/Épave du Nostromo.png" },
-      { name: "Étable en Ruine", creator: "Exprimes", src: "maps/Exprimes/Étable en Ruine.png" },
-      { name: "Fonderie de Souffrance", creator: "Exprimes", src: "maps/Exprimes/Fonderie de Souffrance.png" },
-      { name: "Forêt Profonde", creator: "Exprimes", src: "maps/Exprimes/Forêt Profonde.png" },
-      { name: "Freddy Fazbear's Pizza", creator: "Exprimes", src: "maps/Exprimes/Freddy Fazbear's Pizza.png" },
-      { name: "Gas Haven", creator: "Exprimes", src: "maps/Exprimes/Gas Haven.png" },
-      { name: "Illusion du Farceur", creator: "Exprimes", src: "maps/Exprimes/Illusion du Farceur.png" },
-      { name: "Jardin de la Joie", creator: "Exprimes", src: "maps/Exprimes/Jardin de la Joie.png" },
-      { name: "La Ferme Thompson", creator: "Exprimes", src: "maps/Exprimes/La Ferme Thompson.png" },
-      { name: "La Maison Maternelle", creator: "Exprimes", src: "maps/Exprimes/La Maison Maternelle.png" },
-      { name: "La Place Dévastée", creator: "Exprimes", src: "maps/Exprimes/La Place Dévastée.png" },
-      { name: "Le Complexe Souterrain", creator: "Exprimes", src: "maps/Exprimes/Le Complexe Souterrain.png" },
-      { name: "Le Jeu", creator: "Exprimes", src: "maps/Exprimes/Le Jeu.png" },
-      { name: "Le Pâle Rose", creator: "Exprimes", src: "maps/Exprimes/Le Pâle Rose.png" },
-      { name: "Le Temple de Purgation", creator: "Exprimes", src: "maps/Exprimes/Le Temple de Purgation.png" },
-      { name: "Mine du Lac d'Ormond", creator: "Exprimes", src: "maps/Exprimes/Mine du Lac d'Ormond.png" },
-      { name: "Place de Greenville", creator: "Exprimes", src: "maps/Exprimes/Place de Greenville.png" },
-      { name: "Puits d'Asphyxie", creator: "Exprimes", src: "maps/Exprimes/Puits d'Asphyxie.png" },
-      { name: "Refuge Perdu", creator: "Exprimes", src: "maps/Exprimes/Refuge Perdu.png" },
-      { name: "Résidence Familiale", creator: "Exprimes", src: "maps/Exprimes/Résidence Familiale.png" },
-      { name: "Aile Est du Commissariat de Raccoon City", creator: "Exprimes", src: "maps/Exprimes/Aile_Est_du_Commissariat_de_Raccoon_City.png" },
-      { name: "Aile Ouest du Commissariat de Raccoon City", creator: "Exprimes", src: "maps/Exprimes/Aile_Ouest_du_Commissariat_de_Raccoon_City.png" },
-      { name: "Ruines Oubliées", creator: "Exprimes", src: "maps/Exprimes/Ruines Oubliées.png" },
-      { name: "Sables Morts", creator: "Exprimes", src: "maps/Exprimes/Sables Morts.png" },
-      { name: "Salle des Aliénés", creator: "Exprimes", src: "maps/Exprimes/Salle des Aliénés.png" },
-      { name: "Saloon de Dead Dawg", creator: "Exprimes", src: "maps/Exprimes/Saloon de Dead Dawg.png" },
-      { name: "Sanctuaire du Courroux", creator: "Exprimes", src: "maps/Exprimes/Sanctuaire du Courroux.png" },
-      { name: "Site d'Atterrissage de Toba", creator: "Exprimes", src: "maps/Exprimes/Site d'Atterrissage de Toba.png" },
-      { name: "Station du Mont Ormond", creator: "Exprimes", src: "maps/Exprimes/Station du Mont Ormond.png" },
-      { name: "Terrain de la Casse", creator: "Exprimes", src: "maps/Exprimes/Terrain de la Casse.png" },
-      { name: "Vallon des Tourments", creator: "Exprimes", src: "maps/Exprimes/Vallon des Tourments.png" }
+
+    // Bi-directional dictionary of 44 official maps
+    const MAP_PAIRS = [
+      { fr: "Abattoir Putride", en: "Rancid Abattoir", fileFr: "Abattoir Putride.png", fileEn: "Rancid Abattoir.png" },
+      { fr: "Aile Est du Commissariat de Raccoon City", en: "Raccoon City Police Station East Wing", fileFr: "Aile_Est_du_Commissariat_de_Raccoon_City.png", fileEn: "Raccoon City Police Station East Wing.png" },
+      { fr: "Aile Ouest du Commissariat de Raccoon City", en: "Raccoon City Police Station West Wing", fileFr: "Aile_Ouest_du_Commissariat_de_Raccoon_City.png", fileEn: "Raccoon City Police Station West Wing.png" },
+      { fr: "Aire de Corbeaux", en: "Eyrie of Crows", fileFr: "Aire de Corbeaux.png", fileEn: "Eyrie of Crows.png" },
+      { fr: "Atelier Misérable", en: "Misery's Workshop", fileFr: "Atelier Misérable.png", fileEn: "Misery's Workshop.png" },
+      { fr: "Cabane du Sang", en: "Blood Lodge", fileFr: "Cabane du Sang.png", fileEn: "Blood Lodge.png" },
+      { fr: "Cellier Sinistre", en: "Grim Pantry", fileFr: "Cellier Sinistre.png", fileEn: "Grim Pantry.png" },
+      { fr: "Centre de Traitement", en: "Treatment Theatre", fileFr: "Centre de Traitement.png", fileEn: "Treatment Theatre.png" },
+      { fr: "Champs Pourris", en: "Rotten Fields", fileFr: "Champs Pourris.png", fileEn: "Rotten Fields.png" },
+      { fr: "Chapelle du Père Campbell", en: "Father Campbell's Chapel", fileFr: "Chapelle du Père Campbell.png", fileEn: "Father Campbell's Chapel.png" },
+      { fr: "Dernière Demeure d'Azarov", en: "Azarov's Resting Place", fileFr: "Dernière Demeure d'Azarov.png", fileEn: "Azarov's Resting Place.png" },
+      { fr: "Entrepôt de Charbon", en: "Coal Tower", fileFr: "Entrepôt de Charbon.png", fileEn: "Coal Tower.png" },
+      { fr: "Entrepôt Grondant", en: "Groaning Storehouse", fileFr: "Entrepôt Grondant.png", fileEn: "Groaning Storehouse.png" },
+      { fr: "Fonderie de Souffrance", en: "Ironworks of Misery", fileFr: "Fonderie de Souffrance.png", fileEn: "Ironworks of Misery.png" },
+      { fr: "Forêt Profonde", en: "Shelter Woods", fileFr: "Forêt Profonde.png", fileEn: "Shelter Woods.png" },
+      { fr: "Freddy Fazbear's Pizza", en: "Freddy Fazbear's Pizza", fileFr: "Freddy Fazbear's Pizza.png", fileEn: "Freddy Fazbear's Pizza.png" },
+      { fr: "Gas Haven", en: "Gas Haven", fileFr: "Gas Haven.png", fileEn: "Gas Haven.png" },
+      { fr: "Illusion du Farceur", en: "Trickster's Illusion", fileFr: "Illusion du Farceur.png", fileEn: "Trickster's Illusion.png" },
+      { fr: "Jardin de la Joie", en: "Garden of Joy", fileFr: "Jardin de la Joie.png", fileEn: "Garden of Joy.png" },
+      { fr: "La Ferme Thompson", en: "Thompson House", fileFr: "La Ferme Thompson.png", fileEn: "Thompson House.png" },
+      { fr: "La Maison Maternelle", en: "Mother's Dwelling", fileFr: "La Maison Maternelle.png", fileEn: "Mother's Dwelling.png" },
+      { fr: "La Place Dévastée", en: "The Shattered Square", fileFr: "La Place Dévastée.png", fileEn: "The Shattered Square.png" },
+      { fr: "Le Complexe Souterrain", en: "The Underground Complex", fileFr: "Le Complexe Souterrain.png", fileEn: "The Underground Complex.png" },
+      { fr: "Le Jeu", en: "The Game", fileFr: "Le Jeu.png", fileEn: "The Game.png" },
+      { fr: "Le Pâle Rose", en: "The Pale Rose", fileFr: "Le Pâle Rose.png", fileEn: "The Pale Rose.png" },
+      { fr: "Le Temple de Purgation", en: "Temple of Purgation", fileFr: "Le Temple de Purgation.png", fileEn: "Temple of Purgation.png" },
+      { fr: "Mine du Lac d'Ormond", en: "Ormond Lake Mine", fileFr: "Mine du Lac d'Ormond.png", fileEn: "Ormond Lake Mine.png" },
+      { fr: "Place de Greenville", en: "Greenville Square", fileFr: "Place de Greenville.png", fileEn: "Greenville Square.png" },
+      { fr: "Puits d'Asphyxie", en: "Suffocation Pit", fileFr: "Puits d'Asphyxie.png", fileEn: "Suffocation Pit.png" },
+      { fr: "Refuge Perdu", en: "Fallen Refuge", fileFr: "Refuge Perdu.png", fileEn: "Fallen Refuge.png" },
+      { fr: "Ruines Oubliées", en: "Forgotten Ruins", fileFr: "Ruines Oubliées.png", fileEn: "Forgotten Ruins.png" },
+      { fr: "Résidence Familiale", en: "Family Residence", fileFr: "Résidence Familiale.png", fileEn: "Family Residence.png" },
+      { fr: "Sables Morts", en: "Dead Sands", fileFr: "Sables Morts.png", fileEn: "Dead Sands.png" },
+      { fr: "Salle des Aliénés", en: "Disturbed Ward", fileFr: "Salle des Aliénés.png", fileEn: "Disturbed Ward.png" },
+      { fr: "Saloon de Dead Dawg", en: "Dead Dawg Saloon", fileFr: "Saloon de Dead Dawg.png", fileEn: "Dead Dawg Saloon.png" },
+      { fr: "Sanctuaire du Courroux", en: "Sanctum of Wrath", fileFr: "Sanctuaire du Courroux.png", fileEn: "Sanctum of Wrath.png" },
+      { fr: "Site d'Atterrissage de Toba", en: "Toba Landing", fileFr: "Site d'Atterrissage de Toba.png", fileEn: "Toba Landing.png" },
+      { fr: "Station du Mont Ormond", en: "Mount Ormond Resort", fileFr: "Station du Mont Ormond.png", fileEn: "Mount Ormond Resort.png" },
+      { fr: "Terrain de la Casse", en: "Wrecker's Yard", fileFr: "Terrain de la Casse.png", fileEn: "Wrecker's Yard.png" },
+      { fr: "Vallon des Tourments", en: "Torment Creek", fileFr: "Vallon des Tourments.png", fileEn: "Torment Creek.png" },
+      { fr: "École Maternelle de Badham", en: "Badham Preschool", fileFr: "École Maternelle de Badham.png", fileEn: "Badham Preschool.png" },
+      { fr: "École Primaire Midwich", en: "Midwich Elementary School", fileFr: "ecole_primaire_midwich.gif", fileEn: "Midwich Elementary School.gif" },
+      { fr: "Épave du Nostromo", en: "Nostromo Wreckage", fileFr: "Épave du Nostromo.png", fileEn: "Nostromo Wreckage.png" },
+      { fr: "Étable en Ruine", en: "Fractured Cowshed", fileFr: "Étable en Ruine.png", fileEn: "Fractured Cowshed.png" }
     ];
 
     function cleanStr(s) {
@@ -820,43 +1018,49 @@
       return c.includes("rpdeast") || c.includes("rpdwest") || c.includes("rpdest") || c.includes("rpdouest") || c === "rpd" || c === "centredetraitementlery" || c === "complexesouterrainhawkins";
     }
 
-    // Charger les cartes sauvegardées / synchronisées dynamiquement
-    let MAPS = DEFAULT_MAPS.filter(m => !isObsoleteMap(m.name));
+    // Build the 44 FR and 44 EN map objects
+    const DEFAULT_MAPS_FR = MAP_PAIRS.map(p => ({
+      name: p.fr,
+      creator: "Exprimes",
+      src: "maps/Exprimes/" + p.fileFr,
+      fallbackSrc: "maps/Maps_FR/" + p.fileFr,
+      altName: p.en
+    }));
 
-    // Migration automatique pour nettoyer les anciens liens 404 (Exprimes/DBDMaps)
-    MAPS.forEach(m => {
-      if (!m.src || m.src.includes('Exprimes/DBDMaps') || m.src.includes('raw.githubusercontent.com')) {
-        m.src = 'maps/Exprimes/' + m.name + '.png';
-      }
-    });
-    try {
-      const saved = localStorage.getItem("dbd_custom_maps");
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          // Fusionner sans doublons ni cartes obsolètes
-          parsed.forEach(p => {
-            if (!isObsoleteMap(p.name) && !MAPS.some(m => cleanStr(m.name) === cleanStr(p.name))) {
-              MAPS.push(p);
-            }
-          });
-        }
-        // Purger immédiatement localStorage pour que RPD East/West ne revienne plus jamais
-        localStorage.setItem("dbd_custom_maps", JSON.stringify(MAPS));
-      }
-    } catch (e) {}
+    const DEFAULT_MAPS_EN = MAP_PAIRS.map(p => ({
+      name: p.en,
+      creator: "Exprimes",
+      src: "maps/Maps_EN/" + p.fileEn,
+      fallbackSrc: "maps/Maps_EN/" + p.fileEn,
+      altName: p.fr
+    }));
 
+    // Langue actuelle mémorisée
+    let currentLanguage = localStorage.getItem("dbd_map_lang") || "FR";
+    if (currentLanguage !== "FR" && currentLanguage !== "EN") currentLanguage = "FR";
+
+    function getActiveMaps() {
+      return currentLanguage === "EN" ? DEFAULT_MAPS_EN : DEFAULT_MAPS_FR;
+    }
+
+    let MAPS = getActiveMaps();
+
+    // DOM Elements
     const mapsGrid = document.getElementById("mapsGrid");
     const noResults = document.getElementById("noResults");
     const searchInput = document.getElementById("searchInput");
     const clearBtn = document.getElementById("clearBtn");
     const mapCountBadge = document.getElementById("mapCountBadge");
+    const mapLangSelect = document.getElementById("mapLangSelect");
+    const sectionTitleEl = document.querySelector(".section-title");
 
     const viewerModal = document.getElementById("viewerModal");
     const viewerTitle = document.getElementById("viewerTitle");
     const viewerSyncBadge = document.getElementById("viewerSyncBadge");
     const viewerImg = document.getElementById("viewerImg");
     const btnCloseViewer = document.getElementById("btnCloseViewer");
+    const btnBackViewer = document.getElementById("btnBackViewer");
+    const btnFloatingBack = document.getElementById("btnFloatingBack");
     const btnResetZoom = document.getElementById("btnResetZoom");
     const viewerBody = document.getElementById("viewerBody");
 
@@ -876,72 +1080,184 @@
     const btnHeaderSync = document.getElementById("btnHeaderSync");
     const toastMsg = document.getElementById("toastMsg");
 
+    const inputPlayerPseudo = document.getElementById("inputPlayerPseudo");
+    const inputActivePseudo = document.getElementById("inputActivePseudo");
+    const pseudoSavedIndicator = document.getElementById("pseudoSavedIndicator");
+    const squadContainer = document.getElementById("squadContainer");
+    const lobbySquadLimitBadge = document.getElementById("lobbySquadLimitBadge");
+
     function showToast(text) {
       toastMsg.textContent = text;
       toastMsg.classList.add("show");
       setTimeout(() => toastMsg.classList.remove("show"), 3500);
     }
 
-    function compareVersions(v1, v2) {
-      const p1 = (v1 || "0").split(".").map(Number);
-      const p2 = (v2 || "0").split(".").map(Number);
-      const len = Math.max(p1.length, p2.length);
-      for (let i = 0; i < len; i++) {
-        const num1 = p1[i] || 0;
-        const num2 = p2[i] || 0;
-        if (num1 > num2) return 1;
-        if (num1 < num2) return -1;
+    // Gestion du Pseudo joueur persistant
+    function getLocalPlayerName() {
+      let name = localStorage.getItem("dbd_player_name");
+      if (!name || !name.trim()) {
+        const rand = Math.floor(1000 + Math.random() * 9000);
+        name = "Joueur_" + rand;
+        localStorage.setItem("dbd_player_name", name);
       }
-      return 0;
+      return name.trim();
     }
 
-    function renderMaps(list) {
+    function setLocalPlayerName(newName) {
+      if (!newName || !newName.trim()) return;
+      newName = newName.trim();
+      localStorage.setItem("dbd_player_name", newName);
+      if (inputPlayerPseudo) inputPlayerPseudo.value = newName;
+      if (inputActivePseudo) inputActivePseudo.value = newName;
+      if (pseudoSavedIndicator) {
+        pseudoSavedIndicator.textContent = "💾 Pseudo enregistré : " + newName;
+        pseudoSavedIndicator.style.display = "block";
+      }
+      if (currentLobbyCode && lobbyMembers[myMemberId]) {
+        lobbyMembers[myMemberId].name = newName;
+        updateSquadUI();
+        sendHeartbeat();
+      }
+    }
+
+    // Détection de la plateforme
+    function getPlatform() {
+      const ua = navigator.userAgent || navigator.vendor || window.opera || "";
+      if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) return "iOS";
+      if (/android/i.test(ua)) return "Android";
+      return "PC";
+    }
+
+    function getPlatformBadge(platform) {
+      if (platform === "iOS") return "🍏 iOS";
+      if (platform === "Android") return "🤖 Android";
+      if (platform === "PC") return "💻 PC";
+      return "📱 Mobile";
+    }
+
+    let myMemberId = localStorage.getItem("dbd_member_id");
+    if (!myMemberId) {
+      myMemberId = Math.random().toString(36).substring(2, 10);
+      localStorage.setItem("dbd_member_id", myMemberId);
+    }
+
+    // Initialisation des champs pseudo
+    const initialPseudo = getLocalPlayerName();
+    if (inputPlayerPseudo) {
+      inputPlayerPseudo.value = initialPseudo;
+      inputPlayerPseudo.addEventListener("input", (e) => setLocalPlayerName(e.target.value));
+    }
+    if (inputActivePseudo) {
+      inputActivePseudo.value = initialPseudo;
+      inputActivePseudo.addEventListener("input", (e) => setLocalPlayerName(e.target.value));
+    }
+
+    // Changement de Langue via menu déroulant
+    if (mapLangSelect) {
+      mapLangSelect.value = currentLanguage;
+      mapLangSelect.addEventListener("change", (e) => {
+        currentLanguage = e.target.value;
+        localStorage.setItem("dbd_map_lang", currentLanguage);
+        MAPS = getActiveMaps();
+        updateLanguageUI();
+        filterMaps();
+        showToast(currentLanguage === "EN" ? "🇬🇧 English Maps active (44)" : "🇫🇷 Cartes Françaises actives (44)");
+      });
+    }
+
+    function updateLanguageUI() {
+      if (currentLanguage === "EN") {
+        if (sectionTitleEl) sectionTitleEl.textContent = "Available Maps";
+        if (searchInput) searchInput.placeholder = "Search a map...";
+        if (mapCountBadge) mapCountBadge.textContent = "44 Maps (EN)";
+      } else {
+        if (sectionTitleEl) sectionTitleEl.textContent = "Cartes Disponibles";
+        if (searchInput) searchInput.placeholder = "Rechercher une carte...";
+        if (mapCountBadge) mapCountBadge.textContent = "44 Cartes (FR)";
+      }
+    }
+
+    updateLanguageUI();
+
+    // Rendu de la grille des cartes
+    function renderMaps(mapsToRender) {
       mapsGrid.innerHTML = "";
-      if (list.length === 0) {
+      if (mapsToRender.length === 0) {
         noResults.style.display = "block";
       } else {
         noResults.style.display = "none";
-        list.forEach(map => {
+        mapsToRender.forEach(map => {
           const card = document.createElement("div");
           card.className = "map-card";
-          card.innerHTML = `
-            <div class="map-thumb-wrap">
-              <img src="${map.src}" alt="${map.name}" loading="lazy" onerror="if(!this.dataset.retry){this.dataset.retry='1';const s=this.getAttribute('src')||'';this.src=s.startsWith('http')?s:('https://exprimes.github.io/dbd-maps/'+s.replace(/^\/+/,''));}else{this.src='app_icon.png';}">
-            </div>
-            <div class="map-info">
-              <span class="map-title">${map.name}</span>
-              <span class="map-creator">${map.creator}</span>
-            </div>
-          `;
-          card.onclick = () => openViewer(map, false);
+
+          const img = document.createElement("img");
+          img.className = "map-card-thumb";
+          img.loading = "lazy";
+          img.alt = map.name;
+          img.src = map.src;
+          img.onerror = function() {
+            if (!this.dataset.fallbackTried && map.fallbackSrc) {
+              this.dataset.fallbackTried = "1";
+              this.src = map.fallbackSrc;
+            } else if (!this.dataset.triedFb) {
+              this.dataset.triedFb = "1";
+              this.src = "maps/Exprimes/" + encodeURIComponent(map.name + ".png");
+            } else {
+              this.style.display = "none";
+            }
+          };
+
+          const info = document.createElement("div");
+          info.className = "map-card-info";
+
+          const name = document.createElement("div");
+          name.className = "map-card-name";
+          name.textContent = map.name;
+
+          const meta = document.createElement("div");
+          meta.className = "map-card-meta";
+          meta.innerHTML = `<span class="creator">HD</span><span>•</span><span>Official</span>`;
+
+          info.appendChild(name);
+          info.appendChild(meta);
+          card.appendChild(img);
+          card.appendChild(info);
+
+          card.addEventListener("click", () => openViewer(map, false));
           mapsGrid.appendChild(card);
         });
       }
-      mapCountBadge.textContent = list.length + (list.length > 1 ? " Cartes" : " Carte");
+      if (mapCountBadge) {
+        mapCountBadge.textContent = currentLanguage === "EN" ? `${mapsToRender.length} Maps (EN)` : `${mapsToRender.length} Cartes (FR)`;
+      }
     }
 
-    renderMaps(MAPS);
-
-    // Recherche en direct
-    searchInput.addEventListener("input", () => {
-      const q = cleanStr(searchInput.value.trim());
-      clearBtn.style.display = searchInput.value ? "block" : "none";
+    function filterMaps() {
+      const q = cleanStr(searchInput.value);
       if (!q) {
         renderMaps(MAPS);
+        clearBtn.style.display = "none";
         return;
       }
-      const filtered = MAPS.filter(m => cleanStr(m.name).includes(q) || cleanStr(m.creator).includes(q));
+      clearBtn.style.display = "block";
+      const filtered = MAPS.filter(m => {
+        const n = cleanStr(m.name);
+        const alt = cleanStr(m.altName || "");
+        return n.includes(q) || alt.includes(q);
+      });
       renderMaps(filtered);
-    });
+    }
 
+    searchInput.addEventListener("input", filterMaps);
     clearBtn.addEventListener("click", () => {
       searchInput.value = "";
-      clearBtn.style.display = "none";
-      renderMaps(MAPS);
+      filterMaps();
       searchInput.focus();
     });
 
-    // --- GESTION DU VIEWER & GESTURES TACTILES ---
+    renderMaps(MAPS);
+
+    // Zoom & Pan Viewer
     let scale = 1;
     let translateX = 0;
     let translateY = 0;
@@ -956,7 +1272,11 @@
       viewerImg.onerror = function() {
         if (!this.dataset.triedFb) {
           this.dataset.triedFb = "1";
-          this.src = "maps/Exprimes/" + encodeURIComponent(map.name + ".png");
+          if (map.fallbackSrc) {
+            this.src = map.fallbackSrc;
+          } else {
+            this.src = "maps/Exprimes/" + encodeURIComponent(map.name + ".png");
+          }
         }
       };
       viewerImg.dataset.triedFb = "";
@@ -968,7 +1288,7 @@
         try { navigator.wakeLock.request("screen"); } catch (e) {}
       }
 
-      // Si on est dans un Lobby et qu'on a sélectionné la carte soi-même : diffuser à tout le monde !
+      // Si on est dans un Lobby et qu'on a sélectionné la carte soi-même : diffuser au Lobby !
       if (!fromSync && currentLobbyCode) {
         lastSyncedMapName = map.name;
         fetch(`https://ntfy.sh/dbdmaps731-${currentLobbyCode}`, { method: "POST", body: map.name })
@@ -995,9 +1315,11 @@
     }
 
     btnCloseViewer.addEventListener("click", closeViewer);
+    if (btnBackViewer) btnBackViewer.addEventListener("click", closeViewer);
+    if (btnFloatingBack) btnFloatingBack.addEventListener("click", closeViewer);
     btnResetZoom.addEventListener("click", resetZoom);
 
-    // Double tap pour zoomer ou réinitialiser
+    // Touch events pour zoomer et glisser
     let lastTap = 0;
     viewerBody.addEventListener("touchend", (e) => {
       const now = Date.now();
@@ -1007,6 +1329,7 @@
         } else {
           scale = 2.2;
           updateTransform();
+          showToast("🔍 Zoom 2.2x");
         }
       }
       lastTap = now;
@@ -1025,11 +1348,10 @@
         );
         initialScale = scale;
       }
-    });
+    }, { passive: true });
 
     viewerBody.addEventListener("touchmove", (e) => {
-      e.preventDefault();
-      if (e.touches.length === 1 && isDragging) {
+      if (isDragging && e.touches.length === 1 && scale > 1) {
         translateX = e.touches[0].clientX - startX;
         translateY = e.touches[0].clientY - startY;
         updateTransform();
@@ -1039,33 +1361,26 @@
           e.touches[0].clientY - e.touches[1].clientY
         );
         if (initialDistance > 0) {
-          scale = Math.min(Math.max(initialScale * (dist / initialDistance), 0.8), 6);
+          scale = Math.min(Math.max(initialScale * (dist / initialDistance), 1), 5);
           updateTransform();
         }
       }
-    }, { passive: false });
+    }, { passive: true });
 
-    viewerBody.addEventListener("touchend", (e) => {
-      if (e.touches.length === 0) {
-        isDragging = false;
-        if (scale < 1) resetZoom();
-      }
+    viewerBody.addEventListener("touchend", () => {
+      isDragging = false;
     });
 
-    viewerBody.addEventListener("wheel", (e) => {
-      e.preventDefault();
-      const zoomFactor = e.deltaY < 0 ? 1.15 : 0.85;
-      scale = Math.min(Math.max(scale * zoomFactor, 0.8), 6);
-      updateTransform();
-    }, { passive: false });
-
-
-    // ==========================================
-    // 👥 LOBBY MANAGER (SYNCHRONISATION PC)
-    // ==========================================
+    // =========================================================================
+    // LOBBY MANAGER AVEC PRÉSENCE 4 JOUEURS SQUAD & INTEROPÉRABILITÉ PC
+    // =========================================================================
     let currentLobbyCode = localStorage.getItem("dbd_mobile_lobby_code") || "";
+    let isHost = false;
     let lobbyPollTimer = null;
+    let memberHeartbeatTimer = null;
+    let memberStreamSource = null;
     let lastSyncedMapName = "";
+    let lobbyMembers = {}; // id -> { id, platform, name, isHost, lastSeen }
 
     function openLobbyModal() {
       lobbyModal.style.display = "flex";
@@ -1086,16 +1401,191 @@
         lobbyActiveBox.style.display = "block";
         lobbyJoinForm.style.display = "none";
         lobbyCodeDisplay.textContent = currentLobbyCode;
+        if (inputActivePseudo) inputActivePseudo.value = getLocalPlayerName();
+        updateSquadUI();
       } else {
         lobbyStatusDot.textContent = "⚪";
         lobbyStatusText.textContent = "Lobby";
         btnHeaderLobby.classList.remove("active");
         lobbyActiveBox.style.display = "none";
         lobbyJoinForm.style.display = "block";
+        if (inputPlayerPseudo) inputPlayerPseudo.value = getLocalPlayerName();
       }
     }
 
     const RELAY_BASE = "https://ntfy.sh/dbdmaps731-";
+
+    // Mise à jour de l'affichage des 4 slots de survivants
+    function updateSquadUI() {
+      if (!squadContainer) return;
+      squadContainer.innerHTML = "";
+
+      const memberList = Object.values(lobbyMembers);
+      // Trier : hôte d'abord, puis par nom
+      memberList.sort((a, b) => {
+        if (a.isHost && !b.isHost) return -1;
+        if (!a.isHost && b.isHost) return 1;
+        return a.name.localeCompare(b.name);
+      });
+
+      const count = memberList.length;
+      if (lobbySquadLimitBadge) {
+        lobbySquadLimitBadge.textContent = `👥 ${count}/4 Joueurs`;
+        lobbySquadLimitBadge.style.background = count >= 4 ? "#da3633" : "#238636";
+      }
+
+      // Afficher 4 slots fixes
+      for (let i = 0; i < 4; i++) {
+        const slotEl = document.createElement("div");
+        if (i < count) {
+          const m = memberList[i];
+          const isMe = m.id === myMemberId;
+          slotEl.className = "squad-slot filled";
+          slotEl.innerHTML = `
+            <div class="squad-platform">${getPlatformBadge(m.platform)}</div>
+            <div class="squad-name">${escapeHtml(m.name)} ${m.isHost ? '<span class="squad-host-crown">👑 Hôte</span>' : ''} ${isMe ? '<span style="color:#58a6ff; font-size:0.75rem;">(Vous)</span>' : ''}</div>
+            <div class="squad-status">🟢 En ligne</div>
+          `;
+        } else {
+          slotEl.className = "squad-slot empty";
+          slotEl.innerHTML = `
+            <div class="squad-platform">⚪</div>
+            <div class="squad-name" style="color:#8b949e; font-weight:normal;">Slot ${i + 1} : En attente d'un joueur...</div>
+            <div class="squad-status">Libre</div>
+          `;
+        }
+        squadContainer.appendChild(slotEl);
+      }
+    }
+
+    function escapeHtml(str) {
+      return (str || "").replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
+    }
+
+    // Gestion de la présence et Heartbeats
+    function sendHeartbeat() {
+      if (!currentLobbyCode) return;
+      const myName = getLocalPlayerName();
+      const myPlatform = getPlatform();
+      const payload = `PING:${myMemberId}:${myPlatform}:${myName}:${isHost ? "1" : "0"}`;
+      fetch(`${RELAY_BASE}${currentLobbyCode}_MEMBERS`, { method: "POST", body: payload }).catch(() => {});
+    }
+
+    function processMemberMessage(raw) {
+      if (!raw || !raw.trim()) return;
+      const msg = raw.trim();
+      if (msg.startsWith("PING:")) {
+        const parts = msg.split(":");
+        if (parts.length >= 5) {
+          const id = parts[1];
+          const platform = parts[2];
+          const name = parts[3];
+          const hostFlag = parts[4] === "1" || parts[4].toLowerCase() === "true";
+
+          // Vérification limite stricte 4 joueurs
+          const currentCount = Object.keys(lobbyMembers).length;
+          if (!lobbyMembers[id] && currentCount >= 4 && id !== myMemberId) {
+            // Un 5ème membre tente de rejoindre
+            return;
+          }
+
+          lobbyMembers[id] = {
+            id,
+            platform,
+            name,
+            isHost: hostFlag,
+            lastSeen: Date.now()
+          };
+          updateSquadUI();
+        }
+      } else if (msg.startsWith("LEAVE:")) {
+        const id = msg.substring(6).trim();
+        if (lobbyMembers[id]) {
+          delete lobbyMembers[id];
+          updateSquadUI();
+        }
+      }
+    }
+
+    function pruneExpiredMembers() {
+      const now = Date.now();
+      let changed = false;
+      for (const [id, m] of Object.entries(lobbyMembers)) {
+        if (id !== myMemberId && (now - m.lastSeen) > 8000) {
+          delete lobbyMembers[id];
+          changed = true;
+        }
+      }
+      if (changed) updateSquadUI();
+    }
+
+    async function startMemberPresence(code) {
+      stopMemberPresence();
+      lobbyMembers = {};
+      // S'ajouter soi-même immédiatement
+      lobbyMembers[myMemberId] = {
+        id: myMemberId,
+        platform: getPlatform(),
+        name: getLocalPlayerName(),
+        isHost: isHost,
+        lastSeen: Date.now()
+      };
+      updateSquadUI();
+
+      // Envoyer le premier ping
+      sendHeartbeat();
+      memberHeartbeatTimer = setInterval(() => {
+        sendHeartbeat();
+        pruneExpiredMembers();
+      }, 2500);
+
+      // Récupérer les membres récents
+      try {
+        const resp = await fetch(`${RELAY_BASE}${code}_MEMBERS/json?poll=1&since=12s&t=${Date.now()}`, { cache: "no-store" });
+        if (resp.ok) {
+          const txt = await resp.text();
+          for (const line of txt.split("\n")) {
+            if (!line.trim()) continue;
+            try {
+              const ev = JSON.parse(line);
+              if (ev.event === "message" && ev.message) {
+                processMemberMessage(ev.message);
+              }
+            } catch (e) {}
+          }
+        }
+      } catch (e) {}
+
+      // Écouter via SSE
+      try {
+        memberStreamSource = new EventSource(`${RELAY_BASE}${code}_MEMBERS/sse`);
+        memberStreamSource.onmessage = (e) => {
+          if (e.data) {
+            try {
+              const parsed = JSON.parse(e.data);
+              if (parsed.message) processMemberMessage(parsed.message);
+            } catch (err) {
+              processMemberMessage(e.data);
+            }
+          }
+        };
+      } catch (e) {}
+    }
+
+    function stopMemberPresence() {
+      if (memberHeartbeatTimer) {
+        clearInterval(memberHeartbeatTimer);
+        memberHeartbeatTimer = null;
+      }
+      if (memberStreamSource) {
+        try { memberStreamSource.close(); } catch (e) {}
+        memberStreamSource = null;
+      }
+      if (currentLobbyCode) {
+        fetch(`${RELAY_BASE}${currentLobbyCode}_MEMBERS`, { method: "POST", body: `LEAVE:${myMemberId}` }).catch(() => {});
+      }
+      lobbyMembers = {};
+    }
 
     async function relayGetLatest(key) {
       const resp = await fetch(`${RELAY_BASE}${key}/json?poll=1&since=latest&t=${Date.now()}`, { cache: "no-store" });
@@ -1133,29 +1623,34 @@
       } catch (e) {}
     }
 
-    function startLobbyListener(code) {
+    function startLobbyListener(code, hostFlag = false) {
       stopLobbyListener();
       currentLobbyCode = code.toUpperCase();
+      isHost = hostFlag;
       localStorage.setItem("dbd_mobile_lobby_code", currentLobbyCode);
       updateLobbyUI();
       showToast("✅ Connecté au Lobby " + currentLobbyCode + " !");
 
+      startMemberPresence(currentLobbyCode);
       pollLobbyOnce();
       lobbyPollTimer = setInterval(pollLobbyOnce, 1200);
     }
 
     function stopLobbyListener() {
+      stopMemberPresence();
       if (lobbyPollTimer) {
         clearInterval(lobbyPollTimer);
         lobbyPollTimer = null;
       }
       currentLobbyCode = "";
+      isHost = false;
       localStorage.removeItem("dbd_mobile_lobby_code");
       updateLobbyUI();
     }
 
+    // Réception et traduction automatique d'une carte reçue du Lobby
     async function onMapReceivedFromLobby(mapPayload) {
-      // Cas 1 : Réception d'une carte personnalisée dessinée sur PC (CUSTOM_MAP:Name:Ext)
+      // Cas 1 : Réception d'une carte personnalisée dessinée sur PC
       if (mapPayload.startsWith("CUSTOM_MAP:")) {
         const parts = mapPayload.split(":");
         const customName = parts.length > 1 ? parts[1] : "Carte Custom";
@@ -1179,20 +1674,41 @@
         return;
       }
 
-      // Cas 2 : Carte officielle
-      lobbySyncMsg.textContent = "⚡ Dernière carte reçue : " + mapPayload;
+      // Cas 2 : Carte officielle avec traduction dynamique FR <-> EN
       let cleanTarget = cleanStr(mapPayload);
       if (cleanTarget.includes("rpdeast") || cleanTarget.includes("rpdest")) {
         cleanTarget = cleanStr("Aile Est du Commissariat de Raccoon City");
       } else if (cleanTarget.includes("rpdwest") || cleanTarget.includes("rpdouest")) {
         cleanTarget = cleanStr("Aile Ouest du Commissariat de Raccoon City");
       }
-      let match = MAPS.find(m => cleanStr(m.name) === cleanTarget || cleanStr(m.name).includes(cleanTarget) || cleanTarget.includes(cleanStr(m.name)));
-      
-      if (match) {
-        openViewer(match, true);
-        showToast("🎮 Carte reçue du Lobby : " + match.name);
+
+      // Trouver la correspondance dans le dictionnaire bi-directionnel
+      const pairMatch = MAP_PAIRS.find(p => {
+        return cleanStr(p.fr) === cleanTarget || cleanStr(p.en) === cleanTarget ||
+               cleanStr(p.fr).includes(cleanTarget) || cleanStr(p.en).includes(cleanTarget) ||
+               cleanTarget.includes(cleanStr(p.fr)) || cleanTarget.includes(cleanStr(p.en));
+      });
+
+      let targetMapObj = null;
+      if (pairMatch) {
+        if (currentLanguage === "EN") {
+          targetMapObj = DEFAULT_MAPS_EN.find(m => cleanStr(m.name) === cleanStr(pairMatch.en));
+        } else {
+          targetMapObj = DEFAULT_MAPS_FR.find(m => cleanStr(m.name) === cleanStr(pairMatch.fr));
+        }
+      }
+
+      // Fallback recherche classique dans MAPS
+      if (!targetMapObj) {
+        targetMapObj = MAPS.find(m => cleanStr(m.name) === cleanTarget || cleanStr(m.name).includes(cleanTarget));
+      }
+
+      if (targetMapObj) {
+        lobbySyncMsg.textContent = "⚡ Dernière carte reçue : " + targetMapObj.name;
+        openViewer(targetMapObj, true);
+        showToast("🎮 Carte synchronisée : " + targetMapObj.name);
       } else {
+        lobbySyncMsg.textContent = "⚡ Carte reçue : " + mapPayload;
         showToast("ℹ️ Carte reçue : " + mapPayload);
       }
     }
@@ -1201,22 +1717,47 @@
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible" && currentLobbyCode) {
         pollLobbyOnce();
+        sendHeartbeat();
       }
     });
     window.addEventListener("focus", () => {
-      if (currentLobbyCode) pollLobbyOnce();
+      if (currentLobbyCode) { pollLobbyOnce(); sendHeartbeat(); }
     });
     window.addEventListener("pageshow", () => {
-      if (currentLobbyCode) pollLobbyOnce();
+      if (currentLobbyCode) { pollLobbyOnce(); sendHeartbeat(); }
     });
 
-    btnJoinLobby.addEventListener("click", () => {
+    btnJoinLobby.addEventListener("click", async () => {
       const code = inputLobbyCode.value.trim().toUpperCase();
       if (!code || code.length < 3) {
         alert("Veuillez entrer un code de lobby valide.");
         return;
       }
-      startLobbyListener(code);
+      
+      // Vérification préalable du nombre de joueurs dans le lobby
+      try {
+        const resp = await fetch(`${RELAY_BASE}${code}_MEMBERS/json?poll=1&since=8s&t=${Date.now()}`, { cache: "no-store" });
+        if (resp.ok) {
+          const txt = await resp.text();
+          const activeIds = new Set();
+          for (const line of txt.split("\n")) {
+            if (!line.trim()) continue;
+            try {
+              const ev = JSON.parse(line);
+              if (ev.message && ev.message.startsWith("PING:")) {
+                const parts = ev.message.split(":");
+                if (parts.length >= 2) activeIds.add(parts[1]);
+              }
+            } catch (e) {}
+          }
+          if (activeIds.size >= 4 && !activeIds.has(myMemberId)) {
+            alert("⚠️ Ce Lobby est complet (maximum 4 joueurs).");
+            return;
+          }
+        }
+      } catch (e) {}
+
+      startLobbyListener(code, false);
       inputLobbyCode.value = "";
     });
 
@@ -1231,24 +1772,23 @@
           method: "POST",
           body: "LOBBY_CREATED"
         });
-      } catch (e) {}
-      startLobbyListener(code);
+        startLobbyListener(code, true);
+        showToast("👑 Lobby créé avec succès ! Code : " + code);
+      } catch (e) {
+        alert("Erreur réseau lors de la création du Lobby.");
+      }
     });
 
     btnLeaveLobby.addEventListener("click", () => {
       stopLobbyListener();
-      showToast("Vous avez quitté le lobby.");
+      showToast("🚪 Vous avez quitté le Lobby.");
     });
 
-    // Si un lobby était déjà actif en mémoire, reprendre l'écoute
+    // Restaurer le Lobby si déjà connecté
     if (currentLobbyCode) {
-      startLobbyListener(currentLobbyCode);
+      startLobbyListener(currentLobbyCode, false);
     }
 
-
-    // ==========================================
-    // 🔄 SYNCHRONISATION DES CARTES (GITHUB)
-    // ==========================================
     async function syncMapsFromGitHub() {
       btnHeaderSync.classList.add("spinning");
       showToast("🔄 Rafraîchissement des cartes...");
