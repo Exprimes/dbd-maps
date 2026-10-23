@@ -1,15 +1,15 @@
 {
-  "version": "2.0.1.1",
-  "exe_size": 129835185,
+  "version": "2.0.1.2",
+  "exe_size": 129835162,
   "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.exe",
   "apk_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.apk",
   "relay_base_url": "https://ntfy.envs.net/",
-  "changelog": "⚡ Micro Hotfix v2.0.1 : Maintien permanent des joueurs dans le Lobby (aucun départ involontaire) + Indépendance totale langue et cartes.",
+  "changelog": "⚡ Correctif v2.0.1 : Synchronisation instantanée Lobby PC & Mobile + Traduction bilingue automatique (FR <-> EN) + Indépendance totale de la langue.",
   "discord_url": "https://discord.gg/sHVttN4ZdZ",
   "mobile_version": "2.0.1",
   "admin_alert": {
     "enabled": false,
-    "min_version": "2.0.1.1",
+    "min_version": "2.0.1.2",
     "message": "",
     "date": "24/10/2026 00:40"
   }
