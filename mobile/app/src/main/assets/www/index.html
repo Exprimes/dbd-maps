@@ -2101,6 +2101,20 @@
       btnCheckUpdateManual.addEventListener("click", () => checkUpdates(false));
     }
 
+    function compareVersions(v1, v2) {
+      if (!v1 || !v2) return 0;
+      const p1 = (v1 + "").replace(/^v/i, "").split(".").map(s => parseInt(s, 10) || 0);
+      const p2 = (v2 + "").replace(/^v/i, "").split(".").map(s => parseInt(s, 10) || 0);
+      const maxLen = Math.max(p1.length, p2.length);
+      for (let i = 0; i < maxLen; i++) {
+        const a = p1[i] || 0;
+        const b = p2[i] || 0;
+        if (a > b) return 1;
+        if (a < b) return -1;
+      }
+      return 0;
+    }
+
     async function checkUpdates(silent) {
       if (!silent) {
         btnCheckUpdateManual.disabled = true;
@@ -2111,12 +2125,25 @@
       }
 
       try {
-        const versionUrl = "https://raw.githubusercontent.com/Exprimes/dbd-maps/main/version.json?t=" + Date.now();
-        const resp = await fetch(versionUrl);
-        if (!resp.ok) throw new Error("HTTP " + resp.status);
+        const versionUrls = [
+          "version.json?t=" + Date.now(),
+          "https://exprimes.github.io/dbd-maps/version.json?t=" + Date.now(),
+          "https://raw.githubusercontent.com/Exprimes/dbd-maps/main/version.json?t=" + Date.now()
+        ];
+        let vData = null;
+        for (const u of versionUrls) {
+          try {
+            const resp = await fetch(u, { cache: "no-store" });
+            if (resp.ok) {
+              vData = await resp.json();
+              if (vData && (vData.version || vData.mobile_version)) break;
+            }
+          } catch (err) {}
+        }
+        if (!vData) throw new Error("Impossible de joindre le serveur de mise à jour");
 
-        const vData = await resp.json();
-        const hasNew = vData.version && compareVersions(vData.version, CURRENT_MOBILE_VERSION) > 0;
+        const targetVersion = vData.mobile_version || vData.version;
+        const hasNew = targetVersion && compareVersions(targetVersion, CURRENT_MOBILE_VERSION) > 0;
 
         const now = new Date();
         const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
