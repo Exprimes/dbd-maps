@@ -1,15 +1,16 @@
 {
-  "version": "2.0.0",
-  "exe_size": 129827432,
-  "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.0/DBDMapsOmni.exe",
-  "apk_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.0/DBDMapsOmni.apk",
-  "changelog": "🚀 Version Majeure 2.0.0 : Nouveau moteur OCR 0% CPU hors-jeu, bascule bilingue instantanée FR / EN, refonte DBDMapsOmni (-54% de poids) et fluidité maximale !",
+  "version": "2.0.1",
+  "exe_size": 129830628,
+  "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.exe",
+  "apk_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.apk",
+  "relay_base_url": "https://ntfy.envs.net/",
+  "changelog": "⚡ Micro Hotfix v2.0.1 : Nouveau relais Lobby haute disponibilité (ntfy.envs.net) + correction définitive de l'erreur 429 Too Many Requests.",
   "discord_url": "https://discord.gg/sHVttN4ZdZ",
-  "mobile_version": "2.0.0",
+  "mobile_version": "2.0.1",
   "admin_alert": {
     "enabled": false,
-    "min_version": "2.0.0",
+    "min_version": "2.0.1",
     "message": "",
-    "date": "23/10/2026 23:17"
+    "date": "23/10/2026 23:42"
   }
 }

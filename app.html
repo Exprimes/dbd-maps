@@ -998,7 +998,7 @@
         <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px; margin-bottom:14px;">
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <span style="font-size:0.8rem; color:#8b949e; font-weight:600;">Version actuelle installée :</span>
-            <span class="badge" id="currentVersionBadge" style="background:#238636; color:#fff; font-size:0.8rem; font-weight:800; padding:2px 8px; border-radius:10px;">v2.0.0</span>
+            <span class="badge" id="currentVersionBadge" style="background:#238636; color:#fff; font-size:0.8rem; font-weight:800; padding:2px 8px; border-radius:10px;">v2.0.1</span>
           </div>
           <div style="margin-top:8px; font-size:0.75rem; color:#8b949e;" id="updateLastCheckTxt">
             Dernière vérification : non effectuée
@@ -1501,7 +1501,7 @@
       // Si on est dans un Lobby et qu'on a sélectionné la carte soi-même : diffuser au Lobby !
       if (!fromSync && currentLobbyCode) {
         lastSyncedMapName = map.name;
-        fetch(`https://ntfy.sh/dbdmaps731-${currentLobbyCode}`, { method: "POST", body: map.name })
+        fetch(`${RELAY_BASE}${currentLobbyCode}`, { method: "POST", body: map.name })
           .catch(() => {});
         showToast("📤 Carte diffusée au Lobby : " + map.name);
       }
@@ -1624,7 +1624,7 @@
       }
     }
 
-    const RELAY_BASE = "https://ntfy.sh/dbdmaps731-";
+    const RELAY_BASE = "https://ntfy.envs.net/dbdmaps731-";
 
     // Mise à jour de l'affichage des 4 slots de survivants
     function updateSquadUI() {
@@ -1722,7 +1722,7 @@
       const now = Date.now();
       let changed = false;
       for (const [id, m] of Object.entries(lobbyMembers)) {
-        if (id !== myMemberId && (now - m.lastSeen) > 8000) {
+        if (id !== myMemberId && (now - m.lastSeen) > 18000) {
           delete lobbyMembers[id];
           changed = true;
         }
@@ -1748,11 +1748,11 @@
       memberHeartbeatTimer = setInterval(() => {
         sendHeartbeat();
         pruneExpiredMembers();
-      }, 2500);
+      }, 6000);
 
       // Récupérer les membres récents
       try {
-        const resp = await fetch(`${RELAY_BASE}${code}_MEMBERS/json?poll=1&since=12s&t=${Date.now()}`, { cache: "no-store" });
+        const resp = await fetch(`${RELAY_BASE}${code}_MEMBERS/json?poll=1&since=25s&t=${Date.now()}`, { cache: "no-store" });
         if (resp.ok) {
           const txt = await resp.text();
           for (const line of txt.split("\n")) {
@@ -1947,7 +1947,7 @@
       
       // Vérification préalable du nombre de joueurs dans le lobby
       try {
-        const resp = await fetch(`${RELAY_BASE}${code}_MEMBERS/json?poll=1&since=8s&t=${Date.now()}`, { cache: "no-store" });
+        const resp = await fetch(`${RELAY_BASE}${code}_MEMBERS/json?poll=1&since=25s&t=${Date.now()}`, { cache: "no-store" });
         if (resp.ok) {
           const txt = await resp.text();
           const activeIds = new Set();
@@ -2074,7 +2074,7 @@
     // ==========================================
     // 🚀 VÉRIFICATEUR DE MISES À JOUR (MOBILE APK)
     // ==========================================
-    const CURRENT_MOBILE_VERSION = "2.0.0";
+    const CURRENT_MOBILE_VERSION = "2.0.1";
 
     // Synchronisation automatique et dynamique de tous les indicateurs de version
     const badgeEl = document.getElementById("currentVersionBadge");
