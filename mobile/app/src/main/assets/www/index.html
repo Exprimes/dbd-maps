@@ -97,18 +97,67 @@
       gap: 6px;
       flex-shrink: 0;
     }
+    .brand-omni-tag {
+      color: #f1c40f;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      margin-left: 3px;
+    }
     @media (max-width: 440px) {
-      .title-group span {
-        max-width: 130px;
-        overflow: hidden;
-        text-overflow: ellipsis;
+      header {
+        padding: 8px 10px 10px 10px;
+        padding-top: max(10px, calc(env(safe-area-inset-top, 0px) + 8px));
+        padding-left: max(10px, env(safe-area-inset-left, 0px));
+        padding-right: max(10px, env(safe-area-inset-right, 0px));
       }
-      .header-actions {
+      .brand {
         gap: 6px;
       }
+      .brand img {
+        width: 24px;
+        height: 24px;
+      }
+      .title-group h1 {
+        font-size: 0.92rem;
+      }
+      .brand-omni-tag {
+        display: none;
+      }
+      .header-actions {
+        gap: 7px;
+      }
       .btn-header-lobby {
-        padding: 6px 10px;
-        font-size: 0.75rem;
+        padding: 5px 8px;
+        font-size: 0.74rem;
+        min-height: 32px;
+        border-radius: 16px;
+        gap: 4px;
+      }
+      .btn-header-oled,
+      .btn-header-sync,
+      .btn-header-update {
+        width: 33px;
+        height: 33px;
+        min-width: 33px;
+        font-size: 0.88rem;
+      }
+    }
+    @media (max-width: 360px) {
+      .header-actions {
+        gap: 5px;
+      }
+      .btn-header-lobby {
+        padding: 4px 6px;
+        font-size: 0.70rem;
+      }
+      .btn-header-oled,
+      .btn-header-sync,
+      .btn-header-update {
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+        font-size: 0.80rem;
       }
     }
     .btn-header-lobby {
@@ -878,7 +927,7 @@
       <div class="brand">
         <img src="app_icon.png" alt="Logo">
         <div class="title-group">
-          <h1>DBD MAP OMNI</h1>
+          <h1>DBD MAP<span class="brand-omni-tag"> OMNI</span></h1>
         </div>
       </div>
       <div class="header-actions">
