@@ -4,13 +4,13 @@
   "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.exe",
   "apk_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.apk",
   "relay_base_url": "https://ntfy.tedomum.fr/",
-  "changelog": "⚡ Mise à jour v2.0.2 : Nouveau serveur relais ultra-rapide (zéro erreur 429) + libération instantanée des places Lobby + synchronisation bi-directionnelle parfaite FR ↔ EN.",
+  "changelog": "\u26A1 Mise \u00E0 jour v2.0.2 : Nouveau serveur relais ultra-rapide (z\u00E9ro erreur 429) \u002B lib\u00E9ration instantan\u00E9e des places Lobby \u002B synchronisation bi-directionnelle parfaite FR \u2194 EN.",
   "discord_url": "https://discord.gg/sHVttN4ZdZ",
   "mobile_version": "2.0.2",
   "admin_alert": {
-    "enabled": false,
+    "enabled": true,
     "min_version": "2.0.2",
-    "message": "",
-    "date": "24/10/2026 03:54"
+    "message": "Une nouvelle mise \u00E0 jour importante de DBD MAP est disponible ! Veuillez mettre \u00E0 jour le logiciel pour continuer \u00E0 profiter de toutes les cartes et fonctionnalit\u00E9s.",
+    "date": "24/10/2026 04:30"
   }
 }
