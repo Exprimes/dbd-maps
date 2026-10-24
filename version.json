@@ -1,16 +1,16 @@
 {
-  "version": "2.0.1.4",
-  "exe_size": 129832720,
+  "version": "2.0.2",
+  "exe_size": 129828871,
   "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.exe",
   "apk_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.apk",
   "relay_base_url": "https://ntfy.tedomum.fr/",
-  "changelog": "⚡ Correctif v2.0.1 : Libération instantanée des places Lobby + synchronisation bi-directionnelle parfaite FR ↔ EN.",
+  "changelog": "⚡ Mise à jour v2.0.2 : Nouveau serveur relais ultra-rapide (zéro erreur 429) + libération instantanée des places Lobby + synchronisation bi-directionnelle parfaite FR ↔ EN.",
   "discord_url": "https://discord.gg/sHVttN4ZdZ",
-  "mobile_version": "2.0.1",
+  "mobile_version": "2.0.2",
   "admin_alert": {
     "enabled": false,
-    "min_version": "2.0.1.4",
+    "min_version": "2.0.2",
     "message": "",
-    "date": "24/10/2026 03:30"
+    "date": "24/10/2026 03:54"
   }
 }
