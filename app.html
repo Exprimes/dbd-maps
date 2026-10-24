@@ -1708,7 +1708,7 @@
 
     function processMemberMessage(raw) {
       if (!raw || !raw.trim()) return;
-      const msg = raw.trim();
+      const msg = raw.trim().replace(/^"|"$/g, "");
       if (msg.startsWith("PING:")) {
         const parts = msg.split(":");
         if (parts.length >= 5) {
@@ -1720,7 +1720,6 @@
           // Vérification limite stricte 4 joueurs
           const currentCount = Object.keys(lobbyMembers).length;
           if (!lobbyMembers[id] && currentCount >= 4 && id !== myMemberId) {
-            // Un 5ème membre tente de rejoindre
             return;
           }
 
@@ -1734,7 +1733,7 @@
           updateSquadUI();
         }
       } else if (msg.startsWith("LEAVE:")) {
-        const id = msg.substring(6).trim();
+        const id = msg.substring(6).trim().replace(/^"|"$/g, "");
         if (lobbyMembers[id]) {
           delete lobbyMembers[id];
           updateSquadUI();
@@ -1743,7 +1742,15 @@
     }
 
     function pruneExpiredMembers() {
-      // Les membres restent affichés constamment dans l'escouade jusqu'à ce qu'ils quittent le lobby ou ferment l'application
+      const now = Date.now();
+      let changed = false;
+      for (const id in lobbyMembers) {
+        if (id !== myMemberId && (now - lobbyMembers[id].lastSeen) > 8000) {
+          delete lobbyMembers[id];
+          changed = true;
+        }
+      }
+      if (changed) updateSquadUI();
     }
 
     let memberPollTimer = null;
@@ -1785,11 +1792,14 @@
         sendHeartbeat();
       }, 4500);
 
-      // Récupérer les membres récents et scruter en boucle pour iOS
+      // Récupérer les membres récents et scruter en boucle avec pruning automatique (> 8s inactif)
       fetchRecentMembers(code);
       memberPollTimer = setInterval(() => {
-        if (currentLobbyCode) fetchRecentMembers(currentLobbyCode);
-      }, 3000);
+        if (currentLobbyCode) {
+          fetchRecentMembers(currentLobbyCode);
+          pruneExpiredMembers();
+        }
+      }, 2500);
 
       // Écouter également via SSE pour temps réel
       try {
@@ -1822,9 +1832,16 @@
         memberStreamSource = null;
       }
       if (currentLobbyCode) {
-        relayFetch(`${currentLobbyCode}_MEMBERS`, { method: "POST", body: `LEAVE:${myMemberId}` }).catch(() => {});
+        const leaveBody = `LEAVE:${myMemberId}`;
+        try {
+          if (navigator.sendBeacon) {
+            navigator.sendBeacon(`${RELAY_BASE}${currentLobbyCode}_MEMBERS`, leaveBody);
+          }
+        } catch(e) {}
+        relayFetch(`${currentLobbyCode}_MEMBERS`, { method: "POST", body: leaveBody, keepalive: true }).catch(() => {});
       }
       lobbyMembers = {};
+      updateSquadUI();
     }
 
     async function relayGetLatest(key) {
@@ -1948,10 +1965,12 @@
       }
 
       // Trouver la correspondance dans le dictionnaire bi-directionnel
-      const pairMatch = MAP_PAIRS.find(p => {
-        return cleanStr(p.fr) === cleanTarget || cleanStr(p.en) === cleanTarget ||
-               cleanStr(p.fr).includes(cleanTarget) || cleanStr(p.en).includes(cleanTarget) ||
-               cleanTarget.includes(cleanStr(p.fr)) || cleanTarget.includes(cleanStr(p.en));
+      let pairMatch = MAP_PAIRS.find(p => {
+        const cFr = cleanStr(p.fr);
+        const cEn = cleanStr(p.en);
+        return cFr === cleanTarget || cEn === cleanTarget ||
+               cFr.includes(cleanTarget) || cEn.includes(cleanTarget) ||
+               cleanTarget.includes(cFr) || cleanTarget.includes(cEn);
       });
 
       let targetMapObj = null;
@@ -1965,7 +1984,12 @@
 
       // Fallback recherche classique dans MAPS
       if (!targetMapObj) {
-        targetMapObj = MAPS.find(m => cleanStr(m.name) === cleanTarget || cleanStr(m.name).includes(cleanTarget));
+        targetMapObj = MAPS.find(m => cleanStr(m.name) === cleanTarget || cleanStr(m.name).includes(cleanTarget) || cleanTarget.includes(cleanStr(m.name)));
+      }
+
+      // Dernier fallback direct
+      if (!targetMapObj && pairMatch) {
+        targetMapObj = (currentLanguage === "EN" ? DEFAULT_MAPS_EN : DEFAULT_MAPS_FR).find(m => cleanStr(m.name) === cleanStr(currentLanguage === "EN" ? pairMatch.en : pairMatch.fr));
       }
 
       if (targetMapObj) {
@@ -1978,11 +2002,28 @@
       }
     }
 
+    // Libération instantanée de la place si on quitte l'onglet ou l'application sur iPhone / Android
+    window.addEventListener("pagehide", () => {
+      if (currentLobbyCode) {
+        try {
+          navigator.sendBeacon(`${RELAY_BASE}${currentLobbyCode}_MEMBERS`, `LEAVE:${myMemberId}`);
+        } catch(e) {}
+      }
+    });
+    window.addEventListener("beforeunload", () => {
+      if (currentLobbyCode) {
+        try {
+          navigator.sendBeacon(`${RELAY_BASE}${currentLobbyCode}_MEMBERS`, `LEAVE:${myMemberId}`);
+        } catch(e) {}
+      }
+    });
+
     // Réveil immédiat si retour au premier plan sur iPhone / iOS / Android
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible" && currentLobbyCode) {
         pollLobbyOnce();
         sendHeartbeat();
+        pruneExpiredMembers();
       }
     });
     window.addEventListener("focus", () => {
