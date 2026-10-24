@@ -1501,7 +1501,7 @@
       // Si on est dans un Lobby et qu'on a sélectionné la carte soi-même : diffuser au Lobby !
       if (!fromSync && currentLobbyCode) {
         lastSyncedMapName = map.name;
-        fetch(`${RELAY_BASE}${currentLobbyCode}`, { method: "POST", body: map.name })
+        relayFetch(`${currentLobbyCode}`, { method: "POST", body: map.name })
           .catch(() => {});
         showToast("📤 Carte diffusée au Lobby : " + map.name);
       }
@@ -1624,7 +1624,31 @@
       }
     }
 
-    const RELAY_BASE = "https://ntfy.envs.net/dbdmaps731-";
+    const RELAY_SERVERS = [
+      "https://ntfy.adminforge.de/dbdmaps731-",
+      "https://ntfy.sh/dbdmaps731-",
+      "https://ntfy.envs.net/dbdmaps731-"
+    ];
+    let currentRelayIdx = 0;
+    let RELAY_BASE = RELAY_SERVERS[0];
+
+    async function relayFetch(path, options = {}) {
+      for (let attempt = 0; attempt < RELAY_SERVERS.length; attempt++) {
+        const base = RELAY_SERVERS[(currentRelayIdx + attempt) % RELAY_SERVERS.length];
+        try {
+          const resp = await fetch(`${base}${path}`, options);
+          if (resp.status === 429) {
+            continue;
+          }
+          currentRelayIdx = (currentRelayIdx + attempt) % RELAY_SERVERS.length;
+          RELAY_BASE = base;
+          return resp;
+        } catch (e) {
+          if (attempt === RELAY_SERVERS.length - 1) throw e;
+        }
+      }
+      return null;
+    }
 
     // Mise à jour de l'affichage des 4 slots de survivants
     function updateSquadUI() {
@@ -1679,7 +1703,7 @@
       const myName = getLocalPlayerName();
       const myPlatform = getPlatform();
       const payload = `PING:${myMemberId}:${myPlatform}:${myName}:${isHost ? "1" : "0"}`;
-      fetch(`${RELAY_BASE}${currentLobbyCode}_MEMBERS`, { method: "POST", body: payload }).catch(() => {});
+      relayFetch(`${currentLobbyCode}_MEMBERS`, { method: "POST", body: payload }).catch(() => {});
     }
 
     function processMemberMessage(raw) {
@@ -1722,6 +1746,26 @@
       // Les membres restent affichés constamment dans l'escouade jusqu'à ce qu'ils quittent le lobby ou ferment l'application
     }
 
+    let memberPollTimer = null;
+    async function fetchRecentMembers(code) {
+      if (!code) return;
+      try {
+        const resp = await relayFetch(`${code}_MEMBERS/json?poll=1&since=12h&_cb=${Date.now()}`, { cache: "no-store" });
+        if (resp && resp.ok) {
+          const txt = await resp.text();
+          for (const line of txt.split("\n")) {
+            if (!line.trim()) continue;
+            try {
+              const ev = JSON.parse(line);
+              if (ev.event === "message" && ev.message) {
+                processMemberMessage(ev.message);
+              }
+            } catch (e) {}
+          }
+        }
+      } catch (e) {}
+    }
+
     async function startMemberPresence(code) {
       stopMemberPresence();
       lobbyMembers = {};
@@ -1739,27 +1783,17 @@
       sendHeartbeat();
       memberHeartbeatTimer = setInterval(() => {
         sendHeartbeat();
-      }, 6000);
+      }, 4500);
 
-      // Récupérer les membres récents
-      try {
-        const resp = await fetch(`${RELAY_BASE}${code}_MEMBERS/json?poll=1&since=12h&_cb=${Date.now()}`, { cache: "no-store" });
-        if (resp.ok) {
-          const txt = await resp.text();
-          for (const line of txt.split("\n")) {
-            if (!line.trim()) continue;
-            try {
-              const ev = JSON.parse(line);
-              if (ev.event === "message" && ev.message) {
-                processMemberMessage(ev.message);
-              }
-            } catch (e) {}
-          }
-        }
-      } catch (e) {}
+      // Récupérer les membres récents et scruter en boucle pour iOS
+      fetchRecentMembers(code);
+      memberPollTimer = setInterval(() => {
+        if (currentLobbyCode) fetchRecentMembers(currentLobbyCode);
+      }, 3000);
 
-      // Écouter via SSE
+      // Écouter également via SSE pour temps réel
       try {
+        if (memberStreamSource) { try { memberStreamSource.close(); } catch(e){} memberStreamSource = null; }
         memberStreamSource = new EventSource(`${RELAY_BASE}${code}_MEMBERS/sse`);
         memberStreamSource.onmessage = (e) => {
           if (e.data) {
@@ -1779,18 +1813,22 @@
         clearInterval(memberHeartbeatTimer);
         memberHeartbeatTimer = null;
       }
+      if (memberPollTimer) {
+        clearInterval(memberPollTimer);
+        memberPollTimer = null;
+      }
       if (memberStreamSource) {
         try { memberStreamSource.close(); } catch (e) {}
         memberStreamSource = null;
       }
       if (currentLobbyCode) {
-        fetch(`${RELAY_BASE}${currentLobbyCode}_MEMBERS`, { method: "POST", body: `LEAVE:${myMemberId}` }).catch(() => {});
+        relayFetch(`${currentLobbyCode}_MEMBERS`, { method: "POST", body: `LEAVE:${myMemberId}` }).catch(() => {});
       }
       lobbyMembers = {};
     }
 
     async function relayGetLatest(key) {
-      const resp = await fetch(`${RELAY_BASE}${key}/json?poll=1&since=latest&_cb=${Date.now()}`, { cache: "no-store" });
+      const resp = await relayFetch(`${key}/json?poll=1&since=latest&_cb=${Date.now()}`, { cache: "no-store" });
       if (!resp.ok) return null;
       const raw = await resp.text();
       let last = null;
@@ -1963,7 +2001,7 @@
       
       // Vérification préalable du nombre de joueurs dans le lobby
       try {
-        const resp = await fetch(`${RELAY_BASE}${code}_MEMBERS/json?poll=1&since=12h&_cb=${Date.now()}`, { cache: "no-store" });
+        const resp = await relayFetch(`${code}_MEMBERS/json?poll=1&since=12h&_cb=${Date.now()}`, { cache: "no-store" });
         if (resp.ok) {
           const txt = await resp.text();
           const activeIds = new Set();
@@ -1997,7 +2035,7 @@
         code += chars.charAt(Math.floor(Math.random() * chars.length));
       }
       try {
-        await fetch(`${RELAY_BASE}${code}`, {
+        await relayFetch(code, {
           method: "POST",
           body: "LOBBY_CREATED"
         });
@@ -2290,7 +2328,7 @@
         }
 
         const now = Math.floor(Date.now() / 1000);
-        await fetch(`${RELAY_BASE}ACTIVE_USERS_MOB`, {
+        await relayFetch("ACTIVE_USERS_MOB", {
           method: "POST",
           body: `${mobileId}:${CURRENT_MOBILE_VERSION}:${plat}:${now}`
         }).catch(() => {});
