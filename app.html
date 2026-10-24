@@ -1625,9 +1625,9 @@
     }
 
     const RELAY_SERVERS = [
-      "https://ntfy.adminforge.de/dbdmaps731-",
-      "https://ntfy.sh/dbdmaps731-",
-      "https://ntfy.envs.net/dbdmaps731-"
+      "https://ntfy.tedomum.fr/dbdmaps731-",
+      "https://ntfy.envs.net/dbdmaps731-",
+      "https://ntfy.adminforge.de/dbdmaps731-"
     ];
     let currentRelayIdx = 0;
     let RELAY_BASE = RELAY_SERVERS[0];
@@ -1745,7 +1745,7 @@
       const now = Date.now();
       let changed = false;
       for (const id in lobbyMembers) {
-        if (id !== myMemberId && (now - lobbyMembers[id].lastSeen) > 8000) {
+        if (id !== myMemberId && (now - lobbyMembers[id].lastSeen) > 35000) {
           delete lobbyMembers[id];
           changed = true;
         }
@@ -1790,16 +1790,11 @@
       sendHeartbeat();
       memberHeartbeatTimer = setInterval(() => {
         sendHeartbeat();
-      }, 4500);
+        pruneExpiredMembers();
+      }, 12000);
 
-      // Récupérer les membres récents et scruter en boucle avec pruning automatique (> 8s inactif)
+      // Récupérer les membres récents une seule fois à la connexion
       fetchRecentMembers(code);
-      memberPollTimer = setInterval(() => {
-        if (currentLobbyCode) {
-          fetchRecentMembers(currentLobbyCode);
-          pruneExpiredMembers();
-        }
-      }, 2500);
 
       // Écouter également via SSE pour temps réel
       try {
@@ -1891,7 +1886,6 @@
 
       startMemberPresence(currentLobbyCode);
       pollLobbyOnce();
-      lobbyPollTimer = setInterval(pollLobbyOnce, 1500);
 
       // Flux SSE temps réel pour synchronisation instantanée des cartes
       try {
@@ -2018,19 +2012,61 @@
       }
     });
 
+    function ensureStreamsActive() {
+      if (!currentLobbyCode) return;
+      if (!mapStreamSource || mapStreamSource.readyState === 2) {
+        try {
+          if (mapStreamSource) mapStreamSource.close();
+          mapStreamSource = new EventSource(`${RELAY_BASE}${currentLobbyCode}/sse`);
+          mapStreamSource.onmessage = async (e) => {
+            if (e.data) {
+              try {
+                const ev = JSON.parse(e.data);
+                if (ev.event === "message" && ev.message) {
+                  let val = ev.message.trim().replace(/^"|"$/g, "");
+                  if (val && val !== "null" && val !== "LOBBY_CREATED" && val.toLowerCase() !== lastSyncedMapName.toLowerCase()) {
+                    lastSyncedMapName = val;
+                    await onMapReceivedFromLobby(val);
+                  }
+                }
+              } catch (err) {}
+            }
+          };
+        } catch (e) {}
+      }
+      if (!memberStreamSource || memberStreamSource.readyState === 2) {
+        try {
+          if (memberStreamSource) memberStreamSource.close();
+          memberStreamSource = new EventSource(`${RELAY_BASE}${currentLobbyCode}_MEMBERS/sse`);
+          memberStreamSource.onmessage = (e) => {
+            if (e.data) {
+              try {
+                const parsed = JSON.parse(e.data);
+                if (parsed.message) processMemberMessage(parsed.message);
+              } catch (err) {
+                processMemberMessage(e.data);
+              }
+            }
+          };
+        } catch (e) {}
+      }
+    }
+
     // Réveil immédiat si retour au premier plan sur iPhone / iOS / Android
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible" && currentLobbyCode) {
+        ensureStreamsActive();
         pollLobbyOnce();
+        fetchRecentMembers(currentLobbyCode);
         sendHeartbeat();
         pruneExpiredMembers();
       }
     });
     window.addEventListener("focus", () => {
-      if (currentLobbyCode) { pollLobbyOnce(); sendHeartbeat(); }
+      if (currentLobbyCode) { ensureStreamsActive(); pollLobbyOnce(); sendHeartbeat(); }
     });
     window.addEventListener("pageshow", () => {
-      if (currentLobbyCode) { pollLobbyOnce(); sendHeartbeat(); }
+      if (currentLobbyCode) { ensureStreamsActive(); pollLobbyOnce(); sendHeartbeat(); }
     });
 
     btnJoinLobby.addEventListener("click", async () => {
