@@ -1,17 +1,19 @@
 {
-  "version": "2.1.2.1",
-  "display_version": "2.1.2",
-  "exe_size": 129836365,
-  "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.exe",
-  "apk_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.apk",
-  "relay_base_url": "https://ntfy.tedomum.fr/",
-  "changelog": "🚀 Version 2.1.2 : Verrouillage automatique de la carte pendant toute la partie une fois détectée + Moteur OCR Neige/Ormond + Noms du bandeau alignés.",
-  "discord_url": "https://discord.gg/sHVttN4ZdZ",
-  "mobile_version": "2.1.2",
-  "admin_alert": {
-    "enabled": true,
-    "min_version": "2.1.2.1",
-    "message": "Une nouvelle mise à jour majeure de DBD MAP (v2.1.2) est disponible ! Veuillez mettre à jour le logiciel pour profiter du nouveau moteur OCR et des dernières corrections.",
-    "date": "25/10/2026 15:42"
-  }
+    "version":  "2.1.2.2",
+    "display_version":  "2.1.2",
+    "exe_size":  129846491,
+    "pc_download_url":  "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.exe",
+    "apk_download_url":  "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.apk",
+    "relay_base_url":  "https://ntfy.tedomum.fr/",
+    "changelog":  "🚀 Version 2.1.2 : Prise en charge bilingue complète (Français \u0026 Anglais) pour les synchronisations et alertes + OCR et verrouillage en partie.",
+    "changelog_en":  "🚀 Version 2.1.2 : Full bilingual support (French \u0026 English) for map synchronization and update dialogs + OCR and trial map lock.",
+    "discord_url":  "https://discord.gg/sHVttN4ZdZ",
+    "mobile_version":  "2.1.2",
+    "admin_alert":  {
+                        "enabled":  true,
+                        "min_version":  "2.1.2.2",
+                        "message":  "Une nouvelle mise à jour de DBD MAP (v2.1.2) est disponible ! Veuillez mettre à jour le logiciel pour profiter des messages et synchronisations bilingues (FR/EN).",
+                        "message_en":  "A new update for DBD MAP (v2.1.2) is available! Please update the software to enjoy bilingual messages and map synchronization (FR/EN).",
+                        "date":  "25/10/2026 20:12"
+                    }
 }
