@@ -1108,14 +1108,14 @@
 
     // Bi-directional dictionary of 44 official maps
     const MAP_PAIRS = [
-      { fr: "Abattoir Putride", en: "Rancid Abattoir", fileFr: "Abattoir Putride.png", fileEn: "Rancid Abattoir.png" },
-      { fr: "Aile Est du Commissariat de Raccoon City", en: "Raccoon City Police Station East Wing", fileFr: "Aile_Est_du_Commissariat_de_Raccoon_City.png", fileEn: "Raccoon City Police Station East Wing.png" },
-      { fr: "Aile Ouest du Commissariat de Raccoon City", en: "Raccoon City Police Station West Wing", fileFr: "Aile_Ouest_du_Commissariat_de_Raccoon_City.png", fileEn: "Raccoon City Police Station West Wing.png" },
+      { fr: "Abattoir Putride", en: "Rancid Abbatoir", aliases: "Rancid Abattoir", fileFr: "Abattoir Putride.png", fileEn: "Rancid Abattoir.png" },
+      { fr: "Aile Est du Commissariat de Raccoon City", en: "Raccoon City Police Station East Wing", aliases: "RPD East", fileFr: "Aile_Est_du_Commissariat_de_Raccoon_City.png", fileEn: "Raccoon City Police Station East Wing.png" },
+      { fr: "Aile Ouest du Commissariat de Raccoon City", en: "RPD West", aliases: "Raccoon City Police Station West Wing", fileFr: "Aile_Ouest_du_Commissariat_de_Raccoon_City.png", fileEn: "Raccoon City Police Station West Wing.png" },
       { fr: "Aire de Corbeaux", en: "Eyrie of Crows", fileFr: "Aire de Corbeaux.png", fileEn: "Eyrie of Crows.png" },
-      { fr: "Atelier Misérable", en: "Misery's Workshop", fileFr: "Atelier Misérable.png", fileEn: "Misery's Workshop.png" },
+      { fr: "Atelier Misérable", en: "Wretched Shop", aliases: "Misery's Workshop", fileFr: "Atelier Misérable.png", fileEn: "Misery's Workshop.png" },
       { fr: "Cabane du Sang", en: "Blood Lodge", fileFr: "Cabane du Sang.png", fileEn: "Blood Lodge.png" },
       { fr: "Cellier Sinistre", en: "Grim Pantry", fileFr: "Cellier Sinistre.png", fileEn: "Grim Pantry.png" },
-      { fr: "Centre de Traitement", en: "Treatment Theatre", fileFr: "Centre de Traitement.png", fileEn: "Treatment Theatre.png" },
+      { fr: "Centre de Traitement", en: "Treatment Theater", aliases: "Treatment Theatre", fileFr: "Centre de Traitement.png", fileEn: "Treatment Theatre.png" },
       { fr: "Champs Pourris", en: "Rotten Fields", fileFr: "Champs Pourris.png", fileEn: "Rotten Fields.png" },
       { fr: "Chapelle du Père Campbell", en: "Father Campbell's Chapel", fileFr: "Chapelle du Père Campbell.png", fileEn: "Father Campbell's Chapel.png" },
       { fr: "Dernière Demeure d'Azarov", en: "Azarov's Resting Place", fileFr: "Dernière Demeure d'Azarov.png", fileEn: "Azarov's Resting Place.png" },
@@ -1123,16 +1123,16 @@
       { fr: "Entrepôt Grondant", en: "Groaning Storehouse", fileFr: "Entrepôt Grondant.png", fileEn: "Groaning Storehouse.png" },
       { fr: "Fonderie de Souffrance", en: "Ironworks of Misery", fileFr: "Fonderie de Souffrance.png", fileEn: "Ironworks of Misery.png" },
       { fr: "Forêt Profonde", en: "Shelter Woods", fileFr: "Forêt Profonde.png", fileEn: "Shelter Woods.png" },
-      { fr: "Freddy Fazbear's Pizza", en: "Freddy Fazbear's Pizza", fileFr: "Freddy Fazbear's Pizza.png", fileEn: "Freddy Fazbear's Pizza.png" },
-      { fr: "Gas Haven", en: "Gas Haven", fileFr: "Gas Haven.png", fileEn: "Gas Haven.png" },
-      { fr: "Illusion du Farceur", en: "Trickster's Illusion", fileFr: "Illusion du Farceur.png", fileEn: "Trickster's Illusion.png" },
+      { fr: "F. Fazbear's Pizza", en: "Freddy Fazbear's Pizza", aliases: "Freddy Fazbear's Pizza", fileFr: "Freddy Fazbear's Pizza.png", fileEn: "Freddy Fazbear's Pizza.png" },
+      { fr: "Gas Heaven", en: "Gas Heaven", aliases: "Gas Haven", fileFr: "Gas Haven.png", fileEn: "Gas Haven.png" },
+      { fr: "Illusion du Farceur", en: "Trickster's Delusion", aliases: "Trickster's Illusion", fileFr: "Illusion du Farceur.png", fileEn: "Trickster's Illusion.png" },
       { fr: "Jardin de la Joie", en: "Garden of Joy", fileFr: "Jardin de la Joie.png", fileEn: "Garden of Joy.png" },
       { fr: "La Ferme Thompson", en: "Thompson House", fileFr: "La Ferme Thompson.png", fileEn: "Thompson House.png" },
       { fr: "La Maison Maternelle", en: "Mother's Dwelling", fileFr: "La Maison Maternelle.png", fileEn: "Mother's Dwelling.png" },
       { fr: "La Place Dévastée", en: "The Shattered Square", fileFr: "La Place Dévastée.png", fileEn: "The Shattered Square.png" },
       { fr: "Le Complexe Souterrain", en: "The Underground Complex", fileFr: "Le Complexe Souterrain.png", fileEn: "The Underground Complex.png" },
       { fr: "Le Jeu", en: "The Game", fileFr: "Le Jeu.png", fileEn: "The Game.png" },
-      { fr: "Le Pâle Rose", en: "The Pale Rose", fileFr: "Le Pâle Rose.png", fileEn: "The Pale Rose.png" },
+      { fr: "Le Pâle Rose", en: "Pale Rose", aliases: "The Pale Rose", fileFr: "Le Pâle Rose.png", fileEn: "The Pale Rose.png" },
       { fr: "Le Temple de Purgation", en: "Temple of Purgation", fileFr: "Le Temple de Purgation.png", fileEn: "Temple of Purgation.png" },
       { fr: "Mine du Lac d'Ormond", en: "Ormond Lake Mine", fileFr: "Mine du Lac d'Ormond.png", fileEn: "Ormond Lake Mine.png" },
       { fr: "Place de Greenville", en: "Greenville Square", fileFr: "Place de Greenville.png", fileEn: "Greenville Square.png" },
@@ -1146,9 +1146,9 @@
       { fr: "Sanctuaire du Courroux", en: "Sanctum of Wrath", fileFr: "Sanctuaire du Courroux.png", fileEn: "Sanctum of Wrath.png" },
       { fr: "Site d'Atterrissage de Toba", en: "Toba Landing", fileFr: "Site d'Atterrissage de Toba.png", fileEn: "Toba Landing.png" },
       { fr: "Station du Mont Ormond", en: "Mount Ormond Resort", fileFr: "Station du Mont Ormond.png", fileEn: "Mount Ormond Resort.png" },
-      { fr: "Terrain de la Casse", en: "Wrecker's Yard", fileFr: "Terrain de la Casse.png", fileEn: "Wrecker's Yard.png" },
+      { fr: "Terrain de la Casse", en: "Wreckers Yard", aliases: "Wrecker's Yard", fileFr: "Terrain de la Casse.png", fileEn: "Wrecker's Yard.png" },
       { fr: "Vallon des Tourments", en: "Torment Creek", fileFr: "Vallon des Tourments.png", fileEn: "Torment Creek.png" },
-      { fr: "École Maternelle de Badham", en: "Badham Preschool", fileFr: "École Maternelle de Badham.png", fileEn: "Badham Preschool.png" },
+      { fr: "École Maternelle de Badham", en: "Badham Preschool 1", aliases: "Badham Preschool", fileFr: "École Maternelle de Badham.png", fileEn: "Badham Preschool.png" },
       { fr: "École Primaire Midwich", en: "Midwich Elementary School", fileFr: "ecole_primaire_midwich.gif", fileEn: "Midwich Elementary School.gif" },
       { fr: "Épave du Nostromo", en: "Nostromo Wreckage", fileFr: "Épave du Nostromo.png", fileEn: "Nostromo Wreckage.png" },
       { fr: "Étable en Ruine", en: "Fractured Cowshed", fileFr: "Étable en Ruine.png", fileEn: "Fractured Cowshed.png" }
@@ -1173,7 +1173,7 @@
       creator: "Exprimes",
       src: "maps/Exprimes/" + p.fileFr,
       fallbackSrc: "maps/Maps_FR/" + p.fileFr,
-      altName: p.en
+      altName: p.en + " " + (p.aliases || "")
     }));
 
     const DEFAULT_MAPS_EN = MAP_PAIRS.map(p => ({
@@ -1181,7 +1181,7 @@
       creator: "Exprimes",
       src: "maps/Maps_EN/" + p.fileEn,
       fallbackSrc: "maps/Maps_EN/" + p.fileEn,
-      altName: p.fr
+      altName: p.fr + " " + (p.aliases || "")
     }));
 
     // Langue actuelle mémorisée
@@ -1962,9 +1962,10 @@
       let pairMatch = MAP_PAIRS.find(p => {
         const cFr = cleanStr(p.fr);
         const cEn = cleanStr(p.en);
-        return cFr === cleanTarget || cEn === cleanTarget ||
-               cFr.includes(cleanTarget) || cEn.includes(cleanTarget) ||
-               cleanTarget.includes(cFr) || cleanTarget.includes(cEn);
+        const cAl = cleanStr(p.aliases || "");
+        return cFr === cleanTarget || cEn === cleanTarget || (cAl && cAl === cleanTarget) ||
+               cFr.includes(cleanTarget) || cEn.includes(cleanTarget) || (cAl && cAl.includes(cleanTarget)) ||
+               cleanTarget.includes(cFr) || cleanTarget.includes(cEn) || (cAl && cleanTarget.includes(cAl));
       });
 
       let targetMapObj = null;
