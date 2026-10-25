@@ -1,17 +1,17 @@
 {
-  "version": "2.0.2.2",
+  "version": "2.0.2.3",
   "display_version": "2.0.2",
-  "exe_size": 129834292,
+  "exe_size": 129833287,
   "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.exe",
   "apk_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.apk",
   "relay_base_url": "https://ntfy.tedomum.fr/",
-  "changelog": "⚡ Mise à jour v2.0.2 : Détection OCR spéciale Neige/Fond Clair (Mount Ormond Resort) + correction inversion Ormond + serveur relais ultra-rapide.",
+  "changelog": "⚡ Mise à jour v2.0.2 : Moteur OCR Ultra-Précis (Filtre de contour d'ombre portée + consensus multi-frame + correction glyphique + support Ultra-Wide) + correctif Ormond.",
   "discord_url": "https://discord.gg/sHVttN4ZdZ",
   "mobile_version": "2.0.2",
   "admin_alert": {
     "enabled": true,
-    "min_version": "2.0.2.2",
+    "min_version": "2.0.2.3",
     "message": "Une nouvelle mise à jour importante de DBD MAP est disponible ! Veuillez mettre à jour le logiciel pour continuer à profiter de toutes les cartes et fonctionnalités.",
-    "date": "25/10/2026 12:58"
+    "date": "25/10/2026 13:14"
   }
 }
