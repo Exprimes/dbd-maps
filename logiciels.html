@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Nos Logiciels • OMNI Suite</title>
+  
+  <link rel="icon" type="image/png" href="app_icon.png">
+  <link rel="apple-touch-icon" href="app_icon.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="description" content="Catalogue officiel des logiciels et outils OMNI : DBDMapsOmni v2.1.2 (overlay 44 cartes HD), OMNI Uninstaller Pro et utilitaires Windows.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://exprimes.github.io/dbd-maps/logiciels.html">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #06040a;
+      color: #f5f3ff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+    .bg-grid {
+      background-size: 50px 50px;
+      background-image: 
+        linear-gradient(to right, rgba(168, 85, 247, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(168, 85, 247, 0.04) 1px, transparent 1px);
+    }
+    .violet-nebula-top {
+      position: absolute;
+      top: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1000px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(147, 51, 234, 0.28) 0%, rgba(126, 34, 206, 0.12) 45%, transparent 75%);
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .violet-nebula-right {
+      position: absolute;
+      top: 35%;
+      right: -15%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, rgba(91, 33, 182, 0.05) 50%, transparent 70%);
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .nav-dock {
+      background: rgba(18, 12, 31, 0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.8), 0 0 30px -10px rgba(147, 51, 234, 0.25);
+    }
+    .btn-violet {
+      background: linear-gradient(135deg, #a855f7 0%, #7c3aed 50%, #6d28d9 100%);
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.45);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-violet:hover {
+      box-shadow: 0 0 45px rgba(168, 85, 247, 0.75);
+      transform: translateY(-2px) scale(1.02);
+    }
+    .btn-glass {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      backdrop-filter: blur(10px);
+      transition: all 0.25s ease;
+    }
+    .btn-glass:hover {
+      background: rgba(168, 85, 247, 0.12);
+      border-color: rgba(192, 132, 252, 0.6);
+      transform: translateY(-2px);
+    }
+    .showcase-card {
+      background: linear-gradient(180deg, rgba(23, 16, 42, 0.75) 0%, rgba(12, 8, 22, 0.85) 100%);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      border-radius: 24px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.7);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .showcase-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(192, 132, 252, 0.6), transparent);
+      opacity: 0.6;
+    }
+    .showcase-card:hover {
+      border-color: rgba(192, 132, 252, 0.55);
+      box-shadow: 0 30px 60px -20px rgba(147, 51, 234, 0.35);
+    }
+    .sparkle {
+      position: absolute;
+      border-radius: 50%;
+      background: #c084fc;
+      pointer-events: none;
+      animation: floatSparkle 8s infinite linear;
+    }
+    @keyframes floatSparkle {
+      0% { transform: translateY(0) scale(0.5); opacity: 0; }
+      30% { opacity: 0.8; }
+      70% { opacity: 0.6; }
+      100% { transform: translateY(-350px) scale(1.2); opacity: 0; }
+    }
+    .neon-pill {
+      background: rgba(147, 51, 234, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+    }
+    .media-tab {
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      color: #d8b4fe;
+    }
+    .media-tab.active {
+      background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+      color: #ffffff;
+      border-color: #c084fc;
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+    }
+  </style>
+</head>
+<body class="bg-grid relative">
+
+  <div class="violet-nebula-top"></div>
+  <div class="violet-nebula-right"></div>
+  <div id="sparkles-container"></div>
+
+  <!-- NAVIGATION DOCK FLOTTANTE -->
+  <header class="sticky top-5 z-50 px-4 w-full flex justify-center">
+    <nav class="nav-dock rounded-full py-3 px-7 flex items-center justify-between gap-8 max-w-5xl w-full">
+      
+      <!-- LOGO OMNI -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-purple-700 via-fuchsia-600 to-violet-400 p-[1px] shadow-[0_0_20px_rgba(168,85,247,0.5)] group-hover:scale-105 transition">
+          <div class="w-full h-full rounded-full bg-[#0d0718] flex items-center justify-center font-black text-white text-base">
+            Ω
+          </div>
+        </div>
+        <span class="font-black text-lg tracking-wider text-white">OMNI<span class="text-fuchsia-400">.</span></span>
+      </a>
+
+      <!-- Liens rapides -->
+      <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-gray-300">
+        <a href="index.html" class="hover:text-fuchsia-300 transition">Accueil</a>
+        <a href="logiciels.html" class="text-fuchsia-400 font-bold border-b border-fuchsia-400 pb-0.5">Nos Logiciels</a>
+        <a href="https://discord.gg/3tvRuWHjRy" target="_blank" rel="noopener" class="hover:text-fuchsia-300 transition flex items-center gap-1.5 text-purple-300">
+          <span>Discord</span>
+          <span class="text-xs">&nearr;</span>
+        </a>
+      </div>
+
+      <!-- Bouton Discord -->
+      <a href="https://discord.gg/3tvRuWHjRy" target="_blank" rel="noopener" class="btn-violet text-white text-xs font-black tracking-wide px-5 py-2.5 rounded-full flex items-center gap-2">
+        <span>DISCORD</span>
+        <span>&rarr;</span>
+      </a>
+
+    </nav>
+  </header>
+
+  <!-- ================= EN-TÊTE DE LA PAGE NOS LOGICIELS ================= -->
+  <main class="relative z-10 max-w-5xl mx-auto px-6 pt-16 pb-12 flex flex-col items-center text-center">
+    
+    <div class="mb-4 flex justify-center w-full">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full neon-pill text-xs text-purple-200 font-bold">
+        <span class="w-2 h-2 rounded-full bg-fuchsia-400 animate-pulse shadow-[0_0_10px_#e879f9]"></span>
+        <span>CATALOGUE OFFICIEL DES LOGICIELS OMNI</span>
+      </div>
+    </div>
+
+    <h1 class="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-tight mb-4">
+      Nos Logiciels & Outils
+    </h1>
+
+    <p class="max-w-2xl mx-auto text-purple-200/70 text-base sm:text-lg leading-relaxed mb-6 font-normal">
+      Explorez l'ensemble de notre suite indépendante : compagnons de jeu officiels, outils in-game transparents et utilitaires système pour Windows.
+    </p>
+
+  </main>
+
+  <!-- ================= SECTION VITRINE LOGICIELS ================= -->
+  <section class="relative z-10 max-w-6xl mx-auto px-6 pb-20">
+
+    <div class="space-y-12">
+
+      <!-- ================= LOGICIEL 1 : DBDMAPSOMNI ================= -->
+      <article id="dbd-map" class="showcase-card">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
+          
+          <!-- LECTEUR VIDÉO ET CAPTURE D'ÉCRAN (7 colonnes) -->
+          <div class="lg:col-span-7 bg-[#0b0714] p-5 sm:p-7 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-purple-900/30">
+            
+            <div class="flex items-center justify-between mb-3 px-1">
+              <div class="flex items-center gap-2">
+                <button onclick="showMediaTab('video')" id="tab-btn-video" class="media-tab active flex items-center gap-1.5">
+                  <span>▶ Vidéo Démo (v2)</span>
+                </button>
+                <button onclick="showMediaTab('image')" id="tab-btn-image" class="media-tab flex items-center gap-1.5">
+                  <span>📸 Capture d'Écran HD</span>
+                </button>
+              </div>
+              <span class="text-[11px] font-mono text-purple-400 hidden sm:inline">2560 × 1391 HD</span>
+            </div>
+
+            <div class="relative rounded-2xl overflow-hidden border border-purple-500/30 shadow-[0_0_40px_rgba(168,85,247,0.3)] bg-black group">
+              
+              <!-- 1. VIDÉO V2 -->
+              <div id="media-video-container" class="w-full">
+                <video id="player-dbd" class="w-full h-auto rounded-2xl object-cover" controls preload="metadata" poster="capture_dbd_map_web.jpg">
+                  <source src="v2_avec_musique.mp4" type="video/mp4">
+                  Votre navigateur ne supporte pas la balise vidéo.
+                </video>
+              </div>
+
+              <!-- 2. CAPTURE D'ÉCRAN HD -->
+              <div id="media-image-container" class="w-full hidden">
+                <img src="capture_dbd_map_web.jpg" alt="Capture d'écran de DBDMapsOmni v2.1.2" class="w-full h-auto object-cover group-hover:scale-105 transition-all duration-700">
+                <div class="absolute bottom-3 right-3">
+                  <a href="capture_dbd_map.png" target="_blank" class="bg-black/80 hover:bg-black text-white text-[11px] font-bold px-3 py-1.5 rounded-lg border border-white/20 backdrop-blur-md transition flex items-center gap-1.5">
+                    <span>Agrandir en 2K</span>
+                    <span>&nearr;</span>
+                  </a>
+                </div>
+              </div>
+
+              <div class="absolute top-3 left-3 bg-[#0a0513]/90 backdrop-blur-md px-3 py-1 rounded-full border border-purple-400/40 text-[11px] text-white font-bold flex items-center gap-1.5 shadow-lg pointer-events-none">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span id="media-label">Démonstration en Jeu</span>
+              </div>
+            </div>
+
+            <p class="text-[11px] text-purple-300/60 text-center mt-2">
+              Vidéo de présentation officielle avec musique & aperçu en direct de l'overlay transparent.
+            </p>
+
+          </div>
+
+          <!-- FICHE DESCRIPTIVE -->
+          <div class="lg:col-span-5 p-7 sm:p-9 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-4">
+                <span class="px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/40 text-purple-300 text-xs font-bold uppercase tracking-wider">
+                  Gaming Companion
+                </span>
+                <span class="text-xs font-mono text-purple-400/80">v2.1.2</span>
+              </div>
+
+              <h2 class="text-3xl font-black text-white mb-3">
+                DBDMapsOmni
+              </h2>
+
+              <p class="text-sm text-purple-200/80 leading-relaxed mb-6">
+                Le compagnon officiel Dead by Daylight. Affichez les 44 cartes HD officielles en surimpression transparente directe pendant votre partie ou utilisez le lobby d'équipe synchronisé sur mobile.
+              </p>
+
+              <div class="space-y-3 mb-8 text-xs font-semibold text-gray-200">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-5 h-5 rounded-full bg-purple-600/30 border border-purple-500/50 flex items-center justify-center text-fuchsia-400 font-bold">✓</div>
+                  <span>44 Cartes HD avec repérages & callouts 1 à 12</span>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <div class="w-5 h-5 rounded-full bg-purple-600/30 border border-purple-500/50 flex items-center justify-center text-fuchsia-400 font-bold">✓</div>
+                  <span>Transparence réglable & Clic à travers le jeu</span>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <div class="w-5 h-5 rounded-full bg-purple-600/30 border border-purple-500/50 flex items-center justify-center text-fuchsia-400 font-bold">✓</div>
+                  <span>100% Léger, 0% drop de FPS & sans risque EAC</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Boutons d'action -->
+            <div class="flex flex-col sm:flex-row gap-3">
+              <a href="https://github.com/Exprimes/dbd-maps/releases" class="btn-violet text-white text-xs font-black tracking-wide py-3.5 px-6 rounded-xl text-center flex-1">
+                DBDMapsOmni v2.1.2 (.exe)
+              </a>
+              <a href="app.html" class="btn-glass text-white text-xs font-bold py-3.5 px-5 rounded-xl text-center flex items-center justify-center gap-1.5">
+                <span>WEB APP</span>
+                <span>&rarr;</span>
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+      </article>
+
+      <!-- ================= LOGICIEL 2 : OMNI UNINSTALLER ================= -->
+      <article id="uninstaller" class="showcase-card">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
+          
+          <div class="lg:col-span-7 bg-[#0b0714] p-6 sm:p-8 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-purple-900/30">
+            
+            <div class="w-full rounded-2xl bg-[#140e24] border border-purple-500/30 shadow-[0_0_40px_rgba(147,51,234,0.2)] p-6">
+              
+              <div class="flex items-center justify-between border-b border-purple-900/40 pb-3 mb-5">
+                <div class="flex items-center gap-2">
+                  <div class="w-3 h-3 rounded-full bg-fuchsia-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-purple-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-indigo-500"></div>
+                  <span class="text-xs font-bold text-purple-200 ml-2">OMNI Uninstaller Pro</span>
+                </div>
+                <span class="text-xs font-mono text-purple-400">NETTOYAGE PROFOND</span>
+              </div>
+
+              <div class="bg-black/40 border border-purple-500/20 rounded-xl px-4 py-2.5 text-xs text-purple-300 mb-4 flex items-center justify-between">
+                <span>⚡ Recherche d'applications & fichiers résiduels...</span>
+                <span class="text-[10px] bg-purple-900/60 px-2 py-0.5 rounded text-fuchsia-300 font-mono">FORCAGE ACTIF</span>
+              </div>
+
+              <div class="space-y-2.5 text-xs">
+                <div class="bg-purple-950/20 border border-purple-800/30 p-3 rounded-xl flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <span class="text-xl">📦</span>
+                    <div>
+                      <div class="font-bold text-white">Logiciel Récalcitrant Exemple</div>
+                      <div class="text-[11px] text-purple-400/80">32 clés de registre orphelines • 2.1 Go libérables</div>
+                    </div>
+                  </div>
+                  <span class="px-3 py-1 rounded-lg bg-fuchsia-600/20 border border-fuchsia-500/40 text-fuchsia-300 font-bold text-[11px]">
+                    Désinstaller & Purger
+                  </span>
+                </div>
+
+                <div class="bg-purple-950/20 border border-purple-800/30 p-3 rounded-xl flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <span class="text-xl">🗑️</span>
+                    <div>
+                      <div class="font-bold text-white">Ancien Antivirus Résiduel</div>
+                      <div class="text-[11px] text-purple-400/80">Processus bloqué en arrière-plan détecté</div>
+                    </div>
+                  </div>
+                  <span class="px-3 py-1 rounded-lg bg-fuchsia-600/20 border border-fuchsia-500/40 text-fuchsia-300 font-bold text-[11px]">
+                    Suppression Forcée
+                  </span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="lg:col-span-5 p-7 sm:p-9 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-4">
+                <span class="px-3 py-1 rounded-full bg-fuchsia-500/15 border border-fuchsia-500/40 text-fuchsia-300 text-xs font-bold uppercase tracking-wider">
+                  Utilitaire Windows
+                </span>
+                <span class="text-xs font-mono text-purple-400/80">En développement</span>
+              </div>
+
+              <h2 class="text-3xl font-black text-white mb-3">
+                OMNI Uninstaller
+              </h2>
+
+              <p class="text-sm text-purple-200/80 leading-relaxed mb-6">
+                Le nettoyeur et désinstallateur radical pour votre PC. Supprimez définitivement les logiciels impossibles à désinstaller, éradiquez les résidus de clés dans le registre et gardez un Windows ultra-rapide.
+              </p>
+
+              <div class="space-y-3 mb-8 text-xs font-semibold text-gray-200">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-5 h-5 rounded-full bg-purple-600/30 border border-purple-500/50 flex items-center justify-center text-fuchsia-400 font-bold">✓</div>
+                  <span>Désinstallation forcée des programmes corrompus</span>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <div class="w-5 h-5 rounded-full bg-purple-600/30 border border-purple-500/50 flex items-center justify-center text-fuchsia-400 font-bold">✓</div>
+                  <span>Nettoyage profond sans toucher aux fichiers système</span>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <div class="w-5 h-5 rounded-full bg-purple-600/30 border border-purple-500/50 flex items-center justify-center text-fuchsia-400 font-bold">✓</div>
+                  <span>Zéro pub, zéro abonnement, légèreté absolue</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+              <button disabled class="btn-glass opacity-60 cursor-not-allowed text-xs font-bold py-3.5 px-6 rounded-xl text-center flex-1">
+                BÊTA PRIVÉE BIENTÔT DISPONIBLE
+              </button>
+              <a href="https://discord.gg/3tvRuWHjRy" target="_blank" rel="noopener" class="btn-violet text-white text-xs font-black tracking-wide py-3.5 px-5 rounded-xl text-center flex items-center justify-center gap-1.5">
+                <span>DISCORD</span>
+                <span>&rarr;</span>
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+      </article>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="relative z-10 border-t border-purple-900/30 py-12 text-center text-xs text-purple-300/60">
+    <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="text-white font-black text-sm tracking-wider">OMNI</span>
+        <span>•</span>
+        <span>Créateur de solutions logicielles indépendantes</span>
+      </div>
+      <div class="flex gap-6 text-purple-300">
+        <a href="index.html" class="hover:text-white transition">Accueil</a>
+        <a href="logiciels.html" class="hover:text-white transition text-white font-bold">Nos Logiciels</a>
+        <a href="https://discord.gg/3tvRuWHjRy" target="_blank" rel="noopener" class="hover:text-white transition">Serveur Discord</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const container = document.getElementById('sparkles-container');
+    for (let i = 0; i < 30; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = Math.random() * 100 + '%';
+      sparkle.style.top = (Math.random() * 100 + 10) + '%';
+      const size = Math.random() * 3 + 2;
+      sparkle.style.width = size + 'px';
+      sparkle.style.height = size + 'px';
+      sparkle.style.animationDuration = (Math.random() * 5 + 4) + 's';
+      sparkle.style.animationDelay = (Math.random() * 4) + 's';
+      container.appendChild(sparkle);
+    }
+
+    function showMediaTab(tab) {
+      const videoCont = document.getElementById('media-video-container');
+      const imgCont = document.getElementById('media-image-container');
+      const btnVid = document.getElementById('tab-btn-video');
+      const btnImg = document.getElementById('tab-btn-image');
+      const label = document.getElementById('media-label');
+      const player = document.getElementById('player-dbd');
+
+      if (tab === 'video') {
+        videoCont.classList.remove('hidden');
+        imgCont.classList.add('hidden');
+        btnVid.classList.add('active');
+        btnImg.classList.remove('active');
+        label.innerText = 'Vidéo Démo avec Musique';
+      } else {
+        videoCont.classList.add('hidden');
+        imgCont.classList.remove('hidden');
+        btnImg.classList.add('active');
+        btnVid.classList.remove('active');
+        label.innerText = 'Capture d\'Écran Officielle 2K';
+        if (player) player.pause();
+      }
+    }
+  </script>
+
+</body>
+</html>
