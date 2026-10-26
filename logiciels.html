@@ -8,8 +8,9 @@
   <meta http-equiv="Expires" content="0">
   <title>Nos Logiciels • OMNI Suite</title>
   
-  <link rel="icon" type="image/png" href="app_icon.png">
-  <link rel="apple-touch-icon" href="app_icon.png">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" href="assets_omni/omni_icone_logiciel.png">
+  <link rel="apple-touch-icon" href="assets_omni/omni_icone_logiciel.png">
   <link rel="manifest" href="manifest.json">
   <meta name="description" content="Catalogue officiel des logiciels et outils OMNI : DBDMapsOmni v2.1.2 (overlay 44 cartes HD), OMNI Uninstaller Pro et utilitaires Windows.">
   <meta name="robots" content="index, follow">
@@ -158,12 +159,11 @@
       
       <!-- LOGO OMNI -->
       <a href="index.html" class="flex items-center gap-3 group">
-        <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-purple-700 via-fuchsia-600 to-violet-400 p-[1px] shadow-[0_0_20px_rgba(168,85,247,0.5)] group-hover:scale-105 transition">
-          <div class="w-full h-full rounded-full bg-[#0d0718] flex items-center justify-center font-black text-white text-base">
-            Ω
-          </div>
+        <div class="relative w-9 h-9 flex items-center justify-center">
+          <div class="absolute inset-0 bg-purple-500/30 rounded-full blur-md group-hover:bg-fuchsia-500/50 transition duration-300"></div>
+          <img src="assets_omni/omni_icone_logiciel.png" alt="OMNI" class="relative w-9 h-9 object-contain drop-shadow-[0_0_12px_rgba(168,85,247,0.8)] group-hover:scale-110 transition duration-300">
         </div>
-        <span class="font-black text-lg tracking-wider text-white">OMNI<span class="text-fuchsia-400">.</span></span>
+        <span class="font-black text-xl tracking-wider text-white">OMNI<span class="text-fuchsia-400">.</span></span>
       </a>
 
       <!-- Liens rapides -->
@@ -272,9 +272,12 @@
                 <span class="text-xs font-mono text-purple-400/80">v2.1.2</span>
               </div>
 
-              <h2 class="text-3xl font-black text-white mb-3">
-                DBDMapsOmni
-              </h2>
+              <div class="flex items-center gap-3.5 mb-3">
+                <img src="assets_omni/omni_icone_logiciel.png" alt="DBDMapsOmni Icon" class="w-10 h-10 object-contain drop-shadow-[0_0_15px_rgba(168,85,247,0.8)]">
+                <h2 class="text-3xl font-black text-white">
+                  DBDMapsOmni
+                </h2>
+              </div>
 
               <p class="text-sm text-purple-200/80 leading-relaxed mb-6">
                 Le compagnon officiel Dead by Daylight. Affichez les 44 cartes HD officielles en surimpression transparente directe pendant votre partie ou utilisez le lobby d'équipe synchronisé sur mobile.
@@ -410,9 +413,12 @@
                 <span class="text-xs font-mono text-purple-400/80">En développement</span>
               </div>
 
-              <h2 class="text-3xl font-black text-white mb-3">
-                OMNI Uninstaller
-              </h2>
+              <div class="flex items-center gap-3.5 mb-3">
+                <img src="assets_omni/omni_icone_logiciel.png" alt="OMNI Uninstaller Icon" class="w-10 h-10 object-contain drop-shadow-[0_0_15px_rgba(168,85,247,0.8)]">
+                <h2 class="text-3xl font-black text-white">
+                  OMNI Uninstaller
+                </h2>
+              </div>
 
               <p class="text-sm text-purple-200/80 leading-relaxed mb-6">
                 Le nettoyeur et désinstallateur radical pour votre PC. Supprimez définitivement les logiciels impossibles à désinstaller, éradiquez les résidus de clés dans le registre et gardez un Windows ultra-rapide.

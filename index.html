@@ -8,8 +8,9 @@
   <meta http-equiv="Expires" content="0">
   <title>OMNI • Suite Logicielle & Compagnon Dead by Daylight</title>
   
-  <link rel="icon" type="image/png" href="app_icon.png">
-  <link rel="apple-touch-icon" href="app_icon.png">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" href="assets_omni/omni_icone_logiciel.png">
+  <link rel="apple-touch-icon" href="assets_omni/omni_icone_logiciel.png">
   <link rel="manifest" href="manifest.json">
   <meta name="description" content="OMNI • Suite d'outils indépendants pour joueurs et utilisateurs Windows : compagnon Dead by Daylight (44 cartes HD, overlay transparent, vidéo de présentation) et utilitaires système légers.">
   <meta name="keywords" content="OMNI, OMNI Community, Dead by Daylight, DBD MAP, overlay DBD, cartes DBD HD, utilitaires Windows, Exprimes">
@@ -23,7 +24,7 @@
   <meta property="og:title" content="OMNI • L'Expérience Logicielle Nouvelle Génération">
   <meta property="og:description" content="Découvrez OMNI : overlay Dead by Daylight 44 cartes HD, vidéo de démonstration avec musique, compagnon mobile synchronisé et suite d'utilitaires Windows. 100% Gratuit.">
   <meta property="og:url" content="https://exprimes.github.io/dbd-maps/">
-  <meta property="og:image" content="https://exprimes.github.io/dbd-maps/capture_dbd_map_web.jpg">
+  <meta property="og:image" content="https://exprimes.github.io/dbd-maps/assets_omni/omni_discord_banner.jpg">
   <meta property="og:locale" content="fr_FR">
 
   <!-- Twitter / X -->
@@ -221,13 +222,12 @@
     <nav class="nav-dock rounded-full py-3 px-7 flex items-center justify-between gap-8 max-w-5xl w-full">
       
       <!-- LOGO OMNI -->
-      <a href="#" class="flex items-center gap-3 group">
-        <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-purple-700 via-fuchsia-600 to-violet-400 p-[1px] shadow-[0_0_20px_rgba(168,85,247,0.5)] group-hover:scale-105 transition">
-          <div class="w-full h-full rounded-full bg-[#0d0718] flex items-center justify-center font-black text-white text-base">
-            Ω
-          </div>
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="relative w-9 h-9 flex items-center justify-center">
+          <div class="absolute inset-0 bg-purple-500/30 rounded-full blur-md group-hover:bg-fuchsia-500/50 transition duration-300"></div>
+          <img src="assets_omni/omni_icone_logiciel.png" alt="OMNI" class="relative w-9 h-9 object-contain drop-shadow-[0_0_12px_rgba(168,85,247,0.8)] group-hover:scale-110 transition duration-300">
         </div>
-        <span class="font-black text-lg tracking-wider text-white">OMNI<span class="text-fuchsia-400">.</span></span>
+        <span class="font-black text-xl tracking-wider text-white">OMNI<span class="text-fuchsia-400">.</span></span>
       </a>
 
       <!-- Liens rapides -->
@@ -250,8 +250,14 @@
   </header>
 
   <!-- ================= HERO SECTION SPECTACULAIRE ================= -->
-  <main class="relative z-10 max-w-5xl mx-auto px-6 pt-20 pb-16 flex flex-col items-center text-center">
+  <main class="relative z-10 max-w-5xl mx-auto px-6 pt-16 pb-16 flex flex-col items-center text-center">
     
+    <!-- BLASON LOGO OMNI D.A. OFFICIELLE -->
+    <div class="relative mb-6 group cursor-pointer">
+      <div class="absolute -inset-4 bg-gradient-to-r from-purple-600 via-fuchsia-500 to-violet-600 rounded-full blur-2xl opacity-40 group-hover:opacity-75 transition duration-500 animate-pulse"></div>
+      <img src="assets_omni/omni_icone_logiciel.png" alt="OMNI Titanium Crest" class="relative w-28 h-28 sm:w-36 sm:h-36 object-contain drop-shadow-[0_0_35px_rgba(168,85,247,0.9)] group-hover:scale-105 transition duration-300">
+    </div>
+
     <!-- Tag supérieur (centré sur sa propre ligne) -->
     <div class="mb-6 flex justify-center w-full">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full neon-pill text-xs text-purple-200 font-bold">
