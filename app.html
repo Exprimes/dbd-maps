@@ -998,7 +998,7 @@
         <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px; margin-bottom:14px;">
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <span style="font-size:0.8rem; color:#8b949e; font-weight:600;">Version actuelle installée :</span>
-            <span class="badge" id="currentVersionBadge" style="background:#238636; color:#fff; font-size:0.8rem; font-weight:800; padding:2px 8px; border-radius:10px;">v2.1.2</span>
+            <span class="badge" id="currentVersionBadge" style="background:#238636; color:#fff; font-size:0.8rem; font-weight:800; padding:2px 8px; border-radius:10px;">v2.1.3</span>
           </div>
           <div style="margin-top:8px; font-size:0.75rem; color:#8b949e;" id="updateLastCheckTxt">
             Dernière vérification : non effectuée
@@ -2206,15 +2206,90 @@
 
 
     // ==========================================
-    // 🚀 VÉRIFICATEUR DE MISES À JOUR (MOBILE APK)
+    // 🚀 VÉRIFICATEUR DE MISES À JOUR (MOBILE & IOS)
     // ==========================================
-    const CURRENT_MOBILE_VERSION = "2.0.2";
+    function compareVersions(v1, v2) {
+      if (!v1 || !v2) return 0;
+      const p1 = (v1 + "").replace(/^v/i, "").split(".").map(s => parseInt(s, 10) || 0);
+      const p2 = (v2 + "").replace(/^v/i, "").split(".").map(s => parseInt(s, 10) || 0);
+      const maxLen = Math.max(p1.length, p2.length);
+      for (let i = 0; i < maxLen; i++) {
+        const a = p1[i] || 0;
+        const b = p2[i] || 0;
+        if (a > b) return 1;
+        if (a < b) return -1;
+      }
+      return 0;
+    }
+
+    const BASE_MOBILE_VERSION = "2.1.3";
+    let savedAppliedVer = null;
+    try { savedAppliedVer = localStorage.getItem("dbd_applied_mobile_version"); } catch (e) {}
+    let CURRENT_MOBILE_VERSION = (savedAppliedVer && compareVersions(savedAppliedVer, BASE_MOBILE_VERSION) > 0)
+      ? savedAppliedVer
+      : BASE_MOBILE_VERSION;
 
     // Synchronisation automatique et dynamique de tous les indicateurs de version
-    const badgeEl = document.getElementById("currentVersionBadge");
-    if (badgeEl) badgeEl.textContent = "v" + CURRENT_MOBILE_VERSION;
-    const footerVerEl = document.getElementById("footerVersionText");
-    if (footerVerEl) footerVerEl.textContent = "DBD MAP Mobile • v" + CURRENT_MOBILE_VERSION;
+    function refreshVersionDisplays() {
+      const badgeEl = document.getElementById("currentVersionBadge");
+      if (badgeEl) badgeEl.textContent = "v" + CURRENT_MOBILE_VERSION;
+      const footerVerEl = document.getElementById("footerVersionText");
+      if (footerVerEl) footerVerEl.textContent = "DBD MAP Mobile • v" + CURRENT_MOBILE_VERSION;
+    }
+    refreshVersionDisplays();
+
+    // Si on revient d'une mise à jour iOS / Web, afficher une confirmation claire
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const justUpdatedVer = urlParams.get("updated");
+      if (justUpdatedVer) {
+        setTimeout(() => {
+          showToast("✅ Mise à jour v" + justUpdatedVer + " installée avec succès !");
+        }, 500);
+        const cleanPath = window.location.pathname;
+        window.history.replaceState({}, document.title, cleanPath);
+      }
+    } catch (e) {}
+
+    window.applyMobileWebUpdate = async function(targetVer, btnEl) {
+      const cleanVer = (targetVer || BASE_MOBILE_VERSION) + "";
+      if (btnEl) {
+        btnEl.disabled = true;
+        btnEl.innerHTML = "⏳ Installation de la v" + cleanVer + " en cours...";
+      }
+      showToast("🔄 Mise à jour vers v" + cleanVer + "...");
+      try {
+        localStorage.setItem("dbd_applied_mobile_version", cleanVer);
+        localStorage.removeItem("dbd_custom_maps");
+      } catch (e) {}
+
+      CURRENT_MOBILE_VERSION = cleanVer;
+      refreshVersionDisplays();
+
+      try {
+        if ("caches" in window) {
+          const keys = await caches.keys();
+          await Promise.all(keys.map(k => caches.delete(k)));
+        }
+      } catch (e) {}
+
+      try {
+        if ("serviceWorker" in navigator) {
+          const regs = await navigator.serviceWorker.getRegistrations();
+          await Promise.all(regs.map(r => r.unregister()));
+        }
+      } catch (e) {}
+
+      const cleanUrl = window.location.pathname.split("?")[0];
+      const bustUrl = cleanUrl + "?v=" + encodeURIComponent(cleanVer) + "&updated=" + encodeURIComponent(cleanVer) + "&t=" + Date.now();
+      try {
+        await fetch(cleanUrl + "?v=" + encodeURIComponent(cleanVer) + "&t=" + Date.now(), { cache: "reload" });
+      } catch (e) {}
+
+      setTimeout(() => {
+        window.location.replace(bustUrl);
+      }, 300);
+    };
 
     const updateModal = document.getElementById("updateModal");
     const btnHeaderUpdate = document.getElementById("btnHeaderUpdate");
@@ -2245,20 +2320,6 @@
       btnCheckUpdateManual.addEventListener("click", () => checkUpdates(false));
     }
 
-    function compareVersions(v1, v2) {
-      if (!v1 || !v2) return 0;
-      const p1 = (v1 + "").replace(/^v/i, "").split(".").map(s => parseInt(s, 10) || 0);
-      const p2 = (v2 + "").replace(/^v/i, "").split(".").map(s => parseInt(s, 10) || 0);
-      const maxLen = Math.max(p1.length, p2.length);
-      for (let i = 0; i < maxLen; i++) {
-        const a = p1[i] || 0;
-        const b = p2[i] || 0;
-        if (a > b) return 1;
-        if (a < b) return -1;
-      }
-      return 0;
-    }
-
     async function checkUpdates(silent) {
       if (!silent) {
         btnCheckUpdateManual.disabled = true;
@@ -2286,7 +2347,7 @@
         }
         if (!vData) throw new Error("Impossible de joindre le serveur de mise à jour");
 
-        const targetVersion = vData.mobile_version || vData.version;
+        const targetVersion = vData.mobile_version || vData.display_version || vData.version;
         const hasNew = targetVersion && compareVersions(targetVersion, CURRENT_MOBILE_VERSION) > 0;
 
         const now = new Date();
@@ -2314,7 +2375,7 @@
           updateResultArea.innerHTML = `
             <div style="background: rgba(231, 76, 60, 0.12); border: 1px solid #e74c3c; border-radius: 10px; padding: 14px; text-align: left;">
               <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-                <span style="font-weight:800; color:#ff7b72; font-size:0.95rem;">🚀 Version v${vData.version} disponible !</span>
+                <span style="font-weight:800; color:#ff7b72; font-size:0.95rem;">🚀 Version v${targetVersion} disponible !</span>
                 <span class="badge" style="background:#e74c3c; color:#fff; font-size:0.7rem; font-weight:800;">NOUVEAU</span>
               </div>
               ${alertBanner}
@@ -2322,19 +2383,19 @@
                 ${vData.changelog || "Nouvelles fonctionnalités et améliorations disponibles."}
               </p>
               ${detectPlatform() !== 'android' ? `
-                <button onclick="window.location.reload(true);" class="btn btn-primary" style="display:flex; align-items:center; justify-content:center; gap:8px; font-weight:800; padding:12px; border-radius:8px; width:100%; cursor:pointer; background:#238636; border:none; color:#fff;">
+                <button onclick="window.applyMobileWebUpdate('${targetVersion}', this);" class="btn btn-primary" style="display:flex; align-items:center; justify-content:center; gap:8px; font-weight:800; padding:12px; border-radius:8px; width:100%; cursor:pointer; background:#238636; border:none; color:#fff;">
                   🔄 Actualiser pour appliquer la mise à jour
                 </button>
               ` : `
-                <a href="${vData.apk_download_url || 'https://github.com/Exprimes/dbd-maps/releases/download/v2.0.0/DBDMapsOmni.apk'}" target="_blank" class="btn btn-primary" style="text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px; font-weight:800; padding:10px; border-radius:8px; width:100%;">
+                <a href="${vData.apk_download_url || 'https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.apk'}" target="_blank" class="btn btn-primary" style="text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px; font-weight:800; padding:10px; border-radius:8px; width:100%;">
                   📥 Télécharger la mise à jour (APK)
                 </a>
               `}
             </div>
           `;
-          showToast("🚀 Nouvelle version v" + vData.version + " disponible !");
+          showToast("🚀 Nouvelle version v" + targetVersion + " disponible !");
           if (silent && vData.admin_alert && vData.admin_alert.enabled) {
-            updateModal.classList.add("active");
+            openUpdateModal();
           }
         } else {
           btnHeaderUpdate.classList.remove("has-update");

@@ -998,7 +998,7 @@
         <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px; margin-bottom:14px;">
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <span style="font-size:0.8rem; color:#8b949e; font-weight:600;">Version actuelle installée :</span>
-            <span class="badge" id="currentVersionBadge" style="background:#238636; color:#fff; font-size:0.8rem; font-weight:800; padding:2px 8px; border-radius:10px;">v2.0.1</span>
+            <span class="badge" id="currentVersionBadge" style="background:#238636; color:#fff; font-size:0.8rem; font-weight:800; padding:2px 8px; border-radius:10px;">v2.1.3</span>
           </div>
           <div style="margin-top:8px; font-size:0.75rem; color:#8b949e;" id="updateLastCheckTxt">
             Dernière vérification : non effectuée
@@ -1108,14 +1108,14 @@
 
     // Bi-directional dictionary of 44 official maps
     const MAP_PAIRS = [
-      { fr: "Abattoir Putride", en: "Rancid Abattoir", fileFr: "Abattoir Putride.png", fileEn: "Rancid Abattoir.png" },
-      { fr: "Aile Est du Commissariat de Raccoon City", en: "Raccoon City Police Station East Wing", fileFr: "Aile_Est_du_Commissariat_de_Raccoon_City.png", fileEn: "Raccoon City Police Station East Wing.png" },
-      { fr: "Aile Ouest du Commissariat de Raccoon City", en: "Raccoon City Police Station West Wing", fileFr: "Aile_Ouest_du_Commissariat_de_Raccoon_City.png", fileEn: "Raccoon City Police Station West Wing.png" },
+      { fr: "Abattoir Putride", en: "Rancid Abbatoir", aliases: "Rancid Abattoir", fileFr: "Abattoir Putride.png", fileEn: "Rancid Abattoir.png" },
+      { fr: "Aile Est du Commissariat de Raccoon City", en: "Raccoon City Police Station East Wing", aliases: "RPD East", fileFr: "Aile_Est_du_Commissariat_de_Raccoon_City.png", fileEn: "Raccoon City Police Station East Wing.png" },
+      { fr: "Aile Ouest du Commissariat de Raccoon City", en: "RPD West", aliases: "Raccoon City Police Station West Wing", fileFr: "Aile_Ouest_du_Commissariat_de_Raccoon_City.png", fileEn: "Raccoon City Police Station West Wing.png" },
       { fr: "Aire de Corbeaux", en: "Eyrie of Crows", fileFr: "Aire de Corbeaux.png", fileEn: "Eyrie of Crows.png" },
-      { fr: "Atelier Misérable", en: "Misery's Workshop", fileFr: "Atelier Misérable.png", fileEn: "Misery's Workshop.png" },
+      { fr: "Atelier Misérable", en: "Wretched Shop", aliases: "Misery's Workshop", fileFr: "Atelier Misérable.png", fileEn: "Misery's Workshop.png" },
       { fr: "Cabane du Sang", en: "Blood Lodge", fileFr: "Cabane du Sang.png", fileEn: "Blood Lodge.png" },
       { fr: "Cellier Sinistre", en: "Grim Pantry", fileFr: "Cellier Sinistre.png", fileEn: "Grim Pantry.png" },
-      { fr: "Centre de Traitement", en: "Treatment Theatre", fileFr: "Centre de Traitement.png", fileEn: "Treatment Theatre.png" },
+      { fr: "Centre de Traitement", en: "Treatment Theater", aliases: "Treatment Theatre", fileFr: "Centre de Traitement.png", fileEn: "Treatment Theatre.png" },
       { fr: "Champs Pourris", en: "Rotten Fields", fileFr: "Champs Pourris.png", fileEn: "Rotten Fields.png" },
       { fr: "Chapelle du Père Campbell", en: "Father Campbell's Chapel", fileFr: "Chapelle du Père Campbell.png", fileEn: "Father Campbell's Chapel.png" },
       { fr: "Dernière Demeure d'Azarov", en: "Azarov's Resting Place", fileFr: "Dernière Demeure d'Azarov.png", fileEn: "Azarov's Resting Place.png" },
@@ -1123,16 +1123,16 @@
       { fr: "Entrepôt Grondant", en: "Groaning Storehouse", fileFr: "Entrepôt Grondant.png", fileEn: "Groaning Storehouse.png" },
       { fr: "Fonderie de Souffrance", en: "Ironworks of Misery", fileFr: "Fonderie de Souffrance.png", fileEn: "Ironworks of Misery.png" },
       { fr: "Forêt Profonde", en: "Shelter Woods", fileFr: "Forêt Profonde.png", fileEn: "Shelter Woods.png" },
-      { fr: "Freddy Fazbear's Pizza", en: "Freddy Fazbear's Pizza", fileFr: "Freddy Fazbear's Pizza.png", fileEn: "Freddy Fazbear's Pizza.png" },
-      { fr: "Gas Haven", en: "Gas Haven", fileFr: "Gas Haven.png", fileEn: "Gas Haven.png" },
-      { fr: "Illusion du Farceur", en: "Trickster's Illusion", fileFr: "Illusion du Farceur.png", fileEn: "Trickster's Illusion.png" },
+      { fr: "F. Fazbear's Pizza", en: "Freddy Fazbear's Pizza", aliases: "Freddy Fazbear's Pizza", fileFr: "Freddy Fazbear's Pizza.png", fileEn: "Freddy Fazbear's Pizza.png" },
+      { fr: "Gas Heaven", en: "Gas Heaven", aliases: "Gas Haven", fileFr: "Gas Haven.png", fileEn: "Gas Haven.png" },
+      { fr: "Illusion du Farceur", en: "Trickster's Delusion", aliases: "Trickster's Illusion", fileFr: "Illusion du Farceur.png", fileEn: "Trickster's Illusion.png" },
       { fr: "Jardin de la Joie", en: "Garden of Joy", fileFr: "Jardin de la Joie.png", fileEn: "Garden of Joy.png" },
       { fr: "La Ferme Thompson", en: "Thompson House", fileFr: "La Ferme Thompson.png", fileEn: "Thompson House.png" },
       { fr: "La Maison Maternelle", en: "Mother's Dwelling", fileFr: "La Maison Maternelle.png", fileEn: "Mother's Dwelling.png" },
       { fr: "La Place Dévastée", en: "The Shattered Square", fileFr: "La Place Dévastée.png", fileEn: "The Shattered Square.png" },
       { fr: "Le Complexe Souterrain", en: "The Underground Complex", fileFr: "Le Complexe Souterrain.png", fileEn: "The Underground Complex.png" },
       { fr: "Le Jeu", en: "The Game", fileFr: "Le Jeu.png", fileEn: "The Game.png" },
-      { fr: "Le Pâle Rose", en: "The Pale Rose", fileFr: "Le Pâle Rose.png", fileEn: "The Pale Rose.png" },
+      { fr: "Le Pâle Rose", en: "Pale Rose", aliases: "The Pale Rose", fileFr: "Le Pâle Rose.png", fileEn: "The Pale Rose.png" },
       { fr: "Le Temple de Purgation", en: "Temple of Purgation", fileFr: "Le Temple de Purgation.png", fileEn: "Temple of Purgation.png" },
       { fr: "Mine du Lac d'Ormond", en: "Ormond Lake Mine", fileFr: "Mine du Lac d'Ormond.png", fileEn: "Ormond Lake Mine.png" },
       { fr: "Place de Greenville", en: "Greenville Square", fileFr: "Place de Greenville.png", fileEn: "Greenville Square.png" },
@@ -1146,9 +1146,9 @@
       { fr: "Sanctuaire du Courroux", en: "Sanctum of Wrath", fileFr: "Sanctuaire du Courroux.png", fileEn: "Sanctum of Wrath.png" },
       { fr: "Site d'Atterrissage de Toba", en: "Toba Landing", fileFr: "Site d'Atterrissage de Toba.png", fileEn: "Toba Landing.png" },
       { fr: "Station du Mont Ormond", en: "Mount Ormond Resort", fileFr: "Station du Mont Ormond.png", fileEn: "Mount Ormond Resort.png" },
-      { fr: "Terrain de la Casse", en: "Wrecker's Yard", fileFr: "Terrain de la Casse.png", fileEn: "Wrecker's Yard.png" },
+      { fr: "Terrain de la Casse", en: "Wreckers Yard", aliases: "Wrecker's Yard", fileFr: "Terrain de la Casse.png", fileEn: "Wrecker's Yard.png" },
       { fr: "Vallon des Tourments", en: "Torment Creek", fileFr: "Vallon des Tourments.png", fileEn: "Torment Creek.png" },
-      { fr: "École Maternelle de Badham", en: "Badham Preschool", fileFr: "École Maternelle de Badham.png", fileEn: "Badham Preschool.png" },
+      { fr: "École Maternelle de Badham", en: "Badham Preschool 1", aliases: "Badham Preschool", fileFr: "École Maternelle de Badham.png", fileEn: "Badham Preschool.png" },
       { fr: "École Primaire Midwich", en: "Midwich Elementary School", fileFr: "ecole_primaire_midwich.gif", fileEn: "Midwich Elementary School.gif" },
       { fr: "Épave du Nostromo", en: "Nostromo Wreckage", fileFr: "Épave du Nostromo.png", fileEn: "Nostromo Wreckage.png" },
       { fr: "Étable en Ruine", en: "Fractured Cowshed", fileFr: "Étable en Ruine.png", fileEn: "Fractured Cowshed.png" }
@@ -1173,7 +1173,7 @@
       creator: "Exprimes",
       src: "maps/Exprimes/" + p.fileFr,
       fallbackSrc: "maps/Maps_FR/" + p.fileFr,
-      altName: p.en
+      altName: p.en + " " + (p.aliases || "")
     }));
 
     const DEFAULT_MAPS_EN = MAP_PAIRS.map(p => ({
@@ -1181,7 +1181,7 @@
       creator: "Exprimes",
       src: "maps/Maps_EN/" + p.fileEn,
       fallbackSrc: "maps/Maps_EN/" + p.fileEn,
-      altName: p.fr
+      altName: p.fr + " " + (p.aliases || "")
     }));
 
     // Langue actuelle mémorisée
@@ -1625,9 +1625,9 @@
     }
 
     const RELAY_SERVERS = [
-      "https://ntfy.adminforge.de/dbdmaps731-",
-      "https://ntfy.sh/dbdmaps731-",
-      "https://ntfy.envs.net/dbdmaps731-"
+      "https://ntfy.tedomum.fr/dbdmaps731-",
+      "https://ntfy.envs.net/dbdmaps731-",
+      "https://ntfy.adminforge.de/dbdmaps731-"
     ];
     let currentRelayIdx = 0;
     let RELAY_BASE = RELAY_SERVERS[0];
@@ -1745,7 +1745,7 @@
       const now = Date.now();
       let changed = false;
       for (const id in lobbyMembers) {
-        if (id !== myMemberId && (now - lobbyMembers[id].lastSeen) > 8000) {
+        if (id !== myMemberId && (now - lobbyMembers[id].lastSeen) > 35000) {
           delete lobbyMembers[id];
           changed = true;
         }
@@ -1790,16 +1790,11 @@
       sendHeartbeat();
       memberHeartbeatTimer = setInterval(() => {
         sendHeartbeat();
-      }, 4500);
+        pruneExpiredMembers();
+      }, 12000);
 
-      // Récupérer les membres récents et scruter en boucle avec pruning automatique (> 8s inactif)
+      // Récupérer les membres récents une seule fois à la connexion
       fetchRecentMembers(code);
-      memberPollTimer = setInterval(() => {
-        if (currentLobbyCode) {
-          fetchRecentMembers(currentLobbyCode);
-          pruneExpiredMembers();
-        }
-      }, 2500);
 
       // Écouter également via SSE pour temps réel
       try {
@@ -1891,7 +1886,6 @@
 
       startMemberPresence(currentLobbyCode);
       pollLobbyOnce();
-      lobbyPollTimer = setInterval(pollLobbyOnce, 1500);
 
       // Flux SSE temps réel pour synchronisation instantanée des cartes
       try {
@@ -1968,9 +1962,10 @@
       let pairMatch = MAP_PAIRS.find(p => {
         const cFr = cleanStr(p.fr);
         const cEn = cleanStr(p.en);
-        return cFr === cleanTarget || cEn === cleanTarget ||
-               cFr.includes(cleanTarget) || cEn.includes(cleanTarget) ||
-               cleanTarget.includes(cFr) || cleanTarget.includes(cEn);
+        const cAl = cleanStr(p.aliases || "");
+        return cFr === cleanTarget || cEn === cleanTarget || (cAl && cAl === cleanTarget) ||
+               cFr.includes(cleanTarget) || cEn.includes(cleanTarget) || (cAl && cAl.includes(cleanTarget)) ||
+               cleanTarget.includes(cFr) || cleanTarget.includes(cEn) || (cAl && cleanTarget.includes(cAl));
       });
 
       let targetMapObj = null;
@@ -2018,19 +2013,61 @@
       }
     });
 
+    function ensureStreamsActive() {
+      if (!currentLobbyCode) return;
+      if (!mapStreamSource || mapStreamSource.readyState === 2) {
+        try {
+          if (mapStreamSource) mapStreamSource.close();
+          mapStreamSource = new EventSource(`${RELAY_BASE}${currentLobbyCode}/sse`);
+          mapStreamSource.onmessage = async (e) => {
+            if (e.data) {
+              try {
+                const ev = JSON.parse(e.data);
+                if (ev.event === "message" && ev.message) {
+                  let val = ev.message.trim().replace(/^"|"$/g, "");
+                  if (val && val !== "null" && val !== "LOBBY_CREATED" && val.toLowerCase() !== lastSyncedMapName.toLowerCase()) {
+                    lastSyncedMapName = val;
+                    await onMapReceivedFromLobby(val);
+                  }
+                }
+              } catch (err) {}
+            }
+          };
+        } catch (e) {}
+      }
+      if (!memberStreamSource || memberStreamSource.readyState === 2) {
+        try {
+          if (memberStreamSource) memberStreamSource.close();
+          memberStreamSource = new EventSource(`${RELAY_BASE}${currentLobbyCode}_MEMBERS/sse`);
+          memberStreamSource.onmessage = (e) => {
+            if (e.data) {
+              try {
+                const parsed = JSON.parse(e.data);
+                if (parsed.message) processMemberMessage(parsed.message);
+              } catch (err) {
+                processMemberMessage(e.data);
+              }
+            }
+          };
+        } catch (e) {}
+      }
+    }
+
     // Réveil immédiat si retour au premier plan sur iPhone / iOS / Android
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible" && currentLobbyCode) {
+        ensureStreamsActive();
         pollLobbyOnce();
+        fetchRecentMembers(currentLobbyCode);
         sendHeartbeat();
         pruneExpiredMembers();
       }
     });
     window.addEventListener("focus", () => {
-      if (currentLobbyCode) { pollLobbyOnce(); sendHeartbeat(); }
+      if (currentLobbyCode) { ensureStreamsActive(); pollLobbyOnce(); sendHeartbeat(); }
     });
     window.addEventListener("pageshow", () => {
-      if (currentLobbyCode) { pollLobbyOnce(); sendHeartbeat(); }
+      if (currentLobbyCode) { ensureStreamsActive(); pollLobbyOnce(); sendHeartbeat(); }
     });
 
     btnJoinLobby.addEventListener("click", async () => {
@@ -2169,15 +2206,90 @@
 
 
     // ==========================================
-    // 🚀 VÉRIFICATEUR DE MISES À JOUR (MOBILE APK)
+    // 🚀 VÉRIFICATEUR DE MISES À JOUR (MOBILE & IOS)
     // ==========================================
-    const CURRENT_MOBILE_VERSION = "2.0.1";
+    function compareVersions(v1, v2) {
+      if (!v1 || !v2) return 0;
+      const p1 = (v1 + "").replace(/^v/i, "").split(".").map(s => parseInt(s, 10) || 0);
+      const p2 = (v2 + "").replace(/^v/i, "").split(".").map(s => parseInt(s, 10) || 0);
+      const maxLen = Math.max(p1.length, p2.length);
+      for (let i = 0; i < maxLen; i++) {
+        const a = p1[i] || 0;
+        const b = p2[i] || 0;
+        if (a > b) return 1;
+        if (a < b) return -1;
+      }
+      return 0;
+    }
+
+    const BASE_MOBILE_VERSION = "2.1.3";
+    let savedAppliedVer = null;
+    try { savedAppliedVer = localStorage.getItem("dbd_applied_mobile_version"); } catch (e) {}
+    let CURRENT_MOBILE_VERSION = (savedAppliedVer && compareVersions(savedAppliedVer, BASE_MOBILE_VERSION) > 0)
+      ? savedAppliedVer
+      : BASE_MOBILE_VERSION;
 
     // Synchronisation automatique et dynamique de tous les indicateurs de version
-    const badgeEl = document.getElementById("currentVersionBadge");
-    if (badgeEl) badgeEl.textContent = "v" + CURRENT_MOBILE_VERSION;
-    const footerVerEl = document.getElementById("footerVersionText");
-    if (footerVerEl) footerVerEl.textContent = "DBD MAP Mobile • v" + CURRENT_MOBILE_VERSION;
+    function refreshVersionDisplays() {
+      const badgeEl = document.getElementById("currentVersionBadge");
+      if (badgeEl) badgeEl.textContent = "v" + CURRENT_MOBILE_VERSION;
+      const footerVerEl = document.getElementById("footerVersionText");
+      if (footerVerEl) footerVerEl.textContent = "DBD MAP Mobile • v" + CURRENT_MOBILE_VERSION;
+    }
+    refreshVersionDisplays();
+
+    // Si on revient d'une mise à jour iOS / Web, afficher une confirmation claire
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const justUpdatedVer = urlParams.get("updated");
+      if (justUpdatedVer) {
+        setTimeout(() => {
+          showToast("✅ Mise à jour v" + justUpdatedVer + " installée avec succès !");
+        }, 500);
+        const cleanPath = window.location.pathname;
+        window.history.replaceState({}, document.title, cleanPath);
+      }
+    } catch (e) {}
+
+    window.applyMobileWebUpdate = async function(targetVer, btnEl) {
+      const cleanVer = (targetVer || BASE_MOBILE_VERSION) + "";
+      if (btnEl) {
+        btnEl.disabled = true;
+        btnEl.innerHTML = "⏳ Installation de la v" + cleanVer + " en cours...";
+      }
+      showToast("🔄 Mise à jour vers v" + cleanVer + "...");
+      try {
+        localStorage.setItem("dbd_applied_mobile_version", cleanVer);
+        localStorage.removeItem("dbd_custom_maps");
+      } catch (e) {}
+
+      CURRENT_MOBILE_VERSION = cleanVer;
+      refreshVersionDisplays();
+
+      try {
+        if ("caches" in window) {
+          const keys = await caches.keys();
+          await Promise.all(keys.map(k => caches.delete(k)));
+        }
+      } catch (e) {}
+
+      try {
+        if ("serviceWorker" in navigator) {
+          const regs = await navigator.serviceWorker.getRegistrations();
+          await Promise.all(regs.map(r => r.unregister()));
+        }
+      } catch (e) {}
+
+      const cleanUrl = window.location.pathname.split("?")[0];
+      const bustUrl = cleanUrl + "?v=" + encodeURIComponent(cleanVer) + "&updated=" + encodeURIComponent(cleanVer) + "&t=" + Date.now();
+      try {
+        await fetch(cleanUrl + "?v=" + encodeURIComponent(cleanVer) + "&t=" + Date.now(), { cache: "reload" });
+      } catch (e) {}
+
+      setTimeout(() => {
+        window.location.replace(bustUrl);
+      }, 300);
+    };
 
     const updateModal = document.getElementById("updateModal");
     const btnHeaderUpdate = document.getElementById("btnHeaderUpdate");
@@ -2208,20 +2320,6 @@
       btnCheckUpdateManual.addEventListener("click", () => checkUpdates(false));
     }
 
-    function compareVersions(v1, v2) {
-      if (!v1 || !v2) return 0;
-      const p1 = (v1 + "").replace(/^v/i, "").split(".").map(s => parseInt(s, 10) || 0);
-      const p2 = (v2 + "").replace(/^v/i, "").split(".").map(s => parseInt(s, 10) || 0);
-      const maxLen = Math.max(p1.length, p2.length);
-      for (let i = 0; i < maxLen; i++) {
-        const a = p1[i] || 0;
-        const b = p2[i] || 0;
-        if (a > b) return 1;
-        if (a < b) return -1;
-      }
-      return 0;
-    }
-
     async function checkUpdates(silent) {
       if (!silent) {
         btnCheckUpdateManual.disabled = true;
@@ -2249,7 +2347,7 @@
         }
         if (!vData) throw new Error("Impossible de joindre le serveur de mise à jour");
 
-        const targetVersion = vData.mobile_version || vData.version;
+        const targetVersion = vData.mobile_version || vData.display_version || vData.version;
         const hasNew = targetVersion && compareVersions(targetVersion, CURRENT_MOBILE_VERSION) > 0;
 
         const now = new Date();
@@ -2277,7 +2375,7 @@
           updateResultArea.innerHTML = `
             <div style="background: rgba(231, 76, 60, 0.12); border: 1px solid #e74c3c; border-radius: 10px; padding: 14px; text-align: left;">
               <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-                <span style="font-weight:800; color:#ff7b72; font-size:0.95rem;">🚀 Version v${vData.version} disponible !</span>
+                <span style="font-weight:800; color:#ff7b72; font-size:0.95rem;">🚀 Version v${targetVersion} disponible !</span>
                 <span class="badge" style="background:#e74c3c; color:#fff; font-size:0.7rem; font-weight:800;">NOUVEAU</span>
               </div>
               ${alertBanner}
@@ -2285,19 +2383,19 @@
                 ${vData.changelog || "Nouvelles fonctionnalités et améliorations disponibles."}
               </p>
               ${detectPlatform() !== 'android' ? `
-                <button onclick="window.location.reload(true);" class="btn btn-primary" style="display:flex; align-items:center; justify-content:center; gap:8px; font-weight:800; padding:12px; border-radius:8px; width:100%; cursor:pointer; background:#238636; border:none; color:#fff;">
+                <button onclick="window.applyMobileWebUpdate('${targetVersion}', this);" class="btn btn-primary" style="display:flex; align-items:center; justify-content:center; gap:8px; font-weight:800; padding:12px; border-radius:8px; width:100%; cursor:pointer; background:#238636; border:none; color:#fff;">
                   🔄 Actualiser pour appliquer la mise à jour
                 </button>
               ` : `
-                <a href="${vData.apk_download_url || 'https://github.com/Exprimes/dbd-maps/releases/download/v2.0.0/DBDMapsOmni.apk'}" target="_blank" class="btn btn-primary" style="text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px; font-weight:800; padding:10px; border-radius:8px; width:100%;">
+                <a href="${vData.apk_download_url || 'https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.apk'}" target="_blank" class="btn btn-primary" style="text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px; font-weight:800; padding:10px; border-radius:8px; width:100%;">
                   📥 Télécharger la mise à jour (APK)
                 </a>
               `}
             </div>
           `;
-          showToast("🚀 Nouvelle version v" + vData.version + " disponible !");
+          showToast("🚀 Nouvelle version v" + targetVersion + " disponible !");
           if (silent && vData.admin_alert && vData.admin_alert.enabled) {
-            updateModal.classList.add("active");
+            openUpdateModal();
           }
         } else {
           btnHeaderUpdate.classList.remove("has-update");
