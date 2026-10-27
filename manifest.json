@@ -4,14 +4,14 @@
                       "purpose":  "any maskable",
                       "type":  "image/png",
                       "sizes":  "192x192 512x512 1024x1024",
-                      "src":  "app_icon.png"
+                      "src":  "app_icon.png?v=2.1.3.1"
                   }
               ],
     "description":  "44 Cartes HD officielles & Lobby synchronisé en direct pour Dead by Daylight",
     "background_color":  "#0d1117",
     "theme_color":  "#161b22",
     "name":  "DBD MAP",
-    "start_url":  "./app.html?v=2.1.3",
+    "start_url":  "./app.html?v=2.1.3.1",
     "display":  "standalone",
     "short_name":  "DBD MAP"
 }
