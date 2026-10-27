@@ -1278,7 +1278,7 @@
     // Détection de la plateforme
     function getPlatform() {
       const ua = navigator.userAgent || navigator.vendor || window.opera || "";
-      if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) return "iOS";
+      if ((/iPad|iPhone|iPod/i.test(ua) && !window.MSStream) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)) return "iOS";
       if (/android/i.test(ua)) return "Android";
       return "PC";
     }
@@ -1626,21 +1626,36 @@
 
     const RELAY_SERVERS = [
       "https://ntfy.tedomum.fr/dbdmaps731-",
-      "https://ntfy.envs.net/dbdmaps731-",
-      "https://ntfy.adminforge.de/dbdmaps731-"
+      "https://ntfy.envs.net/dbdmaps731-"
     ];
     let currentRelayIdx = 0;
     let RELAY_BASE = RELAY_SERVERS[0];
+    let lastHeartbeatSentMs = 0;
 
     async function relayFetch(path, options = {}) {
+      const isPost = options && options.method === "POST";
+      const isTelemetry = path && path.startsWith("ACTIVE_USERS");
+
+      // Pour les messages du Lobby Manager : répliquer sur les 2 serveurs en parallèle pour éviter toute désynchronisation PC <-> Mobile
+      if (isPost && !isTelemetry && RELAY_SERVERS.length > 1) {
+        const results = await Promise.allSettled(
+          RELAY_SERVERS.map(base => fetch(`${base}${path}`, options))
+        );
+        for (let i = 0; i < results.length; i++) {
+          if (results[i].status === "fulfilled" && results[i].value && results[i].value.ok) {
+            return results[i].value;
+          }
+        }
+      }
+
       for (let attempt = 0; attempt < RELAY_SERVERS.length; attempt++) {
-        const base = RELAY_SERVERS[(currentRelayIdx + attempt) % RELAY_SERVERS.length];
+        const base = RELAY_SERVERS[attempt % RELAY_SERVERS.length];
         try {
           const resp = await fetch(`${base}${path}`, options);
           if (resp.status === 429) {
             continue;
           }
-          currentRelayIdx = (currentRelayIdx + attempt) % RELAY_SERVERS.length;
+          currentRelayIdx = attempt % RELAY_SERVERS.length;
           RELAY_BASE = base;
           return resp;
         } catch (e) {
@@ -1655,13 +1670,15 @@
       if (!squadContainer) return;
       squadContainer.innerHTML = "";
 
-      const memberList = Object.values(lobbyMembers);
-      // Trier : hôte d'abord, puis par nom
-      memberList.sort((a, b) => {
-        if (a.isHost && !b.isHost) return -1;
-        if (!a.isHost && b.isHost) return 1;
-        return a.name.localeCompare(b.name);
-      });
+      const memberList = Object.values(lobbyMembers)
+        .sort((a, b) => {
+          if (a.isHost && !b.isHost) return -1;
+          if (!a.isHost && b.isHost) return 1;
+          if (a.id === myMemberId && b.id !== myMemberId) return -1;
+          if (a.id !== myMemberId && b.id === myMemberId) return 1;
+          return (a.name || "").localeCompare(b.name || "");
+        })
+        .slice(0, 4);
 
       const count = memberList.length;
       if (lobbySquadLimitBadge) {
@@ -1700,26 +1717,34 @@
     // Gestion de la présence et Heartbeats
     function sendHeartbeat() {
       if (!currentLobbyCode) return;
-      const myName = getLocalPlayerName();
+      lastHeartbeatSentMs = Date.now();
+      const myName = (getLocalPlayerName() || "Joueur").replace(/:/g, "-");
       const myPlatform = getPlatform();
       const payload = `PING:${myMemberId}:${myPlatform}:${myName}:${isHost ? "1" : "0"}`;
       relayFetch(`${currentLobbyCode}_MEMBERS`, { method: "POST", body: payload }).catch(() => {});
     }
 
-    function processMemberMessage(raw) {
+    function processMemberMessage(raw, msgTimeSec = 0, isLive = false) {
       if (!raw || !raw.trim()) return;
       const msg = raw.trim().replace(/^"|"$/g, "");
+      const nowMs = Date.now();
+      const effectiveMs = (msgTimeSec > 0 && !isLive) ? Math.min(nowMs, msgTimeSec * 1000) : nowMs;
+      if (!isLive && msgTimeSec > 0 && (nowMs - effectiveMs) > 35000) {
+        return;
+      }
+
       if (msg.startsWith("PING:")) {
         const parts = msg.split(":");
         if (parts.length >= 5) {
-          const id = parts[1];
-          const platform = parts[2];
-          const name = parts[3];
-          const hostFlag = parts[4] === "1" || parts[4].toLowerCase() === "true";
+          const id = parts[1].trim();
+          const platform = parts[2].trim();
+          const hostPart = parts[parts.length - 1].trim();
+          const name = parts.slice(3, parts.length - 1).join(":").trim();
+          const hostFlag = hostPart === "1" || hostPart.toLowerCase() === "true";
 
-          // Vérification limite stricte 4 joueurs
-          const currentCount = Object.keys(lobbyMembers).length;
-          if (!lobbyMembers[id] && currentCount >= 4 && id !== myMemberId) {
+          const isBrandNewOther = !lobbyMembers[id] && id !== myMemberId;
+          const existing = lobbyMembers[id];
+          if (existing && !isLive && effectiveMs < existing.lastSeen) {
             return;
           }
 
@@ -1728,15 +1753,22 @@
             platform,
             name,
             isHost: hostFlag,
-            lastSeen: Date.now()
+            lastSeen: isLive ? nowMs : effectiveMs
           };
           updateSquadUI();
+
+          // Répondre immédiatement quand un nouveau joueur rejoint pour qu'il nous voie en <1s
+          if (isBrandNewOther && (nowMs - lastHeartbeatSentMs) >= 1500) {
+            sendHeartbeat();
+          }
         }
       } else if (msg.startsWith("LEAVE:")) {
         const id = msg.substring(6).trim().replace(/^"|"$/g, "");
         if (lobbyMembers[id]) {
-          delete lobbyMembers[id];
-          updateSquadUI();
+          if (isLive || effectiveMs >= lobbyMembers[id].lastSeen) {
+            delete lobbyMembers[id];
+            updateSquadUI();
+          }
         }
       }
     }
@@ -1757,15 +1789,17 @@
     async function fetchRecentMembers(code) {
       if (!code) return;
       try {
-        const resp = await relayFetch(`${code}_MEMBERS/json?poll=1&since=12h&_cb=${Date.now()}`, { cache: "no-store" });
+        const resp = await relayFetch(`${code}_MEMBERS/json?poll=1&since=45s&_cb=${Date.now()}`, { cache: "no-store" });
         if (resp && resp.ok) {
           const txt = await resp.text();
+          const nowSec = Math.floor(Date.now() / 1000);
           for (const line of txt.split("\n")) {
             if (!line.trim()) continue;
             try {
               const ev = JSON.parse(line);
               if (ev.event === "message" && ev.message) {
-                processMemberMessage(ev.message);
+                if (ev.time && (nowSec - ev.time) > 35) continue;
+                processMemberMessage(ev.message, ev.time || 0, false);
               }
             } catch (e) {}
           }
@@ -1786,15 +1820,21 @@
       };
       updateSquadUI();
 
-      // Envoyer le premier ping
+      // Envoyer le premier ping immédiatement
       sendHeartbeat();
       memberHeartbeatTimer = setInterval(() => {
         sendHeartbeat();
         pruneExpiredMembers();
-      }, 12000);
+      }, 8000);
 
-      // Récupérer les membres récents une seule fois à la connexion
+      // Polling hybride actif toutes les 3 secondes (garantit la présence même si SSE est coupé sur iOS/Android)
       fetchRecentMembers(code);
+      memberPollTimer = setInterval(() => {
+        if (currentLobbyCode) {
+          fetchRecentMembers(currentLobbyCode);
+          pruneExpiredMembers();
+        }
+      }, 3000);
 
       // Écouter également via SSE pour temps réel
       try {
@@ -1804,9 +1844,9 @@
           if (e.data) {
             try {
               const parsed = JSON.parse(e.data);
-              if (parsed.message) processMemberMessage(parsed.message);
+              if (parsed.message) processMemberMessage(parsed.message, parsed.time || 0, true);
             } catch (err) {
-              processMemberMessage(e.data);
+              processMemberMessage(e.data, 0, true);
             }
           }
         };
@@ -1830,7 +1870,9 @@
         const leaveBody = `LEAVE:${myMemberId}`;
         try {
           if (navigator.sendBeacon) {
-            navigator.sendBeacon(`${RELAY_BASE}${currentLobbyCode}_MEMBERS`, leaveBody);
+            for (const srv of RELAY_SERVERS) {
+              navigator.sendBeacon(`${srv}${currentLobbyCode}_MEMBERS`, leaveBody);
+            }
           }
         } catch(e) {}
         relayFetch(`${currentLobbyCode}_MEMBERS`, { method: "POST", body: leaveBody, keepalive: true }).catch(() => {});
@@ -1841,7 +1883,7 @@
 
     async function relayGetLatest(key) {
       const resp = await relayFetch(`${key}/json?poll=1&since=latest&_cb=${Date.now()}`, { cache: "no-store" });
-      if (!resp.ok) return null;
+      if (!resp || !resp.ok) return null;
       const raw = await resp.text();
       let last = null;
       for (const line of raw.split("\n")) {
@@ -1886,6 +1928,7 @@
 
       startMemberPresence(currentLobbyCode);
       pollLobbyOnce();
+      lobbyPollTimer = setInterval(pollLobbyOnce, 3000);
 
       // Flux SSE temps réel pour synchronisation instantanée des cartes
       try {
@@ -2077,21 +2120,23 @@
         return;
       }
       
-      // Vérification préalable du nombre de joueurs dans le lobby
+      // Vérification préalable du nombre de joueurs actifs (35 dernières secondes) dans le lobby
       try {
-        const resp = await relayFetch(`${code}_MEMBERS/json?poll=1&since=12h&_cb=${Date.now()}`, { cache: "no-store" });
-        if (resp.ok) {
+        const resp = await relayFetch(`${code}_MEMBERS/json?poll=1&since=45s&_cb=${Date.now()}`, { cache: "no-store" });
+        if (resp && resp.ok) {
           const txt = await resp.text();
+          const nowSec = Math.floor(Date.now() / 1000);
           const activeIds = new Set();
           for (const line of txt.split("\n")) {
             if (!line.trim()) continue;
             try {
               const ev = JSON.parse(line);
+              if (ev.time && (nowSec - ev.time) > 35) continue;
               if (ev.message && ev.message.startsWith("PING:")) {
                 const parts = ev.message.split(":");
-                if (parts.length >= 2) activeIds.add(parts[1]);
+                if (parts.length >= 2) activeIds.add(parts[1].trim());
               } else if (ev.message && ev.message.startsWith("LEAVE:")) {
-                activeIds.delete(ev.message.substring(6).trim());
+                activeIds.delete(ev.message.substring(6).trim().replace(/^"|"$/g, ""));
               }
             } catch (e) {}
           }
@@ -2222,7 +2267,7 @@
       return 0;
     }
 
-    const BASE_MOBILE_VERSION = "2.1.3.1";
+    const BASE_MOBILE_VERSION = "2.1.3.2";
     function toDisplayVer(v) {
       if (!v) return "2.1.3";
       const parts = (v + "").replace(/^v/i, "").split(".");

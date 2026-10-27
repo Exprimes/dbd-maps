@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OMNI • Concepts Visuels Uniques</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Orbitron:wght@700;900&family=Plus+Jakarta+Sans:wght@700;800;900&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #050608;
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    .bg-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+
+    .ember {
+      position: absolute;
+      bottom: -20px;
+      background: radial-gradient(circle, #ff4444 0%, #ff0000 60%, transparent 100%);
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(1px);
+      animation: floatUp 6s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(0.6) rotate(0deg);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.8;
+      }
+      80% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-500px) scale(1.2) rotate(180deg);
+        opacity: 0;
+      }
+    }
+
+    .blood-glow {
+      text-shadow: 
+        0 0 20px rgba(239, 68, 68, 0.8),
+        0 0 60px rgba(220, 38, 38, 0.5),
+        0 0 100px rgba(185, 28, 28, 0.3);
+    }
+
+    .chrome-blood-text {
+      background: linear-gradient(180deg, #ffffff 0%, #d1d5db 40%, #ef4444 75%, #7f1d1d 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .chrome-silver-text {
+      background: linear-gradient(180deg, #ffffff 0%, #e5e7eb 30%, #9ca3af 60%, #374151 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 35px rgba(255, 255, 255, 0.15));
+    }
+
+    .neon-pulse {
+      animation: pulseGlow 3s ease-in-out infinite alternate;
+    }
+    @keyframes pulseGlow {
+      0% { filter: drop-shadow(0 0 25px rgba(239, 68, 68, 0.4)); }
+      100% { filter: drop-shadow(0 0 50px rgba(239, 68, 68, 0.85)); }
+    }
+
+    .tab-btn.active {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: #ef4444;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-grid relative p-4 md:p-8">
+
+  <div id="embers-container"></div>
+
+  <div class="max-w-4xl mx-auto mb-10 text-center">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/40 border border-red-500/30 text-xs text-red-400 font-mono tracking-widest uppercase mb-4">
+      ● 3 TITRES OMNI EXCLUSIFS
+    </div>
+    <h2 class="text-xl md:text-2xl font-black text-gray-200 mb-6">
+      Clique pour tester les 3 identités visuelles pour <span class="text-red-500">OMNI</span> :
+    </h2>
+
+    <div class="flex flex-wrap justify-center gap-3">
+      <button onclick="switchStyle(1)" id="tab-1" class="tab-btn active px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 text-sm font-bold text-gray-300 transition-all hover:bg-white/10">
+        🔥 1. OMNI // MAGMA & BRAISES (Impact Pur)
+      </button>
+      <button onclick="switchStyle(2)" id="tab-2" class="tab-btn px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 text-sm font-bold text-gray-300 transition-all hover:bg-white/10">
+        ⚔️ 2. OMNI // L'ENTITÉ NOIRE (Cinématique & Lourd)
+      </button>
+      <button onclick="switchStyle(3)" id="tab-3" class="tab-btn px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 text-sm font-bold text-gray-300 transition-all hover:bg-white/10">
+        ⚡ 3. OMNI // PROTOCOL TACTIQUE (Futuriste & Tranchant)
+      </button>
+    </div>
+  </div>
+
+  <!-- STYLE 1 -->
+  <div id="style-1" class="max-w-5xl mx-auto py-12 px-6 text-center relative transition-all duration-500">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-red-600/20 blur-[90px] rounded-full pointer-events-none -z-10"></div>
+
+    <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-black/60 border border-red-500/40 text-xs font-mono uppercase tracking-widest text-red-400 mb-6 backdrop-blur-md">
+      <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+      DEAD BY DAYLIGHT ECOSYSTEM
+    </div>
+
+    <div class="relative inline-block mb-4">
+      <h1 class="text-7xl sm:text-9xl md:text-[140px] font-black tracking-tighter leading-none chrome-blood-text neon-pulse uppercase" style="letter-spacing: -4px;">
+        OMNI
+      </h1>
+      <div class="h-1.5 w-full bg-gradient-to-r from-transparent via-red-500 to-transparent shadow-[0_0_25px_#ef4444] mt-2"></div>
+    </div>
+
+    <p class="text-lg md:text-2xl font-bold tracking-wide text-gray-200 mt-6 max-w-2xl mx-auto">
+      L'ÉLITE DU BROUILLARD.
+    </p>
+    <p class="text-sm md:text-base text-gray-400 max-w-xl mx-auto mt-2 leading-relaxed">
+      Overlay officiel 100% transparent, compagnon 44 cartes HD et suite d'outils nouvelle génération développés pour dominer chaque partie.
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-4 mt-8">
+      <button class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 text-white font-black text-sm tracking-wide shadow-[0_0_30px_rgba(239,68,68,0.5)] hover:shadow-[0_0_45px_rgba(239,68,68,0.8)] transition transform hover:-translate-y-0.5">
+        ACCÉDER AUX LOGICIELS &rarr;
+      </button>
+      <button class="px-8 py-3.5 rounded-xl bg-white/5 border border-white/10 hover:border-white/25 text-gray-300 font-bold text-sm tracking-wide transition">
+        REJOINDRE LE DISCORD
+      </button>
+    </div>
+  </div>
+
+  <!-- STYLE 2 -->
+  <div id="style-2" class="max-w-5xl mx-auto py-12 px-6 text-center relative hidden transition-all duration-500">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-rose-950/40 blur-[100px] rounded-full pointer-events-none -z-10"></div>
+
+    <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-b from-neutral-900 to-black border border-red-500/30 flex items-center justify-center shadow-[0_0_40px_rgba(220,38,38,0.3)]">
+      <span class="text-4xl font-black text-red-500" style="font-family: 'Cinzel', serif;">Ω</span>
+    </div>
+
+    <h1 class="text-6xl sm:text-8xl md:text-[110px] font-black tracking-widest text-white uppercase chrome-silver-text" style="font-family: 'Cinzel', serif; letter-spacing: 12px;">
+      O M N I
+    </h1>
+
+    <div class="flex items-center justify-center gap-4 my-4 max-w-md mx-auto">
+      <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent to-red-500"></div>
+      <span class="text-xs font-mono uppercase tracking-[0.3em] text-red-500 font-bold">THE ENTITY COMPANION</span>
+      <div class="h-[1px] flex-1 bg-gradient-to-l from-transparent to-red-500"></div>
+    </div>
+
+    <p class="text-sm md:text-base text-gray-400 max-w-xl mx-auto mt-4 leading-relaxed font-light">
+      Une suite forgée pour les survivants et tueurs exigeants. Cartes tactiques synchronisées, overlay in-game fluide et repérages instantanés.
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-4 mt-8">
+      <button class="px-8 py-3.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-xs uppercase tracking-widest shadow-[0_0_30px_rgba(220,38,38,0.4)] transition">
+        Explorer la suite
+      </button>
+      <button class="px-8 py-3.5 rounded-lg bg-black/80 border border-red-900/50 hover:border-red-500/50 text-gray-300 font-bold text-xs uppercase tracking-widest transition">
+        Serveur communautaire
+      </button>
+    </div>
+  </div>
+
+  <!-- STYLE 3 -->
+  <div id="style-3" class="max-w-5xl mx-auto py-12 px-6 text-center relative hidden transition-all duration-500">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[250px] bg-red-600/15 blur-[80px] pointer-events-none -z-10"></div>
+
+    <div class="inline-flex items-center gap-3 px-4 py-1 bg-red-950/30 border-l-2 border-r-2 border-red-500 text-red-400 font-mono text-[11px] tracking-widest uppercase mb-6">
+      <span>SYS.VER_2.4</span>
+      <span>//</span>
+      <span>GRID_CALLOUTS_ACTIVE</span>
+      <span>//</span>
+      <span class="text-white">ONLINE</span>
+    </div>
+
+    <h1 class="text-6xl sm:text-8xl md:text-[120px] font-black tracking-wider text-white uppercase" style="font-family: 'Orbitron', sans-serif; letter-spacing: 6px;">
+      OMNI<span class="text-red-500 drop-shadow-[0_0_20px_#ef4444]">.IO</span>
+    </h1>
+
+    <div class="inline-block px-4 py-1 bg-white/5 border border-white/10 rounded font-mono text-xs text-gray-300 tracking-widest uppercase mt-4">
+      [ NATIVE WINDOWS HORROR TOOLS • LOW LATENCY ]
+    </div>
+
+    <p class="text-sm md:text-base text-gray-400 max-w-xl mx-auto mt-6 leading-relaxed font-mono text-xs">
+      &gt; DÉTECTION AUTOMATIQUE DES MAPS<br>
+      &gt; SYSTÈME D'HORLOGE 1-12 SYNCHRONISÉ<br>
+      &gt; ZÉRO INJECTION DLL • INDÉTECTABLE EAC
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-4 mt-8">
+      <button class="px-8 py-3 bg-red-600 hover:bg-red-500 text-black font-black text-xs font-mono uppercase tracking-widest shadow-[0_0_30px_rgba(239,68,68,0.6)] transition">
+        [ TÉLÉCHARGER OVERLAY ]
+      </button>
+      <button class="px-8 py-3 bg-transparent border border-gray-700 hover:border-red-500 text-gray-300 font-mono text-xs uppercase tracking-widest transition">
+        [ ACCÈS WEB APP ]
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const container = document.getElementById('embers-container');
+    for (let i = 0; i < 25; i++) {
+      const ember = document.createElement('div');
+      ember.className = 'ember';
+      ember.style.left = Math.random() * 100 + '%';
+      const size = Math.random() * 5 + 2;
+      ember.style.width = size + 'px';
+      ember.style.height = size + 'px';
+      ember.style.animationDuration = (Math.random() * 4 + 4) + 's';
+      ember.style.animationDelay = (Math.random() * 5) + 's';
+      container.appendChild(ember);
+    }
+
+    function switchStyle(num) {
+      document.querySelectorAll('[id^="style-"]').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      
+      document.getElementById('style-' + num).classList.remove('hidden');
+      document.getElementById('tab-' + num).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>

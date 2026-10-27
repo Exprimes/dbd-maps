@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>DBD MAP • Téléchargement PC & Mobile (Omni Community)</title>
+  <link rel="icon" type="image/png" href="app_icon.png">
+  <meta name="description" content="DBD MAP • Compagnon interactif et officiel pour Dead by Daylight. Téléchargez l'overlay PC transparent et l'application mobile avec les 44 cartes HD, repérages précis et système de callouts d'équipe 1 à 12. 100% Gratuit.">
+  <meta name="keywords" content="Dead by Daylight, DBD, DBD Maps, cartes DBD, maps Dead by Daylight, overlay DBD, guide DBD, callouts horloge, Omni Community, Exprimes, DBD compagnon, DBD tutoriel, Dead by Daylight France, DBD PC, DBD mobile">
+  <meta name="author" content="Exprimes - Omni Community">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://exprimes.github.io/dbd-maps/">
+
+  <!-- OpenGraph / Facebook / Discord / TikTok Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Omni Community • DBD MAP">
+  <meta property="og:title" content="DBD MAP • 44 Cartes HD Dead by Daylight (PC & Mobile)">
+  <meta property="og:description" content="Compagnon interactif 100% gratuit : overlay transparent pour PC et application mobile avec les 44 cartes HD officielles et callouts d'horloge 1 à 12.">
+  <meta property="og:url" content="https://exprimes.github.io/dbd-maps/">
+  <meta property="og:image" content="https://exprimes.github.io/dbd-maps/omni_logo.jpg">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:locale" content="fr_FR">
+
+  <!-- Twitter / X Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DBD MAP • 44 Cartes HD Dead by Daylight">
+  <meta name="twitter:description" content="Compagnon interactif 100% gratuit : overlay PC & app mobile avec 44 cartes HD et callouts 1-12.">
+  <meta name="twitter:image" content="https://exprimes.github.io/dbd-maps/omni_logo.jpg">
+
+  <!-- Schema.org Données Structurées pour Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "DBD MAP",
+    "operatingSystem": "Windows 10, Windows 11, Android, iOS",
+    "applicationCategory": "GameApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "description": "Application compagnon interactive 100% gratuite pour Dead by Daylight proposant les 44 cartes officielles en HD, un overlay PC transparent et un lobby synchronisé.",
+    "author": {
+      "@type": "Person",
+      "name": "Exprimes"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Omni Community",
+      "logo": "https://exprimes.github.io/dbd-maps/omni_logo.jpg"
+    }
+  }
+  </script>
+
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="DBD MAP">
+  <link rel="apple-touch-icon" href="app_icon.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0e14;
+      --card-pc: #111827;
+      --card-mobile: #0f1f18;
+      --border-pc: #1e3a8a;
+      --border-mobile: #065f46;
+      --accent-pc: #3b82f6;
+      --accent-mobile: #10b981;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 40%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 0 16px;
+    }
+    .wrapper {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    
+    /* EN-TÊTE */
+    header {
+      text-align: center;
+      padding: 44px 0 24px 0;
+    }
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 8px 22px;
+      border-radius: 40px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(8px);
+    }
+    .brand-pill img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+    }
+    .brand-pill span {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+    .subtitle {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--text-muted);
+      max-width: 720px;
+      margin: 0 auto 24px auto;
+      line-height: 1.5;
+    }
+
+    .global-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+    .badge {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    /* SELECTEUR 2 COLONNES */
+    .platforms-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+
+    .platform-card {
+      border-radius: 22px;
+      padding: 36px 30px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      border: 2px solid;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .platform-card:hover {
+      transform: translateY(-5px);
+    }
+
+    /* CARTE PC */
+    .card-pc {
+      background: linear-gradient(180deg, #131c31 0%, #0d1322 100%);
+      border-color: #2563eb;
+    }
+    .card-pc:hover {
+      box-shadow: 0 16px 40px rgba(37, 99, 235, 0.25);
+    }
+    
+    /* CARTE MOBILE */
+    .card-mobile {
+      background: linear-gradient(180deg, #0e2920 0%, #091b15 100%);
+      border-color: #059669;
+    }
+    .card-mobile:hover {
+      box-shadow: 0 16px 40px rgba(5, 150, 105, 0.25);
+    }
+
+    .platform-tag {
+      position: absolute;
+      top: -14px;
+      left: 28px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+    .tag-pc {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.5);
+    }
+    .tag-mobile {
+      background: #059669;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.5);
+    }
+
+    .platform-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+    .platform-icon {
+      font-size: 3rem;
+      line-height: 1;
+    }
+    .platform-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+    }
+    .platform-sub {
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+    .sub-pc { color: #60a5fa; }
+    .sub-mobile { color: #34d399; }
+
+    .platform-desc {
+      color: #d1d5db;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 24px;
+      min-height: 48px;
+    }
+
+    .features-list {
+      list-style: none;
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .features-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.92rem;
+      color: #e5e7eb;
+    }
+    .features-list li span {
+      font-weight: 900;
+      font-size: 1.1rem;
+    }
+    .check-pc { color: #3b82f6; }
+    .check-mobile { color: #10b981; }
+
+    /* BOUTONS DE TELECHARGEMENT */
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: auto;
+    }
+    .download-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-weight: 800;
+      text-align: center;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+    .btn-main-text {
+      font-size: 1.15rem;
+      letter-spacing: 0.2px;
+    }
+    .btn-sub-text {
+      font-size: 0.78rem;
+      opacity: 0.85;
+      margin-top: 2px;
+      font-weight: 600;
+    }
+
+    /* Bouton PC Principal */
+    .btn-pc {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    }
+    .btn-pc:hover {
+      background: #1d4ed8;
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6);
+    }
+
+    /* Bouton PC Secondaire */
+    .btn-pc-zip {
+      background: rgba(255, 255, 255, 0.05);
+      color: #93c5fd;
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      padding: 12px;
+    }
+    .btn-pc-zip:hover {
+      background: rgba(59, 130, 246, 0.15);
+      color: #ffffff;
+    }
+
+    /* Bouton Mobile Principal */
+    .btn-mobile {
+      background: #059669;
+      color: #ffffff;
+      box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4);
+    }
+    .btn-mobile:hover {
+      background: #047857;
+      box-shadow: 0 8px 25px rgba(5, 150, 105, 0.6);
+    }
+
+    /* Bouton iOS / iPhone */
+    .btn-ios {
+      background: rgba(255, 255, 255, 0.08);
+      color: #f3f4f6;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 13px 20px;
+    }
+    .btn-ios:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: #ffffff;
+      color: #ffffff;
+    }
+
+    /* Modal iOS */
+    .ios-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .ios-step-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .ios-step-text {
+      font-size: 0.88rem;
+      line-height: 1.45;
+      color: #e5e7eb;
+    }
+    .ios-step-text strong {
+      color: #ffffff;
+    }
+
+    /* SECTION CHANGELOG */
+    .changelog-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      padding: 24px 28px;
+      margin-bottom: 36px;
+    }
+    .changelog-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .changelog-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #f3f4f6;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .changelog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .changelog-item {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.88rem;
+      color: #d1d5db;
+      line-height: 1.4;
+    }
+    .changelog-item strong {
+      color: #60a5fa;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    /* SECTION DÉTAILS */
+    .info-section {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+    .info-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .step-box {
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 12px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .step-num {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #60a5fa;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .step-text {
+      font-size: 0.9rem;
+      color: #d1d5db;
+      line-height: 1.4;
+    }
+
+    /* MODAL CHOISIR EMPLACEMENT */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .modal-card {
+      background: #111827;
+      border: 1px solid #374151;
+      border-radius: 16px;
+      max-width: 530px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 22px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin: auto;
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #f3f4f6;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      color: #9ca3af;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .modal-body {
+      font-size: 0.92rem;
+      color: #d1d5db;
+      line-height: 1.5;
+    }
+    .tip-box {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 10px;
+      padding: 14px;
+      margin-top: 10px;
+      font-size: 0.88rem;
+    }
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .btn-modal-dl {
+      flex: 1;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px;
+      font-weight: 800;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn-modal-dl:hover {
+      background: #1d4ed8;
+    }
+    .btn-modal-close {
+      background: #374151;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: auto;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 24px 0;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* LANG SWITCHER */
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 30px;
+      padding: 3px 4px;
+      gap: 2px;
+      backdrop-filter: blur(8px);
+      margin-bottom: 16px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .lang-btn:hover {
+      color: #ffffff;
+    }
+    .lang-btn.active {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.45);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <header>
+      <!-- SELECTEUR DE LANGUE FR / EN -->
+      <div style="display:flex; justify-content:center;">
+        <div class="lang-switcher" id="langSwitcher">
+          <button type="button" class="lang-btn active" id="btnLangFr" onclick="setLanguage('fr')">
+            <span>🇫🇷</span> <span>Français</span>
+          </button>
+          <button type="button" class="lang-btn" id="btnLangEn" onclick="setLanguage('en')">
+            <span>🇬🇧</span> <span>English</span>
+          </button>
+        </div>
+      </div>
+      <div class="brand-pill">
+        <img src="omni_logo.jpg" alt="Logo Omni Community">
+        <span>DBD MAPS OMNI • By Exprimes</span>
+      </div>
+      <h1 data-i18n="heroTitle">Choisissez votre Téléchargement</h1>
+      <p class="subtitle" data-i18n="heroSub">Deux versions officielles créées sur mesure : le logiciel overlay pour votre PC et l'application autonome pour votre téléphone ou console.</p>
+
+      <div class="global-badges">
+        <span class="badge" data-i18n="badgeMaps">🗺️ 44 Cartes HD en Français</span>
+        <span class="badge" data-i18n="badgeLobby">👥 Lobby Synchronisé PC & Mobile</span>
+        <span class="badge" data-i18n="badgeHotkeys">⚡ Raccourcis Clavier In-Game (F8 / F9)</span>
+        <span class="badge" data-i18n="badgeOcr">👁️ Reconnaissance Auto OCR</span>
+        <span class="badge" data-i18n="badgeUpdater">🚀 Vérificateur de Mises à Jour Intégré</span>
+        <span class="badge" data-i18n="badgeFree">💯 100% Gratuit & Sans Pub</span>
+      </div>
+    
+      <!-- BANNIÈRE OFFICIELLE DISCORD OMNI COMMUNITY -->
+      <div style="margin: 0 auto 36px auto; max-width: 720px; width: 100%;">
+        <a href="https://discord.gg/sHVttN4ZdZ" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; background: linear-gradient(135deg, rgba(88, 101, 242, 0.22) 0%, rgba(15, 23, 42, 0.95) 100%); border: 1px solid #5865F2; padding: 14px 22px; border-radius: 16px; text-decoration: none; color: #ffffff; box-shadow: 0 8px 25px rgba(88, 101, 242, 0.25); transition: transform 0.2s;">
+          <div style="display: flex; align-items: center; gap: 14px; text-align: left;">
+            <img src="omni_logo.jpg" alt="Omni Community" style="width: 46px; height: 46px; border-radius: 50%; border: 2px solid #5865F2; object-fit: cover;">
+            <div>
+              <div style="font-weight: 800; font-size: 1.05rem; color: #ffffff; display: flex; align-items: center; gap: 8px;">
+                <span data-i18n="discordTitle">💬 Rejoindre le Discord Officiel</span>
+                <span style="background: #5865F2; color: #ffffff; font-size: 0.72rem; padding: 2px 8px; border-radius: 10px; font-weight: 800;">OMNI COMMUNITY</span>
+              </div>
+              <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 3px;">
+                <span data-i18n="discordSub">Mises à jour régulières, support direct, retours de bugs & salon Dead by Daylight !</span>
+              </div>
+            </div>
+          </div>
+          <span style="background: #5865F2; color: #fff; padding: 8px 16px; border-radius: 10px; font-weight: 800; font-size: 0.85rem; white-space: nowrap;" data-i18n="discordBtn">
+            Rejoindre ➔
+          </span>
+        </a>
+      </div>
+    </header>
+
+    <!-- CARTOUCHES DE TELECHARGEMENT -->
+    <div class="platforms-container">
+
+      <!-- ============================================== -->
+      <!-- COLONNE 1 : LOGICIEL POUR PC (WINDOWS) -->
+      <!-- ============================================== -->
+      <div class="platform-card card-pc">
+        <div class="platform-tag tag-pc" data-i18n="pcTag">POUR ORDINATEUR</div>
+        
+        <div class="platform-header">
+          <div class="platform-icon">💻</div>
+          <div>
+            <div class="platform-title" data-i18n="pcTitle">Version PC (v2.0.2)</div>
+            <div class="platform-sub sub-pc" data-i18n="pcSub">Plateforme : Windows 10 & 11 (64 bits)</div>
+          </div>
+        </div>
+
+        <p class="platform-desc" data-i18n="pcDesc">À installer sur votre ordinateur pour jouer à Dead by Daylight avec l'overlay transparent directement sur votre écran de jeu.</p>
+
+        <ul class="features-list">
+          <li data-i18n="pcFeat1"><span class="check-pc">✓</span> <strong>Overlay en jeu :</strong> affichez la carte par-dessus DBD sans lag</li>
+          <li data-i18n="pcFeat2"><span class="check-pc">✓</span> <strong>Raccourcis In-Game (F8 / F9) :</strong> actifs même en plein écran exclusif</li>
+          <li data-i18n="pcFeat3"><span class="check-pc">✓</span> <strong>Reconnaissance OCR 100% auto :</strong> détection Ligne 1 instantanée sans faux positifs</li>
+          <li data-i18n="pcFeat4"><span class="check-pc">✓</span> <strong>44 cartes HD embarquées :</strong> schémas officiels HD mis à jour (Léry & Hawkins)</li>
+          <li data-i18n="pcFeat5"><span class="check-pc">✓</span> <strong>Bouton 🔄 Synchroniser :</strong> télécharge les nouvelles cartes sans réinstaller</li>
+          <li data-i18n="pcFeat6"><span class="check-pc">✓</span> <strong>Trouver le fichier :</strong> bouton pour localiser l'exécutable sur votre PC</li>
+        </ul>
+
+        <div class="btn-group">
+          <!-- TELECHARGEMENT EXE PC -->
+          <a href="https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.exe" 
+             download="DBDMapsOmni.exe" 
+             class="download-btn btn-pc"
+             onclick="openLocationModal(event, this.href, 'DBDMapsOmni.exe')">
+            <span class="btn-main-text" data-i18n="pcDlExe">💻 Télécharger pour PC (.EXE)</span>
+            <span class="btn-sub-text" data-i18n="pcDlExeSub">Fichier Exécutable direct • Prêt à lancer</span>
+          </a>
+
+          <!-- TELECHARGEMENT ZIP PC -->
+          <a href="https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni_Distribution.zip" 
+             download="DBDMapsOmni_Distribution.zip" 
+             class="download-btn btn-pc-zip"
+             onclick="openLocationModal(event, this.href, 'DBDMapsOmni_Distribution.zip')">
+            <span data-i18n="pcDlZip">📦 Télécharger en format ZIP (Dossier compressé)</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- COLONNE 2 : LOGICIEL POUR TÉLÉPHONE (ANDROID) -->
+      <!-- ============================================== -->
+      <div class="platform-card card-mobile">
+        <div class="platform-tag tag-mobile" data-i18n="mobTag">POUR SMARTPHONE & CONSOLE</div>
+
+        <div class="platform-header">
+          <div class="platform-icon">📱</div>
+          <div>
+            <div class="platform-title" data-i18n="mobTitle">Version Mobile (v2.0.2)</div>
+            <div class="platform-sub sub-mobile" data-i18n="mobSub">Compatible : Android & Apple iOS (iPhone / iPad)</div>
+          </div>
+        </div>
+
+        <p class="platform-desc" data-i18n="mobDesc">
+          À installer sur votre smartphone. <strong>Indispensable pour les joueurs Console (Xbox & PlayStation)</strong> en écran compagnon.
+        </p>
+
+        <ul class="features-list">
+          <li data-i18n="mobFeat1"><span class="check-mobile">✓</span> <strong>Joueurs Xbox & PlayStation :</strong> posez le téléphone à côté de la manette</li>
+          <li data-i18n="mobFeat2"><span class="check-mobile">✓</span> <strong>Lobby synchronisé :</strong> changez la carte pour toute votre équipe en direct</li>
+          <li data-i18n="mobFeat3"><span class="check-mobile">✓</span> <strong>Écran toujours allumé :</strong> ne s'éteint jamais pendant vos parties</li>
+          <li data-i18n="mobFeat4"><span class="check-mobile">✓</span> <strong>Tactile & Zoom précis :</strong> pincez à 2 doigts et glissez pour explorer</li>
+          <li data-i18n="mobFeat5"><span class="check-mobile">✓</span> <strong>44 cartes HD officielles :</strong> affichage instantané et fluide</li>
+          <li data-i18n="mobFeat6"><span class="check-mobile">✓</span> <strong>Bouton 🔄 Synchroniser :</strong> mise à jour instantanée des cartes</li>
+        </ul>
+
+        <div class="btn-group">
+          <!-- BOUTON ANDROID APK -->
+          <a href="https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.apk" 
+             download="DBDMapsOmni.apk" 
+             class="download-btn btn-mobile">
+            <span class="btn-main-text" data-i18n="mobDlApk">🤖 Télécharger pour Android (.APK)</span>
+            <span class="btn-sub-text" data-i18n="mobDlApkSub">Fichier certifié • Installation rapide</span>
+          </a>
+
+          <!-- BOUTON IPHONE IOS DIRECT -->
+          <a href="app.html?v=2.0.2" class="download-btn btn-ios" style="text-decoration:none;">
+            <span class="btn-main-text" data-i18n="mobDlIos">🍏 Ouvrir sur iPhone / iPad (iOS)</span>
+            <span class="btn-sub-text" data-i18n="mobDlIosSub">Lancement direct • 44 Cartes & Lobby HD</span>
+          </a>
+
+          <!-- LIEN GUIDE INSTALLATION PLEIN ECRAN -->
+          <button type="button" onclick="openIosModal()" style="background:rgba(255,255,255,0.06); border:1px dashed rgba(255,255,255,0.25); color:#6ee7b7; border-radius:10px; padding:10px 14px; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-weight:700; font-size:0.88rem;" data-i18n="mobIosGuide">📱 Comment mettre l'icône sur l'écran d'accueil ?</span>
+            <span style="font-size:0.75rem; color:#9ca3af;" data-i18n="mobIosGuideSub">Guide Safari ➔ Mode plein écran autonome</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- NOUVEAUTES v1.3.5 -->
+    <div class="changelog-box">
+      <div class="changelog-header">
+        <div class="changelog-title">
+          <span>🚀</span>
+          <span data-i18n="clTitle">Dernières Nouveautés — Version 2.0.2</span>
+        </div>
+        <span class="badge" style="background:#238636; color:#fff; border-color:#2ea043;" data-i18n="clBadge">Dernière Version Officielle</span>
+      </div>
+      <div class="changelog-grid">
+        <div class="changelog-item" data-i18n="clItem1">
+          <strong>⚡ OCR Ligne 1 & Protection Hors-Partie</strong>
+          L'analyse OCR lit exclusivement la 1re ligne (nom de la carte) et ne s'active que lorsque Dead by Daylight est au premier plan : zéro délai sur Nostromo et aucun changement hors partie.
+        </div>
+        <div class="changelog-item" data-i18n="clItem2">
+          <strong>🗺️ Nouvelles Cartes HD & Noms Officiels</strong>
+          Nouveaux schémas HD et harmonisation exacte des noms avec ceux écrits sur les cartes et en jeu : <em>Centre de Traitement</em> et <em>Le Complexe Souterrain</em>.
+        </div>
+        <div class="changelog-item" data-i18n="clItem3">
+          <strong>📱 Nettoyage Automatique RPD Mobile & PC</strong>
+          Suppression définitive des doublons « RPD East » / « RPD West » au profit des noms officiels français (Aile Est et Aile Ouest du Commissariat).
+        </div>
+        <div class="changelog-item" data-i18n="clItem4">
+          <strong>🔄 Synchronisation & Auto-Update v2.0.2</strong>
+          Mise à jour automatique corrigée et synchronisée entre le logiciel PC, l'application mobile et le mode Lobby.
+        </div>
+        <div class="changelog-item" data-i18n="clItem5">
+          <strong>👁️ Transparence & Opacité Matérielle</strong>
+          Transparence Windows DWM instantanée en jeu : 100% sans fond pour voir le jeu à travers la map, avec aperçu logiciel conservé à 100% net.
+        </div>
+      </div>
+    </div>
+
+    <!-- GUIDE D'UTILISATION -->
+    <div class="info-section">
+      <div class="info-title" data-i18n="howTitle">💡 Comment installer et utiliser ?</div>
+      <div class="steps-grid">
+        <div class="step-box">
+          <div class="step-num" data-i18n="howStep1Title">1. Sur PC Windows</div>
+          <div class="step-text" data-i18n="howStep1Text">Cliquez sur le bouton bleu pour télécharger <strong>DBDMapsOmni.exe</strong>. Lancez-le et retrouvez son emplacement exact à tout moment dans l'onglet <strong>Paramètres ➔ Emplacement du logiciel</strong>.</div>
+        </div>
+        <div class="step-box">
+          <div class="step-num" data-i18n="howStep2Title">2. Sur Android (.APK)</div>
+          <div class="step-text" data-i18n="howStep2Text">Cliquez sur <strong>Télécharger pour Android (.APK)</strong>. Ouvrez le fichier téléchargé et validez l'installation en 1 clic.</div>
+        </div>
+        <div class="step-box">
+          <div class="step-num" data-i18n="howStep3Title">3. Sur iPhone (iOS)</div>
+          <div class="step-text" data-i18n="howStep3Text">Ouvrez le site avec <strong>Safari</strong> ➔ <strong>Partager ⬆️</strong> ➔ <strong>« Sur l'écran d'accueil ➕ »</strong>. Laissez bien coché <strong>« Ouvrir comme app web » (vert 🟢)</strong> et appuyez sur <strong>Ajouter</strong>.</div>
+        </div>
+        <div class="step-box">
+          <div class="step-num" data-i18n="howStep4Title">4. Jouer en Équipe (Lobby)</div>
+          <div class="step-text" data-i18n="howStep4Text">Dans l'onglet <strong>Lobby</strong>, un joueur crée un code (ex: <em>ABC12</em>) et les autres le rejoignent. Dès qu'un joueur clique sur une carte ou que l'OCR la détecte, elle s'affiche chez tout le monde !</div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p data-i18n="footerText">DBD MAP • Développé par <strong>Exprimes</strong> pour <strong>Omni Community</strong> • 100% Gratuit pour toute la communauté Dead by Daylight</p>
+      <p style="margin-top: 8px;">
+        <a href="https://discord.gg/sHVttN4ZdZ" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;" data-i18n="discordFooter">
+          💬 Discord Officiel : discord.gg/sHVttN4ZdZ
+        </a>
+      </p>
+    </footer>
+  </div>
+
+  <!-- MODAL INSTALLATION IPHONE IOS -->
+  <div id="iosModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 530px;">
+      <div class="modal-header">
+        <div class="modal-title" data-i18n="iosModalTitle">🍏 Comment installer sur iPhone & iPad ?</div>
+        <button class="modal-close" onclick="closeIosModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom: 16px;">
+          <a href="app.html?v=2.0.2" class="btn-modal-dl" style="background:#059669; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px; padding:13px 18px; font-size:1rem; font-weight:700; border-radius:10px; box-shadow:0 4px 15px rgba(5, 150, 105, 0.45); color:#ffffff;" data-i18n="iosModalOpen">
+            🚀 Ouvrir DBD MAP maintenant
+          </a>
+        </div>
+
+        <p style="margin-bottom: 14px; color: #d1d5db; font-size: 0.9rem;" data-i18n="iosModalDesc">
+          Sur iPhone, Apple ne permet pas de télécharger un fichier APK, mais vous pouvez installer <strong>l'application officielle en plein écran</strong> directement sur votre écran d'accueil :
+        </p>
+
+        <div class="ios-step">
+          <div class="ios-step-icon">1️⃣</div>
+          <div class="ios-step-text" data-i18n="iosModalStep1">
+            Ouvrez ce site internet dans le navigateur <strong>Safari</strong> sur votre iPhone ou iPad.
+          </div>
+        </div>
+
+        <div class="ios-step">
+          <div class="ios-step-icon">2️⃣</div>
+          <div class="ios-step-text" data-i18n="iosModalStep2">
+            En bas de Safari, appuyez sur le bouton de <strong>Partage</strong> (le carré avec la flèche vers le haut <strong>⬆️</strong>).
+          </div>
+        </div>
+
+        <div class="ios-step">
+          <div class="ios-step-icon">3️⃣</div>
+          <div class="ios-step-text" data-i18n="iosModalStep3">
+            Faites défiler vers le bas et sélectionnez <strong>« Sur l'écran d'accueil »</strong> (avec l'icône <strong>➕</strong>).
+          </div>
+        </div>
+
+        <!-- ENCADRÉ TRÈS IMPORTANT SUR OUVRIR COMME APP WEB -->
+        <div style="background: rgba(16, 185, 129, 0.12); border: 2px solid #10b981; border-radius: 12px; padding: 14px; margin: 14px 0; text-align: left;">
+          <div style="font-weight: 800; color: #34d399; font-size: 0.95rem; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+            <span>🟢</span> <span data-i18n="iosModalImportantTitle">IMPORTANT AVANT D'APPUYER SUR « AJOUTER » :</span>
+          </div>
+          <div style="font-size: 0.88rem; color: #f3f4f6; line-height: 1.5; margin-bottom: 10px;" data-i18n="iosModalWebapp">
+            ✅ <strong>Laissez bien cochée la case « Ouvrir comme app web » :</strong><br>
+            <span style="color: #cbd5e1; font-size: 0.83rem;">Le bouton doit rester activé en vert 🟢. C'est impératif pour que l'application s'ouvre en <strong>vrai plein écran autonome</strong>, sans la barre d'adresse ni les boutons Safari !</span>
+          </div>
+          <div style="font-size: 0.88rem; color: #f3f4f6; line-height: 1.5; margin-bottom: 8px;" data-i18n="iosModalName">
+            ✏️ <strong>Nom du raccourci :</strong><br>
+            <span style="color: #cbd5e1; font-size: 0.83rem;">Vous pouvez renommer le texte en <strong>DBD MAP</strong> pour un affichage propre sur votre écran.</span>
+          </div>
+          <div style="font-size: 0.88rem; color: #f3f4f6; line-height: 1.5;" data-i18n="iosModalAdd">
+            👉 <strong>Appuyez sur « Ajouter » :</strong><br>
+            <span style="color: #cbd5e1; font-size: 0.83rem;">Cliquez sur le bouton bleu <strong>Ajouter</strong> tout en haut à droite.</span>
+          </div>
+        </div>
+
+        <div style="background: rgba(59, 130, 246, 0.12); border: 1px solid rgba(59, 130, 246, 0.35); border-radius: 10px; padding: 12px; text-align: left; font-size: 0.85rem; color: #93c5fd;" data-i18n="iosModalReady">
+          ✨ <strong>C'est prêt !</strong> L'icône officielle DBD MAP apparaît sur votre écran d'accueil. En cliquant dessus, vous accédez directement aux 44 cartes HD et au Lobby synchronisé.
+        </div>
+      </div>
+      <div class="modal-actions">
+        <a href="app.html?v=2.0.2" class="btn-modal-dl" style="background:#059669; text-decoration:none;" data-i18n="iosModalBtnOpen">🚀 Ouvrir l'application iOS maintenant</a>
+        <button class="btn-modal-close" onclick="closeIosModal()" data-i18n="iosModalBtnClose">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- MODAL CHOISIR EMPLACEMENT -->
+  <div id="locationModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title" data-i18n="locModalTitle">💾 Choisir où enregistrer le fichier</div>
+        <button class="modal-close" onclick="closeLocationModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p data-i18n="locModalDesc">Souhaitez-vous choisir l'emplacement exact où enregistrer le fichier (ex: directement sur votre <strong>Bureau</strong>) ?</p>
+        
+        <div class="tip-box" data-i18n="locModalTip">
+          <strong>👉 Pour choisir votre dossier :</strong><br>
+          Faites un <strong>Clic Droit</strong> sur le bouton de téléchargement, puis cliquez sur <strong>« Enregistrer le lien sous... »</strong> (ou <em>Save link as...</em>). Vous pourrez sélectionner votre Bureau ou le dossier de votre choix !
+        </div>
+        <div style="font-size: 0.8rem; color: #9ca3af; margin-top: 6px;" data-i18n="locModalTipSub">
+          💡 <em>Vous pouvez aussi cliquer sur « Télécharger directement » ci-dessous pour le placer dans vos Téléchargements.</em>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <a id="modalDownloadBtn" href="#" class="btn-modal-dl" data-i18n="locModalBtnDl">📥 Télécharger directement</a>
+        <button class="btn-modal-close" onclick="closeLocationModal()" data-i18n="locModalBtnClose">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openIosModal() {
+      document.getElementById('iosModal').style.display = 'flex';
+    }
+    function closeIosModal() {
+      document.getElementById('iosModal').style.display = 'none';
+    }
+
+    function openLocationModal(e, url, filename) {
+      e.preventDefault();
+      const modal = document.getElementById("locationModal");
+      const btn = document.getElementById("modalDownloadBtn");
+      btn.href = url;
+      btn.setAttribute("download", filename);
+      btn.onclick = () => {
+        closeLocationModal();
+      };
+      modal.style.display = "flex";
+    }
+
+    function closeLocationModal() {
+      document.getElementById("locationModal").style.display = "none";
+    }
+  </script>
+
+
+    <!-- SYSTEME BILINGUE FR / EN -->
+  <script>
+    const I18N = {"fr": {"pageTitle": "DBD MAP • Téléchargement PC & Mobile (Omni Community)", "heroTitle": "Choisissez votre Téléchargement", "heroSub": "Deux versions officielles créées sur mesure : le logiciel overlay pour votre PC et l'application autonome pour votre téléphone ou console.", "badgeMaps": "🗺️ 44 Cartes HD en Français", "badgeLobby": "👥 Lobby Synchronisé PC & Mobile", "badgeHotkeys": "⚡ Raccourcis Clavier In-Game (F8 / F9)", "badgeOcr": "👁️ Reconnaissance Auto OCR", "badgeUpdater": "🚀 Vérificateur de Mises à Jour Intégré", "badgeFree": "💯 100% Gratuit & Sans Pub", "discordTitle": "💬 Rejoindre le Discord Officiel", "discordSub": "Mises à jour régulières, support direct, retours de bugs & salon Dead by Daylight !", "discordBtn": "Rejoindre ➔", "pcTag": "POUR ORDINATEUR", "pcTitle": "Version PC (v2.0.2)", "pcSub": "Plateforme : Windows 10 & 11 (64 bits)", "pcDesc": "À installer sur votre ordinateur pour jouer à Dead by Daylight avec l'overlay transparent directement sur votre écran de jeu.", "pcFeat1": "<span class=\"check-pc\">✓</span> <strong>Overlay en jeu :</strong> affichez la carte par-dessus DBD sans lag", "pcFeat2": "<span class=\"check-pc\">✓</span> <strong>Raccourcis In-Game (F8 / F9) :</strong> actifs même en plein écran exclusif", "pcFeat3": "<span class=\"check-pc\">✓</span> <strong>Reconnaissance OCR 100% auto :</strong> détection Ligne 1 instantanée sans faux positifs", "pcFeat4": "<span class=\"check-pc\">✓</span> <strong>44 cartes HD embarquées :</strong> schémas officiels HD mis à jour (Léry & Hawkins)", "pcFeat5": "<span class=\"check-pc\">✓</span> <strong>Bouton 🔄 Synchroniser :</strong> télécharge les nouvelles cartes sans réinstaller", "pcFeat6": "<span class=\"check-pc\">✓</span> <strong>Trouver le fichier :</strong> bouton pour localiser l'exécutable sur votre PC", "pcDlExe": "💻 Télécharger pour PC (.EXE)", "pcDlExeSub": "Fichier Exécutable direct • Prêt à lancer", "pcDlZip": "📦 Télécharger en format ZIP (Dossier compressé)", "mobTag": "POUR SMARTPHONE & CONSOLE", "mobTitle": "Version Mobile (v2.0.2)", "mobSub": "Compatible : Android & Apple iOS (iPhone / iPad)", "mobDesc": "À installer sur votre smartphone. <strong>Indispensable pour les joueurs Console (Xbox & PlayStation)</strong> en écran compagnon.", "mobFeat1": "<span class=\"check-mobile\">✓</span> <strong>Joueurs Xbox & PlayStation :</strong> posez le téléphone à côté de la manette", "mobFeat2": "<span class=\"check-mobile\">✓</span> <strong>Lobby synchronisé :</strong> changez la carte pour toute votre équipe en direct", "mobFeat3": "<span class=\"check-mobile\">✓</span> <strong>Écran toujours allumé :</strong> ne s'éteint jamais pendant vos parties", "mobFeat4": "<span class=\"check-mobile\">✓</span> <strong>Tactile & Zoom précis :</strong> pincez à 2 doigts et glissez pour explorer", "mobFeat5": "<span class=\"check-mobile\">✓</span> <strong>44 cartes HD officielles :</strong> affichage instantané et fluide", "mobFeat6": "<span class=\"check-mobile\">✓</span> <strong>Bouton 🔄 Synchroniser :</strong> mise à jour instantanée des cartes", "mobDlApk": "🤖 Télécharger pour Android (.APK)", "mobDlApkSub": "Fichier certifié • Installation rapide", "mobDlIos": "🍏 Ouvrir sur iPhone / iPad (iOS)", "mobDlIosSub": "Lancement direct • 44 Cartes & Lobby HD", "mobIosGuide": "📱 Comment mettre l'icône sur l'écran d'accueil ?", "mobIosGuideSub": "Guide Safari ➔ Mode plein écran autonome", "clTitle": "Dernières Nouveautés — Version 2.0.2", "clBadge": "Dernière Version Officielle", "clItem1": "<strong>⚡ OCR Ligne 1 & Protection Hors-Partie</strong>L'analyse OCR lit exclusivement la 1re ligne (nom de la carte) et ne s'active que lorsque Dead by Daylight est au premier plan : zéro délai sur Nostromo et aucun changement hors partie.", "clItem2": "<strong>🗺️ Nouvelles Cartes HD & Noms Officiels</strong>Nouveaux schémas HD et harmonisation exacte des noms avec ceux écrits sur les cartes et en jeu : <em>Centre de Traitement</em> et <em>Le Complexe Souterrain</em>.", "clItem3": "<strong>📱 Nettoyage Automatique RPD Mobile & PC</strong>Suppression définitive des doublons « RPD East » / « RPD West » au profit des noms officiels français (Aile Est et Aile Ouest du Commissariat).", "clItem4": "<strong>🔄 Synchronisation & Auto-Update v2.0.2</strong>Mise à jour automatique corrigée et synchronisée entre le logiciel PC, l'application mobile et le mode Lobby.", "clItem5": "<strong>👁️ Transparence & Opacité Matérielle</strong>Transparence Windows DWM instantanée en jeu : 100% sans fond pour voir le jeu à travers la map, avec aperçu logiciel conservé à 100% net.", "howTitle": "💡 Comment installer et utiliser ?", "howStep1Title": "1. Sur PC Windows", "howStep1Text": "Cliquez sur le bouton bleu pour télécharger <strong>DBDMapsOmni.exe</strong>. Lancez-le et retrouvez son emplacement exact à tout moment dans l'onglet <strong>Paramètres ➔ Emplacement du logiciel</strong>.", "howStep2Title": "2. Sur Android (.APK)", "howStep2Text": "Cliquez sur <strong>Télécharger pour Android (.APK)</strong>. Ouvrez le fichier téléchargé et validez l'installation en 1 clic.", "howStep3Title": "3. Sur iPhone (iOS)", "howStep3Text": "Ouvrez le site avec <strong>Safari</strong> ➔ <strong>Partager ⬆️</strong> ➔ <strong>« Sur l'écran d'accueil ➕ »</strong>. Laissez bien coché <strong>« Ouvrir comme app web » (vert 🟢)</strong> et appuyez sur <strong>Ajouter</strong>.", "howStep4Title": "4. Jouer en Équipe (Lobby)", "howStep4Text": "Dans l'onglet <strong>Lobby</strong>, un joueur crée un code (ex: <em>ABC12</em>) et les autres le rejoignent. Dès qu'un joueur clique sur une carte ou que l'OCR la détecte, elle s'affiche chez tout le monde !", "footerText": "DBD MAP • Développé par <strong>Exprimes</strong> pour <strong>Omni Community</strong> • 100% Gratuit pour toute la communauté Dead by Daylight", "iosModalTitle": "🍏 Comment installer sur iPhone & iPad ?", "iosModalOpen": "🚀 Ouvrir DBD MAP maintenant", "iosModalDesc": "Sur iPhone, Apple ne permet pas de télécharger un fichier APK, mais vous pouvez installer <strong>l'application officielle en plein écran</strong> directement sur votre écran d'accueil :", "iosModalStep1": "Ouvrez ce site internet dans le navigateur <strong>Safari</strong> sur votre iPhone ou iPad.", "iosModalStep2": "En bas de Safari, appuyez sur le bouton de <strong>Partage</strong> (le carré avec la flèche vers le haut <strong>⬆️</strong>).", "iosModalStep3": "Faites défiler vers le bas et sélectionnez <strong>« Sur l'écran d'accueil »</strong> (avec l'icône <strong>➕</strong>).", "iosModalImportantTitle": "IMPORTANT AVANT D'APPUYER SUR « AJOUTER » :", "iosModalWebapp": "✅ <strong>Laissez bien cochée la case « Ouvrir comme app web » :</strong><br><span style=\"color: #cbd5e1; font-size: 0.83rem;\">Le bouton doit rester activé en vert 🟢. C'est impératif pour que l'application s'ouvre en <strong>vrai plein écran autonome</strong>, sans la barre d'adresse ni les boutons Safari !</span>", "iosModalName": "✏️ <strong>Nom du raccourci :</strong><br><span style=\"color: #cbd5e1; font-size: 0.83rem;\">Vous pouvez renommer le texte en <strong>DBD MAP</strong> pour un affichage propre sur votre écran.</span>", "iosModalAdd": "👉 <strong>Appuyez sur « Ajouter » :</strong><br><span style=\"color: #cbd5e1; font-size: 0.83rem;\">Cliquez sur le bouton bleu <strong>Ajouter</strong> tout en haut à droite.</span>", "iosModalReady": "✨ <strong>C'est prêt !</strong> L'icône officielle DBD MAP apparaît sur votre écran d'accueil. En cliquant dessus, vous accédez directement aux 44 cartes HD et au Lobby synchronisé.", "iosModalBtnOpen": "🚀 Ouvrir l'application iOS maintenant", "iosModalBtnClose": "Fermer", "locModalTitle": "💾 Choisir où enregistrer le fichier", "locModalDesc": "Souhaitez-vous choisir l'emplacement exact où enregistrer le fichier (ex: directement sur votre <strong>Bureau</strong>) ?", "locModalTip": "<strong>👉 Pour choisir votre dossier :</strong><br>Faites un <strong>Clic Droit</strong> sur le bouton de téléchargement, puis cliquez sur <strong>« Enregistrer le lien sous... »</strong> (ou <em>Save link as...</em>). Vous pourrez sélectionner votre Bureau ou le dossier de votre choix !", "locModalTipSub": "💡 <em>Vous pouvez aussi cliquer sur « Télécharger directement » ci-dessous pour le placer dans vos Téléchargements.</em>", "locModalBtnDl": "📥 Télécharger directement", "locModalBtnClose": "Fermer", "discordFooter": "💬 Discord Officiel : discord.gg/sHVttN4ZdZ"}, "en": {"pageTitle": "DBD MAP • PC & Mobile Download (Omni Community)", "heroTitle": "Choose your Download", "heroSub": "Two official tailored versions: the overlay software for your PC and the standalone web app for your phone or console.", "badgeMaps": "🗺️ 44 HD Maps (EN & FR)", "badgeLobby": "👥 Synchronized PC & Mobile Lobby", "badgeHotkeys": "⚡ In-Game Hotkeys (F8 / F9)", "badgeOcr": "👁️ Automatic OCR Map Detection", "badgeUpdater": "🚀 Built-in Auto-Update Checker", "badgeFree": "💯 100% Free & Ad-Free", "discordTitle": "💬 Join the Official Discord", "discordSub": "Regular updates, live support, bug reports & Dead by Daylight community!", "discordBtn": "Join ➔", "pcTag": "FOR COMPUTER", "pcTitle": "PC Version (v2.0.2)", "pcSub": "Platform: Windows 10 & 11 (64-bit)", "pcDesc": "Install on your computer to play Dead by Daylight with a transparent overlay directly over your game screen.", "pcFeat1": "<span class=\"check-pc\">✓</span> <strong>In-game overlay:</strong> display the map over DBD with zero lag or frame drops", "pcFeat2": "<span class=\"check-pc\">✓</span> <strong>In-game hotkeys (F8 / F9):</strong> active even in exclusive fullscreen mode", "pcFeat3": "<span class=\"check-pc\">✓</span> <strong>100% Auto OCR detection:</strong> instant Line 1 detection with zero false positives", "pcFeat4": "<span class=\"check-pc\">✓</span> <strong>44 built-in HD maps:</strong> updated official HD callout layouts (Léry & Hawkins)", "pcFeat5": "<span class=\"check-pc\">✓</span> <strong>🔄 Sync button:</strong> downloads new maps without reinstalling", "pcFeat6": "<span class=\"check-pc\">✓</span> <strong>Find executable:</strong> quick button to locate the program file on your PC", "pcDlExe": "💻 Download for PC (.EXE)", "pcDlExeSub": "Direct Executable • Ready to run", "pcDlZip": "📦 Download ZIP format (Compressed folder)", "mobTag": "FOR SMARTPHONE & CONSOLE", "mobTitle": "Mobile Version (v2.0.2)", "mobSub": "Compatible: Android & Apple iOS (iPhone / iPad)", "mobDesc": "Install on your smartphone. <strong>Essential companion for Console players (Xbox & PlayStation)</strong> on a second screen.", "mobFeat1": "<span class=\"check-mobile\">✓</span> <strong>Xbox & PlayStation players:</strong> place your phone right next to your controller", "mobFeat2": "<span class=\"check-mobile\">✓</span> <strong>Synchronized Lobby:</strong> switch the map live for your whole team instantly", "mobFeat3": "<span class=\"check-mobile\">✓</span> <strong>Always-on display:</strong> screen never turns off during your gaming sessions", "mobFeat4": "<span class=\"check-mobile\">✓</span> <strong>Smooth touch & zoom:</strong> pinch with 2 fingers and drag to inspect callouts", "mobFeat5": "<span class=\"check-mobile\">✓</span> <strong>44 official HD maps:</strong> fast, smooth, high-resolution rendering", "mobFeat6": "<span class=\"check-mobile\">✓</span> <strong>🔄 Sync button:</strong> instant cloud map updates", "mobDlApk": "🤖 Download for Android (.APK)", "mobDlApkSub": "Certified file • Fast install", "mobDlIos": "🍏 Open on iPhone / iPad (iOS)", "mobDlIosSub": "Instant launch • 44 HD Maps & Lobby", "mobIosGuide": "📱 How to add the icon to your home screen?", "mobIosGuideSub": "Safari Guide ➔ Standalone fullscreen mode", "clTitle": "Latest Features — Version 2.0.2", "clBadge": "Latest Official Version", "clItem1": "<strong>⚡ Line 1 OCR & Background Protection</strong>OCR analysis exclusively reads the 1st line (map name) and only activates when Dead by Daylight is in focus: zero lag on Nostromo and no map switches outside the match.", "clItem2": "<strong>🗺️ New HD Maps & Official Names</strong>New HD layouts and exact name harmonization matching in-game text: <em>Treatment Theatre</em> and <em>The Underground Complex</em>.", "clItem3": "<strong>📱 Clean RPD Nomenclature (Mobile & PC)</strong>Clean, unambiguous mapping removing legacy duplicates in favor of official Raccoon City East and West Police Station wings.", "clItem4": "<strong>🔄 Cross-Platform Sync & Auto-Update v2.0.2</strong>Rock-solid synchronization between PC software, mobile app, and the real-time squad Lobby.", "clItem5": "<strong>👁️ Hardware Transparency & Opacity</strong>Instant Windows DWM in-game transparency: 100% borderless window to see through the map in-game with razor-sharp companion UI.", "howTitle": "💡 How to install and use?", "howStep1Title": "1. On Windows PC", "howStep1Text": "Click the blue button to download <strong>DBDMapsOmni.exe</strong>. Launch it and easily locate the file anytime under <strong>Settings ➔ Software file location</strong>.", "howStep2Title": "2. On Android (.APK)", "howStep2Text": "Click <strong>Download for Android (.APK)</strong>. Open the downloaded file and validate the one-tap installation.", "howStep3Title": "3. On iPhone (iOS)", "howStep3Text": "Open this site in <strong>Safari</strong> ➔ <strong>Share ⬆️</strong> ➔ <strong>« Add to Home Screen ➕ »</strong>. Keep <strong>« Open as web app » (green 🟢)</strong> checked, then tap <strong>Add</strong>.", "howStep4Title": "4. Team Play (Lobby)", "howStep4Text": "In the <strong>Lobby</strong> tab, one player creates a code (e.g. <em>ABC12</em>) and teammates join. As soon as a player picks a map or OCR detects it, it displays for everyone live!", "footerText": "DBD MAP • Developed by <strong>Exprimes</strong> for <strong>Omni Community</strong> • 100% Free for the Dead by Daylight community", "iosModalTitle": "🍏 How to install on iPhone & iPad?", "iosModalOpen": "🚀 Open DBD MAP now", "iosModalDesc": "On iPhone, Apple doesn't allow direct APK downloads, but you can install the <strong>official full-screen web app</strong> directly onto your home screen:", "iosModalStep1": "Open this website in <strong>Safari</strong> on your iPhone or iPad.", "iosModalStep2": "At the bottom of Safari, tap the <strong>Share</strong> button (the square with the up arrow <strong>⬆️</strong>).", "iosModalStep3": "Scroll down and select <strong>« Add to Home Screen »</strong> (with the <strong>➕</strong> icon).", "iosModalImportantTitle": "IMPORTANT BEFORE TAPPING 'ADD':", "iosModalWebapp": "✅ <strong>Keep 'Open as web app' checked:</strong><br><span style=\"color: #cbd5e1; font-size: 0.83rem;\">The toggle must stay green 🟢. This is required for the app to open in <strong>genuine standalone full-screen</strong> without Safari browser bars!</span>", "iosModalName": "✏️ <strong>Shortcut Name:</strong><br><span style=\"color: #cbd5e1; font-size: 0.83rem;\">You can keep or rename the title to <strong>DBD MAP</strong> for a clean home screen display.</span>", "iosModalAdd": "👉 <strong>Tap 'Add':</strong><br><span style=\"color: #cbd5e1; font-size: 0.83rem;\">Tap the blue <strong>Add</strong> button in the top right corner.</span>", "iosModalReady": "✨ <strong>You're all set!</strong> The official DBD MAP icon appears on your home screen. Tap it to directly access all 44 HD maps and synchronized Lobby.", "iosModalBtnOpen": "🚀 Open iOS Web App now", "iosModalBtnClose": "Close", "locModalTitle": "💾 Choose where to save the file", "locModalDesc": "Would you like to choose the exact location to save the file (e.g. directly on your <strong>Desktop</strong>)?", "locModalTip": "<strong>👉 To choose your folder:</strong><br><strong>Right-click</strong> the download button and choose <strong>« Save link as... »</strong>. You can then select your Desktop or any folder you prefer!", "locModalTipSub": "💡 <em>You can also click « Download directly » below to save it to your Downloads folder.</em>", "locModalBtnDl": "📥 Download directly", "locModalBtnClose": "Close", "discordFooter": "💬 Official Discord: discord.gg/sHVttN4ZdZ"}};
+
+    function setLanguage(lang) {
+      if (!I18N[lang]) lang = "fr";
+      try {
+        localStorage.setItem("dbd_lang", lang);
+      } catch (e) {}
+      document.documentElement.lang = lang;
+
+      const btnFr = document.getElementById("btnLangFr");
+      const btnEn = document.getElementById("btnLangEn");
+      if (btnFr && btnEn) {
+        if (lang === "fr") {
+          btnFr.classList.add("active");
+          btnEn.classList.remove("active");
+        } else {
+          btnEn.classList.add("active");
+          btnFr.classList.remove("active");
+        }
+      }
+
+      const t = I18N[lang];
+      document.title = t.pageTitle;
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const k = el.getAttribute("data-i18n");
+        if (t[k]) {
+          el.innerHTML = t[k];
+        }
+      });
+    }
+
+    (function initLang() {
+      let saved = "fr";
+      try {
+        saved = localStorage.getItem("dbd_lang");
+      } catch (e) {}
+      if (!saved) {
+        const navLang = (navigator.language || navigator.userLanguage || "").toLowerCase();
+        saved = navLang.startsWith("fr") ? "fr" : "en";
+      }
+      setLanguage(saved);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aperçu Hub Logiciels • Omni Community</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #07090e;
+      color: #f3f4f6;
+      margin: 0;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Grille fine d'arrière-plan façon Geniath */
+    .bg-grid {
+      background-size: 48px 48px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    }
+
+    /* Halo rouge sang / braises à droite */
+    .red-glow {
+      position: absolute;
+      top: -10%;
+      right: -10%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(220, 38, 38, 0.18) 0%, rgba(185, 28, 28, 0.08) 35%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+      filter: blur(40px);
+    }
+
+    /* Halo secondaire d'ambiance en bas à gauche */
+    .dark-glow {
+      position: absolute;
+      bottom: 10%;
+      left: -15%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(153, 27, 27, 0.08) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Barre pilule façon Geniath */
+    .nav-pill {
+      background: rgba(18, 22, 31, 0.75);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Bouton rouge éclatant */
+    .btn-red {
+      background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+      box-shadow: 0 0 24px rgba(225, 29, 72, 0.35);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-red:hover {
+      box-shadow: 0 0 32px rgba(225, 29, 72, 0.55);
+      transform: translateY(-1px);
+    }
+
+    /* Bouton sombre discret */
+    .btn-dark {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      transition: all 0.25s ease;
+    }
+    .btn-dark:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    /* Cartes de logiciels */
+    .software-card {
+      background: linear-gradient(180deg, rgba(20, 24, 33, 0.8) 0%, rgba(13, 16, 23, 0.9) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .software-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .software-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(225, 29, 72, 0.35);
+      box-shadow: 0 16px 40px -15px rgba(225, 29, 72, 0.2);
+    }
+    .software-card:hover::before {
+      opacity: 1;
+    }
+
+    /* Badges de statut */
+    .badge-green {
+      background: rgba(16, 185, 129, 0.12);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+    .badge-purple {
+      background: rgba(168, 85, 247, 0.12);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.25);
+    }
+  </style>
+</head>
+<body class="relative bg-grid">
+
+  <!-- Halos d'ambiance -->
+  <div class="red-glow"></div>
+  <div class="dark-glow"></div>
+
+  <!-- LIGNE STATUT HAUT DE PAGE -->
+  <div class="relative z-20 w-full border-b border-white/5 py-2 px-6 flex items-center justify-between text-xs text-gray-400">
+    <div class="flex items-center gap-2">
+      <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span class="font-mono tracking-wider uppercase text-gray-300">Systèmes Omni : Opérationnels</span>
+    </div>
+    <div class="hidden sm:flex items-center gap-6 font-mono text-[11px] text-gray-500">
+      <span>WINDOWS 10 / 11 NATIVE</span>
+      <span>•</span>
+      <span>SERVEURS ULTRA-RAPIDES</span>
+      <span>•</span>
+      <a href="https://discord.gg/" target="_blank" class="text-rose-400 hover:text-rose-300 font-semibold transition">COMMUNAUTÉ DISCORD &rarr;</a>
+    </div>
+  </div>
+
+  <!-- NAVIGATION FLOTTANTE CENTRALE (DOCK PILULE) -->
+  <header class="sticky top-4 z-40 px-4 w-full flex justify-center mt-3">
+    <nav class="nav-pill rounded-full py-2.5 px-6 flex items-center justify-between gap-8 max-w-4xl w-full">
+      <!-- Marque & Logo -->
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-rose-600 to-rose-400 flex items-center justify-center font-black text-white text-xs shadow-md shadow-rose-900/50">
+          Ω
+        </div>
+        <span class="font-bold text-sm tracking-wide text-white">OMNI<span class="text-rose-500">.COMMUNITY</span></span>
+      </div>
+
+      <!-- Liens du menu -->
+      <div class="hidden md:flex items-center gap-6 text-sm text-gray-300 font-medium">
+        <a href="#produits" class="hover:text-white transition">Nos Logiciels</a>
+        <a href="#dbd-map" class="hover:text-white transition">DBD Map</a>
+        <a href="app.html" class="hover:text-white transition">Web App</a>
+        <a href="#statuts" class="hover:text-white transition">Statuts en direct</a>
+      </div>
+
+      <!-- Bouton Action Droite -->
+      <div class="flex items-center gap-3">
+        <a href="#produits" class="btn-red text-white text-xs font-semibold px-4 py-2 rounded-full flex items-center gap-2">
+          <span>Catalogue</span>
+          <span class="text-white/70">&darr;</span>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION PRINCIPALE -->
+  <main class="relative z-10 max-w-5xl mx-auto px-6 pt-20 pb-16 text-center">
+    
+    <!-- Tag supérieur -->
+    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300 mb-8 backdrop-blur-sm">
+      <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+      <span>Suite d'outils exclusifs pour Dead by Daylight & Gaming</span>
+    </div>
+
+    <!-- Gros Titre Percutant façon Geniath -->
+    <h1 class="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white leading-[1.08] mb-6">
+      Dominez le brouillard.<br>
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">
+        Tous vos outils au même endroit.
+      </span>
+    </h1>
+
+    <!-- Sous-titre descriptif -->
+    <p class="max-w-2xl mx-auto text-gray-400 text-base sm:text-lg leading-relaxed mb-10">
+      Overlay in-game 100% transparent, compagnon interactif 44 cartes HD, lobby synchronisé en temps réel et utilitaires natifs Windows. 100% sécurisés et développés pour la communauté.
+    </p>
+
+    <!-- Boutons d'action -->
+    <div class="flex flex-wrap items-center justify-center gap-4 mb-16">
+      <a href="#produits" class="btn-red text-white text-sm font-bold px-7 py-3.5 rounded-xl flex items-center gap-2.5">
+        <span>Explorer les logiciels</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+      </a>
+      <a href="https://discord.gg/" target="_blank" class="btn-dark text-gray-200 text-sm font-semibold px-7 py-3.5 rounded-xl flex items-center gap-2.5">
+        <svg class="w-4 h-4 text-indigo-400" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+        <span>Rejoindre le Discord</span>
+      </a>
+    </div>
+
+    <!-- Barre de métriques rapides -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto border-t border-b border-white/5 py-6">
+      <div>
+        <div class="text-2xl font-black text-white">44 Cartes</div>
+        <div class="text-xs text-gray-500 font-medium">Haute Définition</div>
+      </div>
+      <div>
+        <div class="text-2xl font-black text-rose-400">0% FPS Drop</div>
+        <div class="text-xs text-gray-500 font-medium">100% Léger & Fluide</div>
+      </div>
+      <div>
+        <div class="text-2xl font-black text-white">1 à 12</div>
+        <div class="text-xs text-gray-500 font-medium">Callouts Horloge d'équipe</div>
+      </div>
+      <div>
+        <div class="text-2xl font-black text-emerald-400">100% Gratuit</div>
+        <div class="text-xs text-gray-500 font-medium">Accès Immédiat</div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- SECTION CATALOGUE DES LOGICIELS (LE HUB) -->
+  <section id="produits" class="relative z-10 max-w-6xl mx-auto px-6 py-12">
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+      <div>
+        <span class="text-xs font-mono uppercase tracking-wider text-rose-500">Suite de logiciels</span>
+        <h2 class="text-3xl font-extrabold text-white mt-1">Nos Logiciels & Outils</h2>
+      </div>
+      <p class="text-sm text-gray-400 max-w-md">
+        Chaque logiciel dispose de ses mises à jour régulières, de son installeur dédié et d'un support en continu sur Discord.
+      </p>
+    </div>
+
+    <!-- Grille des cartes -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- CARTE 1 : DBD MAP OVERLAY PC -->
+      <div class="software-card p-6 flex flex-col justify-between">
+        <div>
+          <!-- En-tête de la carte -->
+          <div class="flex items-center justify-between mb-4">
+            <span class="badge-green text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Opérationnel
+            </span>
+            <span class="text-xs font-mono text-gray-500">v1.0.5 • Windows</span>
+          </div>
+
+          <!-- Titre & Description -->
+          <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
+            <span>DBD MAP • Overlay PC</span>
+          </h3>
+          <p class="text-xs text-gray-400 leading-relaxed mb-6">
+            L'overlay officiel transparent qui s'affiche directement par-dessus votre jeu Dead by Daylight avec raccourcis claviers, zoom et callouts 1 à 12.
+          </p>
+
+          <!-- Points forts -->
+          <ul class="space-y-2 mb-6 text-xs text-gray-300">
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> 44 cartes HD officielles
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> Transparence & clic à travers le jeu
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> Aucun risque de ban (zéro injection DLL)
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bouton de la carte -->
+        <a href="https://github.com/Exprimes/dbd-maps/releases" class="w-full btn-red text-white text-xs font-bold py-2.5 rounded-lg text-center block">
+          Télécharger pour Windows (.exe)
+        </a>
+      </div>
+
+      <!-- CARTE 2 : DBD MAP MOBILE & WEB -->
+      <div class="software-card p-6 flex flex-col justify-between">
+        <div>
+          <!-- En-tête de la carte -->
+          <div class="flex items-center justify-between mb-4">
+            <span class="badge-green text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              En Ligne
+            </span>
+            <span class="text-xs font-mono text-gray-500">Web & Android</span>
+          </div>
+
+          <!-- Titre & Description -->
+          <h3 class="text-xl font-bold text-white mb-2">
+            DBD MAP • Web & Mobile
+          </h3>
+          <p class="text-xs text-gray-400 leading-relaxed mb-6">
+            L'application web instantanée pour smartphone, tablette ou 2ème écran avec recherche rapide des cartes et lobby d'équipe en direct.
+          </p>
+
+          <!-- Points forts -->
+          <ul class="space-y-2 mb-6 text-xs text-gray-300">
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> Fonctionne sur tout navigateur & téléphone
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> Lobby synchronisé avec vos amis
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> Disponible en PWA et APK Android
+            </li>
+          </ul>
+        </div>
+
+        <!-- Boutons de la carte -->
+        <div class="grid grid-cols-2 gap-2">
+          <a href="app.html" class="btn-dark text-white text-xs font-bold py-2.5 rounded-lg text-center block">
+            Ouvrir Web App
+          </a>
+          <a href="mobile/dbd_maps.apk" class="btn-dark text-white text-xs font-bold py-2.5 rounded-lg text-center block">
+            Fichier APK
+          </a>
+        </div>
+      </div>
+
+      <!-- CARTE 3 : FUTUR LOGICIEL / PROCHAIN OUTIL -->
+      <div class="software-card p-6 flex flex-col justify-between border-dashed border-white/20">
+        <div>
+          <!-- En-tête de la carte -->
+          <div class="flex items-center justify-between mb-4">
+            <span class="badge-purple text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+              En Développement
+            </span>
+            <span class="text-xs font-mono text-gray-500">Prochainement</span>
+          </div>
+
+          <!-- Titre & Description -->
+          <h3 class="text-xl font-bold text-gray-200 mb-2">
+            Nouveau Logiciel #2
+          </h3>
+          <p class="text-xs text-gray-400 leading-relaxed mb-6">
+            Un nouvel outil dédié aux joueurs de Dead by Daylight (statistiques, soundboard, assistant de build ou bot personnalisé).
+          </p>
+
+          <!-- Points forts -->
+          <div class="p-4 rounded-xl bg-white/5 border border-white/5 text-xs text-gray-400 mb-6 italic text-center">
+            "Le développement est en cours. Les membres du Discord auront un accès bêta anticipé."
+          </div>
+        </div>
+
+        <!-- Bouton notification -->
+        <a href="https://discord.gg/" class="w-full btn-dark text-gray-400 text-xs font-semibold py-2.5 rounded-lg text-center block hover:text-white">
+          Rejoindre les tests privés sur Discord
+        </a>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER SOMBRE -->
+  <footer class="relative z-10 border-t border-white/5 py-10 text-center text-xs text-gray-500">
+    <div class="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <span class="text-gray-300 font-bold">OMNI COMMUNITY</span> • Développé pour la communauté Dead by Daylight
+      </div>
+      <div class="flex gap-6 text-gray-400">
+        <a href="#produits" class="hover:text-white transition">Logiciels</a>
+        <a href="app.html" class="hover:text-white transition">Web App</a>
+        <a href="https://discord.gg/" class="hover:text-white transition">Discord</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
