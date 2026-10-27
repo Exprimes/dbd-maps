@@ -1,19 +1,19 @@
 {
-    "version": "2.1.3.2",
+    "version": "2.1.3.3",
     "display_version": "2.1.3",
-    "exe_size": 129326657,
+    "exe_size": 129328610,
     "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.exe",
     "apk_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.apk",
     "relay_base_url": "https://ntfy.tedomum.fr/",
-    "changelog": "🚀 Version 2.1.3 : Correctif majeur du Lobby Manager (synchronisation temps réel multi-serveurs PC ↔ Mobile et PC ↔ PC, présence instantanée des 4 joueurs), nouveau logo officiel Cybernétique DBDMapsOmni, optimisation OCR (0% CPU en partie), séparation stricte Maps FR / Maps EN et correctif de mise à jour iOS.",
-    "changelog_en": "🚀 Version 2.1.3 : Major Lobby Manager fix (real-time multi-server PC ↔ Mobile and PC ↔ PC sync, instant 4-player squad presence), new official Cybernetic Scroll DBDMapsOmni logo, OCR optimization (0% CPU in match), strict Maps FR / Maps EN separation and iOS update fix.",
+    "changelog": "🚀 Version 2.1.3 : Maintien continu des joueurs mobile dans le Lobby en arrière-plan (ne quitte plus lors du basculement d'application ou verrouillage), synchronisation temps réel multi-serveurs PC ↔ Mobile, statut en direct et nouveau logo officiel Cybernétique.",
+    "changelog_en": "🚀 Version 2.1.3 : Continuous presence of mobile players in Lobby when backgrounded (no longer leaves when switching apps or locking screen), real-time multi-server PC ↔ Mobile sync, live status and new official Cybernetic logo.",
     "discord_url": "https://discord.gg/sHVttN4ZdZ",
     "mobile_version": "2.1.3",
     "admin_alert": {
         "enabled": true,
-        "min_version": "2.1.3.2",
-        "message": "La mise à jour v2.1.3 de DBD MAP OMNI est disponible ! Elle corrige le Lobby Manager (visibilité et synchronisation temps réel entre PC et Mobile), intègre le nouveau logo officiel Cybernétique, l'optimisation OCR et le correctif iOS.",
-        "message_en": "DBD MAP OMNI update v2.1.3 is available! It fixes the Lobby Manager (visibility and real-time sync between PC and Mobile), includes the new official Cybernetic Scroll logo, OCR optimizations, and the iOS update fix.",
-        "date": "27/10/2026 23:25"
+        "min_version": "2.1.3.3",
+        "message": "La mise à jour v2.1.3 de DBD MAP OMNI est disponible ! Elle maintient désormais les joueurs mobile dans le lobby même lorsqu'ils passent en arrière-plan sans fermer l'application.",
+        "message_en": "DBD MAP OMNI update v2.1.3 is available! It now keeps mobile players in the lobby even when backgrounded without closing the application.",
+        "date": "28/10/2026 00:13"
     }
 }

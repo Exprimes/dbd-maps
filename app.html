@@ -1665,6 +1665,12 @@
       return null;
     }
 
+    function isMobilePlatform(platform) {
+      if (!platform) return false;
+      const p = platform.toLowerCase();
+      return p.includes("ios") || p.includes("android") || p.includes("iphone") || p.includes("ipad");
+    }
+
     // Mise à jour de l'affichage des 4 slots de survivants
     function updateSquadUI() {
       if (!squadContainer) return;
@@ -1686,17 +1692,20 @@
         lobbySquadLimitBadge.style.background = count >= 4 ? "#da3633" : "#238636";
       }
 
+      const now = Date.now();
       // Afficher 4 slots fixes
       for (let i = 0; i < 4; i++) {
         const slotEl = document.createElement("div");
         if (i < count) {
           const m = memberList[i];
           const isMe = m.id === myMemberId;
+          const isMobile = isMobilePlatform(m.platform);
+          const isIdle = isMobile && (now - m.lastSeen) > 30000;
           slotEl.className = "squad-slot filled";
           slotEl.innerHTML = `
             <div class="squad-platform">${getPlatformBadge(m.platform)}</div>
             <div class="squad-name">${escapeHtml(m.name)} ${m.isHost ? '<span class="squad-host-crown">👑 Hôte</span>' : ''} ${isMe ? '<span style="color:#58a6ff; font-size:0.75rem;">(Vous)</span>' : ''}</div>
-            <div class="squad-status">🟢 En ligne</div>
+            <div class="squad-status" style="${isIdle ? 'color:#e3b341;' : ''}">${isIdle ? '🟡 En arrière-plan' : '🟢 En ligne'}</div>
           `;
         } else {
           slotEl.className = "squad-slot empty";
@@ -1729,9 +1738,6 @@
       const msg = raw.trim().replace(/^"|"$/g, "");
       const nowMs = Date.now();
       const effectiveMs = (msgTimeSec > 0 && !isLive) ? Math.min(nowMs, msgTimeSec * 1000) : nowMs;
-      if (!isLive && msgTimeSec > 0 && (nowMs - effectiveMs) > 35000) {
-        return;
-      }
 
       if (msg.startsWith("PING:")) {
         const parts = msg.split(":");
@@ -1741,6 +1747,12 @@
           const hostPart = parts[parts.length - 1].trim();
           const name = parts.slice(3, parts.length - 1).join(":").trim();
           const hostFlag = hostPart === "1" || hostPart.toLowerCase() === "true";
+
+          const isMobile = isMobilePlatform(platform);
+          const maxAgeMs = isMobile ? (20 * 60 * 1000) : 45000;
+          if (!isLive && msgTimeSec > 0 && (nowMs - effectiveMs) > maxAgeMs) {
+            return;
+          }
 
           const isBrandNewOther = !lobbyMembers[id] && id !== myMemberId;
           const existing = lobbyMembers[id];
@@ -1777,9 +1789,14 @@
       const now = Date.now();
       let changed = false;
       for (const id in lobbyMembers) {
-        if (id !== myMemberId && (now - lobbyMembers[id].lastSeen) > 35000) {
-          delete lobbyMembers[id];
-          changed = true;
+        if (id !== myMemberId) {
+          const m = lobbyMembers[id];
+          const isMobile = isMobilePlatform(m.platform);
+          const maxIdleMs = isMobile ? (20 * 60 * 1000) : 45000; // 20 min mobile en arrière-plan, 45s PC
+          if ((now - m.lastSeen) > maxIdleMs) {
+            delete lobbyMembers[id];
+            changed = true;
+          }
         }
       }
       if (changed) updateSquadUI();
@@ -1789,7 +1806,7 @@
     async function fetchRecentMembers(code) {
       if (!code) return;
       try {
-        const resp = await relayFetch(`${code}_MEMBERS/json?poll=1&since=45s&_cb=${Date.now()}`, { cache: "no-store" });
+        const resp = await relayFetch(`${code}_MEMBERS/json?poll=1&since=20m&_cb=${Date.now()}`, { cache: "no-store" });
         if (resp && resp.ok) {
           const txt = await resp.text();
           const nowSec = Math.floor(Date.now() / 1000);
@@ -1798,7 +1815,9 @@
             try {
               const ev = JSON.parse(line);
               if (ev.event === "message" && ev.message) {
-                if (ev.time && (nowSec - ev.time) > 35) continue;
+                const isMobile = ev.message.includes(":iOS:") || ev.message.includes(":Android:") || ev.message.includes(":iPad:") || ev.message.includes(":iPhone:");
+                const maxAge = isMobile ? 1200 : 45;
+                if (ev.time && (nowSec - ev.time) > maxAge) continue;
                 processMemberMessage(ev.message, ev.time || 0, false);
               }
             } catch (e) {}
@@ -1806,7 +1825,6 @@
         }
       } catch (e) {}
     }
-
     async function startMemberPresence(code) {
       stopMemberPresence();
       lobbyMembers = {};
@@ -2040,19 +2058,20 @@
       }
     }
 
-    // Libération instantanée de la place si on quitte l'onglet ou l'application sur iPhone / Android
-    window.addEventListener("pagehide", () => {
+    // Sur mobile, le passage en arrière-plan ne doit PAS expulser le joueur du lobby.
+    // Le joueur ne quitte que s'il appuie explicitement sur "Quitter le Lobby".
+    window.addEventListener("pageshow", () => {
       if (currentLobbyCode) {
-        try {
-          navigator.sendBeacon(`${RELAY_BASE}${currentLobbyCode}_MEMBERS`, `LEAVE:${myMemberId}`);
-        } catch(e) {}
+        ensureStreamsActive();
+        pollLobbyOnce();
+        sendHeartbeat();
       }
     });
-    window.addEventListener("beforeunload", () => {
+    window.addEventListener("focus", () => {
       if (currentLobbyCode) {
-        try {
-          navigator.sendBeacon(`${RELAY_BASE}${currentLobbyCode}_MEMBERS`, `LEAVE:${myMemberId}`);
-        } catch(e) {}
+        ensureStreamsActive();
+        pollLobbyOnce();
+        sendHeartbeat();
       }
     });
 
@@ -2121,8 +2140,9 @@
       }
       
       // Vérification préalable du nombre de joueurs actifs (35 dernières secondes) dans le lobby
+      // Vérification préalable du nombre de joueurs actifs dans le lobby (20m mobile en arrière-plan, 45s PC)
       try {
-        const resp = await relayFetch(`${code}_MEMBERS/json?poll=1&since=45s&_cb=${Date.now()}`, { cache: "no-store" });
+        const resp = await relayFetch(`${code}_MEMBERS/json?poll=1&since=20m&_cb=${Date.now()}`, { cache: "no-store" });
         if (resp && resp.ok) {
           const txt = await resp.text();
           const nowSec = Math.floor(Date.now() / 1000);
@@ -2131,7 +2151,9 @@
             if (!line.trim()) continue;
             try {
               const ev = JSON.parse(line);
-              if (ev.time && (nowSec - ev.time) > 35) continue;
+              const isMobile = ev.message && (ev.message.includes(":iOS:") || ev.message.includes(":Android:") || ev.message.includes(":iPad:") || ev.message.includes(":iPhone:"));
+              const maxAge = isMobile ? 1200 : 45;
+              if (ev.time && (nowSec - ev.time) > maxAge) continue;
               if (ev.message && ev.message.startsWith("PING:")) {
                 const parts = ev.message.split(":");
                 if (parts.length >= 2) activeIds.add(parts[1].trim());
@@ -2146,7 +2168,6 @@
           }
         }
       } catch (e) {}
-
       startLobbyListener(code, false);
       inputLobbyCode.value = "";
     });
@@ -2267,7 +2288,7 @@
       return 0;
     }
 
-    const BASE_MOBILE_VERSION = "2.1.3.2";
+    const BASE_MOBILE_VERSION = "2.1.3.3";
     function toDisplayVer(v) {
       if (!v) return "2.1.3";
       const parts = (v + "").replace(/^v/i, "").split(".");
