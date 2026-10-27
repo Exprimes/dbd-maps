@@ -168,19 +168,33 @@
 
       <!-- Liens rapides -->
       <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-gray-300">
-        <a href="index.html" class="hover:text-fuchsia-300 transition">Accueil</a>
-        <a href="logiciels.html" class="text-fuchsia-400 font-bold border-b border-fuchsia-400 pb-0.5">Nos Logiciels</a>
+        <a href="index.html" data-i18n="nav.home" class="hover:text-fuchsia-300 transition">Accueil</a>
+        <a href="logiciels.html" data-i18n="nav.software" class="text-fuchsia-400 font-bold border-b border-fuchsia-400 pb-0.5">Nos Logiciels</a>
         <a href="https://discord.gg/3tvRuWHjRy" target="_blank" rel="noopener" class="hover:text-fuchsia-300 transition flex items-center gap-1.5 text-purple-300">
-          <span>Discord</span>
+          <span data-i18n="nav.discord">Discord</span>
           <span class="text-xs">&nearr;</span>
         </a>
       </div>
 
-      <!-- Bouton Discord -->
-      <a href="https://discord.gg/3tvRuWHjRy" target="_blank" rel="noopener" class="btn-violet text-white text-xs font-black tracking-wide px-5 py-2.5 rounded-full flex items-center gap-2">
-        <span>DISCORD</span>
-        <span>&rarr;</span>
-      </a>
+      <!-- Actions droite: Langue + Bouton Discord -->
+      <div class="flex items-center gap-3">
+        
+        <!-- Sélecteur de langue FR / EN -->
+        <div class="flex items-center bg-[#150e24] border border-purple-500/30 rounded-full p-1 shadow-inner">
+          <button onclick="setLanguage('fr')" id="lang-btn-fr" class="px-2.5 py-1 rounded-full text-xs font-black text-white bg-gradient-to-r from-purple-600 to-fuchsia-600 shadow-[0_0_12px_rgba(168,85,247,0.6)] transition" title="Français">
+            FR
+          </button>
+          <button onclick="setLanguage('en')" id="lang-btn-en" class="px-2.5 py-1 rounded-full text-xs font-bold text-purple-300/70 hover:text-white transition" title="English">
+            EN
+          </button>
+        </div>
+
+        <!-- Bouton Discord -->
+        <a href="https://discord.gg/3tvRuWHjRy" target="_blank" rel="noopener" class="btn-violet text-white text-xs font-black tracking-wide px-5 py-2.5 rounded-full flex items-center gap-2">
+          <span data-i18n="nav.btn_discord">DISCORD</span>
+          <span>&rarr;</span>
+        </a>
+      </div>
 
     </nav>
   </header>
@@ -191,15 +205,15 @@
     <div class="mb-4 flex justify-center w-full">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full neon-pill text-xs text-purple-200 font-bold">
         <span class="w-2 h-2 rounded-full bg-fuchsia-400 animate-pulse shadow-[0_0_10px_#e879f9]"></span>
-        <span>CATALOGUE OFFICIEL DES LOGICIELS OMNI</span>
+        <span data-i18n="software.tag">CATALOGUE OFFICIEL DES LOGICIELS OMNI</span>
       </div>
     </div>
 
-    <h1 class="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-tight mb-4">
+    <h1 data-i18n="software.title" class="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-tight mb-4">
       Nos Logiciels & Outils
     </h1>
 
-    <p class="max-w-2xl mx-auto text-purple-200/70 text-base sm:text-lg leading-relaxed mb-6 font-normal">
+    <p data-i18n="software.desc" class="max-w-2xl mx-auto text-purple-200/70 text-base sm:text-lg leading-relaxed mb-6 font-normal">
       Explorez l'ensemble de notre suite indépendante : compagnons de jeu officiels, outils in-game transparents et utilitaires système pour Windows.
     </p>
 
@@ -220,10 +234,10 @@
             <div class="flex items-center justify-between mb-3 px-1">
               <div class="flex items-center gap-2">
                 <button onclick="showMediaTab('video')" id="tab-btn-video" class="media-tab active flex items-center gap-1.5">
-                  <span>▶ Vidéo Démo (v2)</span>
+                  <span data-i18n="software.tab_video">▶ Vidéo Démo (v2)</span>
                 </button>
                 <button onclick="showMediaTab('image')" id="tab-btn-image" class="media-tab flex items-center gap-1.5">
-                  <span>📸 Capture d'Écran HD</span>
+                  <span data-i18n="software.tab_image">📸 Capture d'Écran HD</span>
                 </button>
               </div>
               <span class="text-[11px] font-mono text-purple-400 hidden sm:inline">2560 × 1391 HD</span>
@@ -244,7 +258,7 @@
                 <img src="capture_dbd_map_web.jpg" alt="Capture d'écran de DBDMapsOmni v2.1.2" class="w-full h-auto object-cover group-hover:scale-105 transition-all duration-700">
                 <div class="absolute bottom-3 right-3">
                   <a href="capture_dbd_map.png" target="_blank" class="bg-black/80 hover:bg-black text-white text-[11px] font-bold px-3 py-1.5 rounded-lg border border-white/20 backdrop-blur-md transition flex items-center gap-1.5">
-                    <span>Agrandir en 2K</span>
+                    <span data-i18n="software.zoom_btn">Agrandir en 2K</span>
                     <span>&nearr;</span>
                   </a>
                 </div>
@@ -252,11 +266,11 @@
 
               <div class="absolute top-3 left-3 bg-[#0a0513]/90 backdrop-blur-md px-3 py-1 rounded-full border border-purple-400/40 text-[11px] text-white font-bold flex items-center gap-1.5 shadow-lg pointer-events-none">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span id="media-label">Démonstration en Jeu</span>
+                <span id="media-label" data-i18n="software.label_video">Démonstration en Jeu</span>
               </div>
             </div>
 
-            <p class="text-[11px] text-purple-300/60 text-center mt-2">
+            <p data-i18n="software.video_desc" class="text-[11px] text-purple-300/60 text-center mt-2">
               Vidéo de présentation officielle avec musique & aperçu en direct de l'overlay transparent.
             </p>
 
@@ -266,7 +280,7 @@
           <div class="lg:col-span-5 p-7 sm:p-9 flex flex-col justify-between">
             <div>
               <div class="flex items-center gap-2 mb-4">
-                <span class="px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/40 text-purple-300 text-xs font-bold uppercase tracking-wider">
+                <span data-i18n="dbd.tag" class="px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/40 text-purple-300 text-xs font-bold uppercase tracking-wider">
                   Gaming Companion
                 </span>
                 <span class="text-xs font-mono text-purple-400/80">v2.1.2</span>
@@ -279,22 +293,22 @@
                 </h2>
               </div>
 
-              <p class="text-sm text-purple-200/80 leading-relaxed mb-6">
+              <p data-i18n="dbd.desc" class="text-sm text-purple-200/80 leading-relaxed mb-6">
                 Le compagnon officiel Dead by Daylight. Affichez les 44 cartes HD officielles en surimpression transparente directe pendant votre partie ou utilisez le lobby d'équipe synchronisé sur mobile.
               </p>
 
               <div class="space-y-3 mb-8 text-xs font-semibold text-gray-200">
                 <div class="flex items-center gap-2.5">
                   <div class="w-5 h-5 rounded-full bg-purple-600/30 border border-purple-500/50 flex items-center justify-center text-fuchsia-400 font-bold">✓</div>
-                  <span>44 Cartes HD avec repérages & callouts 1 à 12</span>
+                  <span data-i18n="dbd.feat1">44 Cartes HD avec repérages & callouts 1 à 12</span>
                 </div>
                 <div class="flex items-center gap-2.5">
                   <div class="w-5 h-5 rounded-full bg-purple-600/30 border border-purple-500/50 flex items-center justify-center text-fuchsia-400 font-bold">✓</div>
-                  <span>Transparence réglable & Clic à travers le jeu</span>
+                  <span data-i18n="dbd.feat2">Transparence réglable & Clic à travers le jeu</span>
                 </div>
                 <div class="flex items-center gap-2.5">
                   <div class="w-5 h-5 rounded-full bg-purple-600/30 border border-purple-500/50 flex items-center justify-center text-fuchsia-400 font-bold">✓</div>
-                  <span>100% Léger, 0% drop de FPS & sans risque EAC</span>
+                  <span data-i18n="dbd.feat3">100% Léger, 0% drop de FPS & sans risque EAC</span>
                 </div>
               </div>
             </div>
@@ -302,7 +316,7 @@
             <!-- SÉLECTION DE TÉLÉCHARGEMENT PAR APPAREIL (PC, ANDROID, IOS) -->
             <div class="border-t border-purple-900/30 pt-5 mt-2">
               <div class="text-xs font-bold text-purple-300 uppercase tracking-wider mb-3 flex items-center gap-2">
-                <span>⬇ Télécharger selon votre appareil :</span>
+                <span data-i18n="dbd.dl_title">⬇ Télécharger selon votre appareil :</span>
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -311,7 +325,7 @@
                   <span class="text-2xl">🪟</span>
                   <div class="text-left">
                     <div class="font-black text-white text-xs">Windows PC (.exe)</div>
-                    <div class="text-[10px] text-purple-200/80">Overlay transparent in-game</div>
+                    <div data-i18n="dbd.btn_win_sub" class="text-[10px] text-purple-200/80">Overlay transparent in-game</div>
                   </div>
                 </a>
 
@@ -319,8 +333,8 @@
                 <a href="https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.apk" download="DBDMapsOmni.apk" class="btn-glass text-white text-xs font-bold p-3 rounded-xl flex items-center gap-3 hover:border-emerald-400">
                   <span class="text-2xl">🤖</span>
                   <div class="text-left">
-                    <div class="font-black text-white text-xs">Android (.APK)</div>
-                    <div class="text-[10px] text-emerald-300">Télécharger le fichier APK</div>
+                    <div data-i18n="dbd.btn_apk_title" class="font-black text-white text-xs">Android (.APK)</div>
+                    <div data-i18n="dbd.btn_apk_sub" class="text-[10px] text-emerald-300">Télécharger le fichier APK</div>
                   </div>
                 </a>
 
@@ -328,8 +342,8 @@
                 <button onclick="openIosModal()" class="btn-glass text-white text-xs font-bold p-3 rounded-xl flex items-center gap-3 hover:border-fuchsia-400 text-left">
                   <span class="text-2xl">🍏</span>
                   <div>
-                    <div class="font-black text-white text-xs">iPhone & iPad (iOS)</div>
-                    <div class="text-[10px] text-fuchsia-300">Installer via Safari (PWA)</div>
+                    <div data-i18n="dbd.btn_ios_title" class="font-black text-white text-xs">iPhone & iPad (iOS)</div>
+                    <div data-i18n="dbd.btn_ios_sub" class="text-[10px] text-fuchsia-300">Installer via Safari (PWA)</div>
                   </div>
                 </button>
 
@@ -337,8 +351,8 @@
                 <a href="app.html" target="_blank" class="btn-glass text-white text-xs font-bold p-3 rounded-xl flex items-center gap-3 hover:border-purple-400">
                   <span class="text-2xl">🌐</span>
                   <div class="text-left">
-                    <div class="font-black text-white text-xs">Lancer la Web App</div>
-                    <div class="text-[10px] text-purple-300">Sur navigateur / 2nd écran</div>
+                    <div data-i18n="dbd.btn_web_title" class="font-black text-white text-xs">Lancer la Web App</div>
+                    <div data-i18n="dbd.btn_web_sub" class="text-[10px] text-purple-300">Sur navigateur / 2nd écran</div>
                   </div>
                 </a>
               </div>
@@ -362,14 +376,14 @@
                   <div class="w-3 h-3 rounded-full bg-fuchsia-500"></div>
                   <div class="w-3 h-3 rounded-full bg-purple-500"></div>
                   <div class="w-3 h-3 rounded-full bg-indigo-500"></div>
-                  <span class="text-xs font-bold text-purple-200 ml-2">OMNI Uninstaller Pro</span>
+                  <span data-i18n="unin.mockup_title" class="text-xs font-bold text-purple-200 ml-2">OMNI Uninstaller Pro</span>
                 </div>
-                <span class="text-xs font-mono text-purple-400">NETTOYAGE PROFOND</span>
+                <span data-i18n="unin.mockup_badge" class="text-xs font-mono text-purple-400">NETTOYAGE PROFOND</span>
               </div>
 
               <div class="bg-black/40 border border-purple-500/20 rounded-xl px-4 py-2.5 text-xs text-purple-300 mb-4 flex items-center justify-between">
-                <span>⚡ Recherche d'applications & fichiers résiduels...</span>
-                <span class="text-[10px] bg-purple-900/60 px-2 py-0.5 rounded text-fuchsia-300 font-mono">FORCAGE ACTIF</span>
+                <span data-i18n="unin.mockup_search">⚡ Recherche d'applications & fichiers résiduels...</span>
+                <span data-i18n="unin.mockup_force" class="text-[10px] bg-purple-900/60 px-2 py-0.5 rounded text-fuchsia-300 font-mono">FORCAGE ACTIF</span>
               </div>
 
               <div class="space-y-2.5 text-xs">
@@ -377,11 +391,11 @@
                   <div class="flex items-center gap-3">
                     <span class="text-xl">📦</span>
                     <div>
-                      <div class="font-bold text-white">Logiciel Récalcitrant Exemple</div>
-                      <div class="text-[11px] text-purple-400/80">32 clés de registre orphelines • 2.1 Go libérables</div>
+                      <div data-i18n="unin.mockup_item1_title" class="font-bold text-white">Logiciel Récalcitrant Exemple</div>
+                      <div data-i18n="unin.mockup_item1_sub" class="text-[11px] text-purple-400/80">32 clés de registre orphelines • 2.1 Go libérables</div>
                     </div>
                   </div>
-                  <span class="px-3 py-1 rounded-lg bg-fuchsia-600/20 border border-fuchsia-500/40 text-fuchsia-300 font-bold text-[11px]">
+                  <span data-i18n="unin.mockup_item1_btn" class="px-3 py-1 rounded-lg bg-fuchsia-600/20 border border-fuchsia-500/40 text-fuchsia-300 font-bold text-[11px]">
                     Désinstaller & Purger
                   </span>
                 </div>
@@ -390,11 +404,11 @@
                   <div class="flex items-center gap-3">
                     <span class="text-xl">🗑️</span>
                     <div>
-                      <div class="font-bold text-white">Ancien Antivirus Résiduel</div>
-                      <div class="text-[11px] text-purple-400/80">Processus bloqué en arrière-plan détecté</div>
+                      <div data-i18n="unin.mockup_item2_title" class="font-bold text-white">Ancien Antivirus Résiduel</div>
+                      <div data-i18n="unin.mockup_item2_sub" class="text-[11px] text-purple-400/80">Processus bloqué en arrière-plan détecté</div>
                     </div>
                   </div>
-                  <span class="px-3 py-1 rounded-lg bg-fuchsia-600/20 border border-fuchsia-500/40 text-fuchsia-300 font-bold text-[11px]">
+                  <span data-i18n="unin.mockup_item2_btn" class="px-3 py-1 rounded-lg bg-fuchsia-600/20 border border-fuchsia-500/40 text-fuchsia-300 font-bold text-[11px]">
                     Suppression Forcée
                   </span>
                 </div>
@@ -407,10 +421,10 @@
           <div class="lg:col-span-5 p-7 sm:p-9 flex flex-col justify-between">
             <div>
               <div class="flex items-center gap-2 mb-4">
-                <span class="px-3 py-1 rounded-full bg-fuchsia-500/15 border border-fuchsia-500/40 text-fuchsia-300 text-xs font-bold uppercase tracking-wider">
+                <span data-i18n="unin.tag" class="px-3 py-1 rounded-full bg-fuchsia-500/15 border border-fuchsia-500/40 text-fuchsia-300 text-xs font-bold uppercase tracking-wider">
                   Utilitaire Windows
                 </span>
-                <span class="text-xs font-mono text-purple-400/80">En développement</span>
+                <span data-i18n="unin.status" class="text-xs font-mono text-purple-400/80">En développement</span>
               </div>
 
               <div class="flex items-center gap-3.5 mb-3">
@@ -420,32 +434,32 @@
                 </h2>
               </div>
 
-              <p class="text-sm text-purple-200/80 leading-relaxed mb-6">
+              <p data-i18n="unin.desc" class="text-sm text-purple-200/80 leading-relaxed mb-6">
                 Le nettoyeur et désinstallateur radical pour votre PC. Supprimez définitivement les logiciels impossibles à désinstaller, éradiquez les résidus de clés dans le registre et gardez un Windows ultra-rapide.
               </p>
 
               <div class="space-y-3 mb-8 text-xs font-semibold text-gray-200">
                 <div class="flex items-center gap-2.5">
                   <div class="w-5 h-5 rounded-full bg-purple-600/30 border border-purple-500/50 flex items-center justify-center text-fuchsia-400 font-bold">✓</div>
-                  <span>Désinstallation forcée des programmes corrompus</span>
+                  <span data-i18n="unin.feat1">Désinstallation forcée des programmes corrompus</span>
                 </div>
                 <div class="flex items-center gap-2.5">
                   <div class="w-5 h-5 rounded-full bg-purple-600/30 border border-purple-500/50 flex items-center justify-center text-fuchsia-400 font-bold">✓</div>
-                  <span>Nettoyage profond sans toucher aux fichiers système</span>
+                  <span data-i18n="unin.feat2">Nettoyage profond sans toucher aux fichiers système</span>
                 </div>
                 <div class="flex items-center gap-2.5">
                   <div class="w-5 h-5 rounded-full bg-purple-600/30 border border-purple-500/50 flex items-center justify-center text-fuchsia-400 font-bold">✓</div>
-                  <span>Zéro pub, zéro abonnement, légèreté absolue</span>
+                  <span data-i18n="unin.feat3">Zéro pub, zéro abonnement, légèreté absolue</span>
                 </div>
               </div>
             </div>
 
             <div class="flex flex-col sm:flex-row gap-3">
-              <button disabled class="btn-glass opacity-60 cursor-not-allowed text-xs font-bold py-3.5 px-6 rounded-xl text-center flex-1">
+              <button disabled data-i18n="unin.beta_btn" class="btn-glass opacity-60 cursor-not-allowed text-xs font-bold py-3.5 px-6 rounded-xl text-center flex-1">
                 BÊTA PRIVÉE BIENTÔT DISPONIBLE
               </button>
               <a href="https://discord.gg/3tvRuWHjRy" target="_blank" rel="noopener" class="btn-violet text-white text-xs font-black tracking-wide py-3.5 px-5 rounded-xl text-center flex items-center justify-center gap-1.5">
-                <span>DISCORD</span>
+                <span data-i18n="nav.btn_discord">DISCORD</span>
                 <span>&rarr;</span>
               </a>
             </div>
@@ -465,12 +479,12 @@
       <div class="flex items-center gap-2">
         <span class="text-white font-black text-sm tracking-wider">OMNI</span>
         <span>•</span>
-        <span>Créateur de solutions logicielles indépendantes</span>
+        <span data-i18n="footer.tagline">Créateur de solutions logicielles indépendantes</span>
       </div>
       <div class="flex gap-6 text-purple-300">
-        <a href="index.html" class="hover:text-white transition">Accueil</a>
-        <a href="logiciels.html" class="hover:text-white transition text-white font-bold">Nos Logiciels</a>
-        <a href="https://discord.gg/3tvRuWHjRy" target="_blank" rel="noopener" class="hover:text-white transition">Serveur Discord</a>
+        <a href="index.html" data-i18n="footer.home" class="hover:text-white transition">Accueil</a>
+        <a href="logiciels.html" data-i18n="footer.software" class="hover:text-white transition text-white font-bold">Nos Logiciels</a>
+        <a href="https://discord.gg/3tvRuWHjRy" target="_blank" rel="noopener" data-i18n="footer.discord" class="hover:text-white transition">Serveur Discord</a>
       </div>
     </div>
   </footer>
@@ -489,35 +503,35 @@
           🍏
         </div>
         <div>
-          <h3 class="text-lg font-black text-white">Installer sur iPhone & iPad</h3>
-          <p class="text-xs text-purple-300">Apple iOS • Application Plein Écran</p>
+          <h3 data-i18n="ios.title" class="text-lg font-black text-white">Installer sur iPhone & iPad</h3>
+          <p data-i18n="ios.subtitle" class="text-xs text-purple-300">Apple iOS • Application Plein Écran</p>
         </div>
       </div>
 
-      <p class="text-xs text-purple-200/80 leading-relaxed mb-4">
+      <p data-i18n="ios.desc" class="text-xs text-purple-200/80 leading-relaxed mb-4">
         Sur iPhone, Apple ne permet pas de télécharger un fichier APK, mais vous pouvez installer l'application officielle directement sur votre écran d'accueil en 3 étapes :
       </p>
 
       <div class="space-y-3 mb-6 text-xs text-gray-300">
         <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-800/30 flex items-start gap-3">
           <span class="w-5 h-5 rounded-full bg-purple-600 text-white font-bold flex items-center justify-center text-[10px] shrink-0 mt-0.5">1</span>
-          <div>Ouvrez cette page dans le navigateur <strong>Safari</strong> sur votre iPhone/iPad.</div>
+          <div data-i18n="ios.step1">Ouvrez cette page dans le navigateur <strong>Safari</strong> sur votre iPhone/iPad.</div>
         </div>
         <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-800/30 flex items-start gap-3">
           <span class="w-5 h-5 rounded-full bg-purple-600 text-white font-bold flex items-center justify-center text-[10px] shrink-0 mt-0.5">2</span>
-          <div>Appuyez sur le bouton <strong>Partager</strong> en bas de Safari (l'icône carrée avec la flèche vers le haut ⬆️).</div>
+          <div data-i18n="ios.step2">Appuyez sur le bouton <strong>Partager</strong> en bas de Safari (l'icône carrée avec la flèche vers le haut ⬆️).</div>
         </div>
         <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-800/30 flex items-start gap-3">
           <span class="w-5 h-5 rounded-full bg-purple-600 text-white font-bold flex items-center justify-center text-[10px] shrink-0 mt-0.5">3</span>
-          <div>Faites défiler et appuyez sur <strong>« Sur l'écran d'accueil » ➕</strong> puis validez avec <strong>Ajouter</strong>.</div>
+          <div data-i18n="ios.step3">Faites défiler et appuyez sur <strong>« Sur l'écran d'accueil » ➕</strong> puis validez avec <strong>Ajouter</strong>.</div>
         </div>
       </div>
 
       <div class="flex flex-col gap-2">
-        <a href="app.html" target="_blank" class="btn-violet text-white text-xs font-black py-3 px-4 rounded-xl text-center block">
+        <a href="app.html" target="_blank" data-i18n="ios.launch_btn" class="btn-violet text-white text-xs font-black py-3 px-4 rounded-xl text-center block">
           Lancer l'Application sur Safari maintenant &rarr;
         </a>
-        <button onclick="closeIosModal()" class="btn-glass text-gray-300 text-xs font-semibold py-2.5 px-4 rounded-xl">
+        <button onclick="closeIosModal()" data-i18n="ios.close_btn" class="btn-glass text-gray-300 text-xs font-semibold py-2.5 px-4 rounded-xl">
           Fermer
         </button>
       </div>
@@ -525,6 +539,7 @@
     </div>
   </div>
 
+  <script src="assets_omni/i18n.js"></script>
   <script>
     const container = document.getElementById('sparkles-container');
     for (let i = 0; i < 30; i++) {
@@ -553,13 +568,17 @@
         imgCont.classList.add('hidden');
         btnVid.classList.add('active');
         btnImg.classList.remove('active');
-        label.innerText = 'Vidéo Démo avec Musique';
+        label.innerText = (typeof OMNI_TRANSLATIONS !== 'undefined' && OMNI_TRANSLATIONS[currentOmniLang]) 
+          ? OMNI_TRANSLATIONS[currentOmniLang]["software.label_video"] 
+          : 'Démonstration en Jeu';
       } else {
         videoCont.classList.add('hidden');
         imgCont.classList.remove('hidden');
         btnImg.classList.add('active');
         btnVid.classList.remove('active');
-        label.innerText = 'Capture d\'Écran Officielle 2K';
+        label.innerText = (typeof OMNI_TRANSLATIONS !== 'undefined' && OMNI_TRANSLATIONS[currentOmniLang]) 
+          ? OMNI_TRANSLATIONS[currentOmniLang]["software.label_image"] 
+          : 'Capture d\'Écran Officielle 2K';
         if (player) player.pause();
       }
     }
