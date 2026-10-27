@@ -998,7 +998,7 @@
         <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px; margin-bottom:14px;">
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <span style="font-size:0.8rem; color:#8b949e; font-weight:600;">Version actuelle installée :</span>
-            <span class="badge" id="currentVersionBadge" style="background:#238636; color:#fff; font-size:0.8rem; font-weight:800; padding:2px 8px; border-radius:10px;">v2.1.3.1</span>
+            <span class="badge" id="currentVersionBadge" style="background:#238636; color:#fff; font-size:0.8rem; font-weight:800; padding:2px 8px; border-radius:10px;">v2.1.3</span>
           </div>
           <div style="margin-top:8px; font-size:0.75rem; color:#8b949e;" id="updateLastCheckTxt">
             Dernière vérification : non effectuée
@@ -2223,18 +2223,24 @@
     }
 
     const BASE_MOBILE_VERSION = "2.1.3.1";
+    function toDisplayVer(v) {
+      if (!v) return "2.1.3";
+      const parts = (v + "").replace(/^v/i, "").split(".");
+      return parts.length >= 3 ? (parts[0] + "." + parts[1] + "." + parts[2]) : (v + "");
+    }
     let savedAppliedVer = null;
     try { savedAppliedVer = localStorage.getItem("dbd_applied_mobile_version"); } catch (e) {}
     let CURRENT_MOBILE_VERSION = (savedAppliedVer && compareVersions(savedAppliedVer, BASE_MOBILE_VERSION) > 0)
       ? savedAppliedVer
       : BASE_MOBILE_VERSION;
 
-    // Synchronisation automatique et dynamique de tous les indicateurs de version
+    // Synchronisation automatique et dynamique de tous les indicateurs de version (affiche 3 chiffres ex: v2.1.3)
     function refreshVersionDisplays() {
+      const disp = toDisplayVer(CURRENT_MOBILE_VERSION);
       const badgeEl = document.getElementById("currentVersionBadge");
-      if (badgeEl) badgeEl.textContent = "v" + CURRENT_MOBILE_VERSION;
+      if (badgeEl) badgeEl.textContent = "v" + disp;
       const footerVerEl = document.getElementById("footerVersionText");
-      if (footerVerEl) footerVerEl.textContent = "DBD MAP Mobile • v" + CURRENT_MOBILE_VERSION;
+      if (footerVerEl) footerVerEl.textContent = "DBD MAP Mobile • v" + disp;
     }
     refreshVersionDisplays();
 
@@ -2244,7 +2250,7 @@
       const justUpdatedVer = urlParams.get("updated");
       if (justUpdatedVer) {
         setTimeout(() => {
-          showToast("✅ Mise à jour v" + justUpdatedVer + " installée avec succès !");
+          showToast("✅ Mise à jour v" + toDisplayVer(justUpdatedVer) + " installée avec succès !");
         }, 500);
         const cleanPath = window.location.pathname;
         window.history.replaceState({}, document.title, cleanPath);
@@ -2255,9 +2261,9 @@
       const cleanVer = (targetVer || BASE_MOBILE_VERSION) + "";
       if (btnEl) {
         btnEl.disabled = true;
-        btnEl.innerHTML = "⏳ Installation de la v" + cleanVer + " en cours...";
+        btnEl.innerHTML = "⏳ Installation de la v" + toDisplayVer(cleanVer) + " en cours...";
       }
-      showToast("🔄 Mise à jour vers v" + cleanVer + "...");
+      showToast("🔄 Mise à jour vers v" + toDisplayVer(cleanVer) + "...");
       try {
         localStorage.setItem("dbd_applied_mobile_version", cleanVer);
         localStorage.removeItem("dbd_custom_maps");
@@ -2347,7 +2353,8 @@
         }
         if (!vData) throw new Error("Impossible de joindre le serveur de mise à jour");
 
-        const targetVersion = vData.mobile_version || vData.display_version || vData.version;
+        const targetVersion = vData.version || vData.mobile_version;
+        const displayTargetVersion = vData.display_version || toDisplayVer(targetVersion);
         const hasNew = targetVersion && compareVersions(targetVersion, CURRENT_MOBILE_VERSION) > 0;
 
         const now = new Date();
@@ -2375,7 +2382,7 @@
           updateResultArea.innerHTML = `
             <div style="background: rgba(231, 76, 60, 0.12); border: 1px solid #e74c3c; border-radius: 10px; padding: 14px; text-align: left;">
               <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-                <span style="font-weight:800; color:#ff7b72; font-size:0.95rem;">🚀 Version v${targetVersion} disponible !</span>
+                <span style="font-weight:800; color:#ff7b72; font-size:0.95rem;">🚀 Version v${displayTargetVersion} disponible !</span>
                 <span class="badge" style="background:#e74c3c; color:#fff; font-size:0.7rem; font-weight:800;">NOUVEAU</span>
               </div>
               ${alertBanner}
@@ -2393,7 +2400,7 @@
               `}
             </div>
           `;
-          showToast("🚀 Nouvelle version v" + targetVersion + " disponible !");
+          showToast("🚀 Nouvelle version v" + displayTargetVersion + " disponible !");
           if (silent && vData.admin_alert && vData.admin_alert.enabled) {
             openUpdateModal();
           }
@@ -2407,12 +2414,12 @@
                 Votre application est parfaitement à jour !
               </div>
               <p style="font-size: 0.78rem; color: #8b949e;">
-                Vous profitez déjà de la version officielle la plus récente (v${CURRENT_MOBILE_VERSION}).
+                Vous profitez déjà de la version officielle la plus récente (v${toDisplayVer(CURRENT_MOBILE_VERSION)}).
               </p>
             </div>
           `;
           if (!silent) {
-            showToast("✅ Votre application est à jour (v" + CURRENT_MOBILE_VERSION + ")");
+            showToast("✅ Votre application est à jour (v" + toDisplayVer(CURRENT_MOBILE_VERSION) + ")");
           }
         }
       } catch (err) {
