@@ -368,86 +368,112 @@
       <article id="omnishield" class="showcase-card">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
           
-          <!-- MOCKUP POPUP EXTENSION VIOLETTE (7 colonnes) -->
-          <div class="lg:col-span-7 bg-[#0b0714] p-6 sm:p-8 flex flex-col justify-center items-center border-b lg:border-b-0 lg:border-r border-purple-900/30">
+          <!-- LECTEUR VIDÉO DE PRÉSENTATION OMNISHIELD (7 colonnes) -->
+          <div class="lg:col-span-7 bg-[#0b0714] p-5 sm:p-7 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-purple-900/30">
             
-            <!-- POPUP PREVIEW CARD -->
-            <div class="w-full max-w-sm rounded-2xl bg-[#100c20] border border-purple-500/40 shadow-[0_0_50px_rgba(168,85,247,0.3)] p-4 text-left transition hover:scale-[1.01] duration-300">
-              
-              <!-- Header -->
-              <div class="flex items-center justify-between pb-3 border-b border-purple-900/40">
-                <div class="flex items-center gap-2.5">
-                  <div class="w-8 h-8 rounded-xl bg-purple-600/30 border border-purple-500/50 flex items-center justify-center text-lg shadow-[0_0_12px_rgba(168,85,247,0.6)]">
-                    🔮
-                  </div>
-                  <div>
-                    <div class="text-sm font-black text-white tracking-wide bg-gradient-to-r from-fuchsia-300 to-purple-400 bg-clip-text text-transparent">OmniShield</div>
-                    <div class="text-[10px] text-purple-300/70 font-semibold">YouTube & Twitch Clean Suite</div>
-                  </div>
-                </div>
-                <!-- Master Toggle Active -->
-                <div class="w-10 h-5 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500 p-0.5 flex items-center justify-end shadow-[0_0_12px_rgba(168,85,247,0.7)] cursor-default">
-                  <div class="w-4 h-4 rounded-full bg-white shadow-md"></div>
-                </div>
+            <div class="flex items-center justify-between mb-3 px-1">
+              <div class="flex items-center gap-2">
+                <button onclick="showOmniShieldTab('video')" id="tab-omnishield-video" class="media-tab active flex items-center gap-1.5">
+                  <span>▶ Vidéo de Présentation</span>
+                </button>
+                <button onclick="showOmniShieldTab('interface')" id="tab-omnishield-ui" class="media-tab flex items-center gap-1.5">
+                  <span>🔮 Interface & Modules</span>
+                </button>
               </div>
-
-              <!-- Stats Banner -->
-              <div class="my-3 p-3 rounded-xl bg-gradient-to-br from-purple-900/30 to-purple-950/60 border border-purple-500/30 text-center">
-                <div class="text-2xl font-black text-white drop-shadow-[0_0_10px_rgba(192,132,252,0.6)]">142</div>
-                <div class="text-[9px] font-bold uppercase tracking-wider text-purple-300/80 mb-2">Publicités bloquées</div>
-                <div class="flex items-center justify-around pt-2 border-t border-purple-500/20 text-[11px]">
-                  <div>
-                    <span class="font-extrabold text-pink-400">98</span>
-                    <span class="text-[10px] text-purple-300/70 ml-1">YouTube</span>
-                  </div>
-                  <div class="w-px h-3 bg-purple-500/30"></div>
-                  <div>
-                    <span class="font-extrabold text-purple-300">44</span>
-                    <span class="text-[10px] text-purple-300/70 ml-1">Twitch</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Modules List -->
-              <div class="space-y-2 text-[11px]">
-                <!-- Module YouTube -->
-                <div class="p-2 rounded-xl bg-[#16102a] border border-purple-800/30 flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <span class="w-6 h-6 rounded-lg bg-pink-500/20 text-pink-400 flex items-center justify-center font-bold text-xs">▶</span>
-                    <div>
-                      <div class="font-bold text-white text-xs">OmniBlock YouTube</div>
-                      <div class="text-[9.5px] text-purple-300/70">Saut x16 & anti-détection</div>
-                    </div>
-                  </div>
-                  <span class="text-[10px] font-bold text-fuchsia-400 bg-fuchsia-950/60 px-2 py-0.5 rounded-md border border-fuchsia-500/30">ACTIF</span>
-                </div>
-
-                <!-- Module Twitch -->
-                <div class="p-2 rounded-xl bg-[#16102a] border border-purple-800/30 flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <span class="w-6 h-6 rounded-lg bg-purple-500/20 text-purple-300 flex items-center justify-center font-bold text-xs">✦</span>
-                    <div>
-                      <div class="font-bold text-white text-xs">OmniBlock Twitch (VAFT)</div>
-                      <div class="text-[9.5px] text-purple-300/70">Flux direct sans coupure pub</div>
-                    </div>
-                  </div>
-                  <span class="text-[10px] font-bold text-fuchsia-400 bg-fuchsia-950/60 px-2 py-0.5 rounded-md border border-fuchsia-500/30">ACTIF</span>
-                </div>
-
-                <!-- Module Boost Audio -->
-                <div class="p-2 rounded-xl bg-[#16102a] border border-purple-800/30 flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <span class="w-6 h-6 rounded-lg bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-bold text-xs">🔊</span>
-                    <div>
-                      <div class="font-bold text-white text-xs">Amplificateur & Égaliseur</div>
-                      <div class="text-[9.5px] text-purple-300/70">Volume boosté à 150% + Compresseur</div>
-                    </div>
-                  </div>
-                  <span class="text-[10px] font-bold text-purple-300 font-mono">150%</span>
-                </div>
-              </div>
-
+              <span class="text-[11px] font-mono text-purple-400 hidden sm:inline">OmniShield v1.5.0</span>
             </div>
+
+            <!-- Conteneur Vidéo Démo -->
+            <div id="omnishield-video-container" class="relative rounded-2xl overflow-hidden border border-purple-500/30 shadow-[0_0_40px_rgba(168,85,247,0.35)] bg-black group">
+              <video id="player-omnishield" class="w-full h-auto rounded-2xl object-cover" controls preload="metadata">
+                <source src="omnishieldv1.mp4" type="video/mp4">
+                Votre navigateur ne supporte pas la balise vidéo.
+              </video>
+
+              <div class="absolute top-3 left-3 bg-[#0a0513]/90 backdrop-blur-md px-3 py-1 rounded-full border border-purple-400/40 text-[11px] text-white font-bold flex items-center gap-1.5 shadow-lg pointer-events-none">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Démonstration Officielle</span>
+              </div>
+            </div>
+
+            <!-- Conteneur Interface & Modules (Onglet alternatif) -->
+            <div id="omnishield-ui-container" class="hidden w-full flex flex-col items-center justify-center p-4">
+              <div class="w-full max-w-sm rounded-2xl bg-[#100c20] border border-purple-500/40 shadow-[0_0_50px_rgba(168,85,247,0.3)] p-4 text-left">
+                <!-- Header -->
+                <div class="flex items-center justify-between pb-3 border-b border-purple-900/40">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-xl bg-purple-600/30 border border-purple-500/50 flex items-center justify-center text-lg shadow-[0_0_12px_rgba(168,85,247,0.6)]">
+                      🔮
+                    </div>
+                    <div>
+                      <div class="text-sm font-black text-white tracking-wide bg-gradient-to-r from-fuchsia-300 to-purple-400 bg-clip-text text-transparent">OmniShield</div>
+                      <div class="text-[10px] text-purple-300/70 font-semibold">YouTube & Twitch Clean Suite</div>
+                    </div>
+                  </div>
+                  <div class="w-10 h-5 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500 p-0.5 flex items-center justify-end shadow-[0_0_12px_rgba(168,85,247,0.7)]">
+                    <div class="w-4 h-4 rounded-full bg-white shadow-md"></div>
+                  </div>
+                </div>
+
+                <!-- Stats Banner -->
+                <div class="my-3 p-3 rounded-xl bg-gradient-to-br from-purple-900/30 to-purple-950/60 border border-purple-500/30 text-center">
+                  <div class="text-2xl font-black text-white drop-shadow-[0_0_10px_rgba(192,132,252,0.6)]">142</div>
+                  <div class="text-[9px] font-bold uppercase tracking-wider text-purple-300/80 mb-2">Publicités bloquées</div>
+                  <div class="flex items-center justify-around pt-2 border-t border-purple-500/20 text-[11px]">
+                    <div>
+                      <span class="font-extrabold text-pink-400">98</span>
+                      <span class="text-[10px] text-purple-300/70 ml-1">YouTube</span>
+                    </div>
+                    <div class="w-px h-3 bg-purple-500/30"></div>
+                    <div>
+                      <span class="font-extrabold text-purple-300">44</span>
+                      <span class="text-[10px] text-purple-300/70 ml-1">Twitch</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Modules List -->
+                <div class="space-y-2 text-[11px]">
+                  <div class="p-2 rounded-xl bg-[#16102a] border border-purple-800/30 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <span class="w-6 h-6 rounded-lg bg-pink-500/20 text-pink-400 flex items-center justify-center font-bold text-xs">▶</span>
+                      <div>
+                        <div class="font-bold text-white text-xs">OmniBlock YouTube</div>
+                        <div class="text-[9.5px] text-purple-300/70">Saut x16 & anti-détection</div>
+                      </div>
+                    </div>
+                    <span class="text-[10px] font-bold text-fuchsia-400 bg-fuchsia-950/60 px-2 py-0.5 rounded-md border border-fuchsia-500/30">ACTIF</span>
+                  </div>
+
+                  <div class="p-2 rounded-xl bg-[#16102a] border border-purple-800/30 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <span class="w-6 h-6 rounded-lg bg-purple-500/20 text-purple-300 flex items-center justify-center font-bold text-xs">✦</span>
+                      <div>
+                        <div class="font-bold text-white text-xs">OmniBlock Twitch (VAFT)</div>
+                        <div class="text-[9.5px] text-purple-300/70">Flux direct sans coupure pub</div>
+                      </div>
+                    </div>
+                    <span class="text-[10px] font-bold text-fuchsia-400 bg-fuchsia-950/60 px-2 py-0.5 rounded-md border border-fuchsia-500/30">ACTIF</span>
+                  </div>
+
+                  <div class="p-2 rounded-xl bg-[#16102a] border border-purple-800/30 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <span class="w-6 h-6 rounded-lg bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-bold text-xs">🔊</span>
+                      <div>
+                        <div class="font-bold text-white text-xs">Amplificateur & Égaliseur</div>
+                        <div class="text-[9.5px] text-purple-300/70">Volume boosté à 150% + Compresseur</div>
+                      </div>
+                    </div>
+                    <span class="text-[10px] font-bold text-purple-300 font-mono">150%</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <p class="text-[11px] text-purple-300/60 text-center mt-2.5">
+              Vidéo de présentation officielle : saut automatique x16 YouTube, contournement Twitch VAFT et DA violette.
+            </p>
 
           </div>
 
@@ -802,6 +828,28 @@
     }
 
     
+    
+    function showOmniShieldTab(tab) {
+      const vidCont = document.getElementById('omnishield-video-container');
+      const uiCont = document.getElementById('omnishield-ui-container');
+      const btnVid = document.getElementById('tab-omnishield-video');
+      const btnUi = document.getElementById('tab-omnishield-ui');
+      const player = document.getElementById('player-omnishield');
+
+      if (tab === 'video') {
+        vidCont.classList.remove('hidden');
+        uiCont.classList.add('hidden');
+        btnVid.classList.add('active');
+        btnUi.classList.remove('active');
+      } else {
+        vidCont.classList.add('hidden');
+        uiCont.classList.remove('hidden');
+        btnUi.classList.add('active');
+        btnVid.classList.remove('active');
+        if (player) player.pause();
+      }
+    }
+
     function openOmniShieldModal() {
       document.getElementById('omnishield-modal').classList.remove('hidden');
     }
