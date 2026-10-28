@@ -1733,7 +1733,7 @@
       relayFetch(`${currentLobbyCode}_MEMBERS`, { method: "POST", body: payload }).catch(() => {});
     }
 
-    function processMemberMessage(raw, msgTimeSec = 0, isLive = false) {
+    function processMemberMessage(raw, msgTimeSec = 0, isLive = false, shouldUpdateUi = true) {
       if (!raw || !raw.trim()) return;
       const msg = raw.trim().replace(/^"|"$/g, "");
       const nowMs = Date.now();
@@ -1767,7 +1767,7 @@
             isHost: hostFlag,
             lastSeen: isLive ? nowMs : effectiveMs
           };
-          updateSquadUI();
+          if (shouldUpdateUi) updateSquadUI();
 
           // Répondre immédiatement quand un nouveau joueur rejoint pour qu'il nous voie en <1s
           if (isBrandNewOther && (nowMs - lastHeartbeatSentMs) >= 1500) {
@@ -1777,9 +1777,10 @@
       } else if (msg.startsWith("LEAVE:")) {
         const id = msg.substring(6).trim().replace(/^"|"$/g, "");
         if (lobbyMembers[id]) {
-          if (isLive || effectiveMs >= lobbyMembers[id].lastSeen) {
+          // Un départ ne supprime que s'il est strictement plus récent que le dernier ping reçu
+          if (isLive || effectiveMs > lobbyMembers[id].lastSeen) {
             delete lobbyMembers[id];
-            updateSquadUI();
+            if (shouldUpdateUi) updateSquadUI();
           }
         }
       }
@@ -1810,18 +1811,56 @@
         if (resp && resp.ok) {
           const txt = await resp.text();
           const nowSec = Math.floor(Date.now() / 1000);
+
+          // Regrouper par identifiant pour déterminer le dernier état réel (anti-clignotement)
+          const latestById = {};
           for (const line of txt.split("\n")) {
             if (!line.trim()) continue;
             try {
               const ev = JSON.parse(line);
               if (ev.event === "message" && ev.message) {
-                const isMobile = ev.message.includes(":iOS:") || ev.message.includes(":Android:") || ev.message.includes(":iPad:") || ev.message.includes(":iPhone:");
-                const maxAge = isMobile ? 1200 : 45;
-                if (ev.time && (nowSec - ev.time) > maxAge) continue;
-                processMemberMessage(ev.message, ev.time || 0, false);
+                const raw = ev.message.trim().replace(/^"|"$/g, "");
+                const msgTime = ev.time || 0;
+                let id = null;
+                let isLeave = false;
+                if (raw.startsWith("PING:")) {
+                  const parts = raw.split(":");
+                  if (parts.length >= 2) id = parts[1].trim();
+                } else if (raw.startsWith("LEAVE:")) {
+                  id = raw.substring(6).trim().replace(/^"|"$/g, "");
+                  isLeave = true;
+                }
+                if (!id) continue;
+                const prev = latestById[id];
+                // PING gagne toujours à timestamp égal par rapport à un vieux LEAVE
+                if (!prev || msgTime > prev.time || (msgTime === prev.time && !isLeave)) {
+                  latestById[id] = { time: msgTime, raw, isLeave };
+                }
               }
             } catch (e) {}
           }
+
+          let changed = false;
+          for (const id in latestById) {
+            const entry = latestById[id];
+            if (entry.isLeave) {
+              if (lobbyMembers[id]) {
+                const effectiveMs = entry.time > 0 ? entry.time * 1000 : Date.now();
+                if (effectiveMs > lobbyMembers[id].lastSeen) {
+                  delete lobbyMembers[id];
+                  changed = true;
+                }
+              }
+            } else {
+              // PING actif
+              const isMobile = entry.raw.includes(":iOS:") || entry.raw.includes(":Android:") || entry.raw.includes(":iPad:") || entry.raw.includes(":iPhone:");
+              const maxAge = isMobile ? 1200 : 45;
+              if (entry.time && (nowSec - entry.time) > maxAge) continue;
+              processMemberMessage(entry.raw, entry.time || 0, false, false);
+              changed = true;
+            }
+          }
+          if (changed) updateSquadUI();
         }
       } catch (e) {}
     }
@@ -1884,6 +1923,9 @@
         try { memberStreamSource.close(); } catch (e) {}
         memberStreamSource = null;
       }
+    }
+
+    function sendLeaveMessageToServer() {
       if (currentLobbyCode) {
         const leaveBody = `LEAVE:${myMemberId}`;
         try {
@@ -1895,8 +1937,6 @@
         } catch(e) {}
         relayFetch(`${currentLobbyCode}_MEMBERS`, { method: "POST", body: leaveBody, keepalive: true }).catch(() => {});
       }
-      lobbyMembers = {};
-      updateSquadUI();
     }
 
     async function relayGetLatest(key) {
@@ -1970,6 +2010,7 @@
     }
 
     function stopLobbyListener() {
+      sendLeaveMessageToServer();
       stopMemberPresence();
       if (lobbyPollTimer) {
         clearInterval(lobbyPollTimer);
@@ -1982,6 +2023,8 @@
       currentLobbyCode = "";
       isHost = false;
       localStorage.removeItem("dbd_mobile_lobby_code");
+      lobbyMembers = {};
+      updateSquadUI();
       updateLobbyUI();
     }
 
