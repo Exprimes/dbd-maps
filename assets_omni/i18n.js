@@ -61,7 +61,7 @@ const OMNI_TRANSLATIONS = {
 
     // OmniShield Card & Modal
     "omnishield.tag": "Extension Web • Chrome / Brave / Edge",
-    "omnishield.status": "v1.5.0 Disponible",
+    "omnishield.status": "v1.6.0 Disponible",
     "omnishield.title": "OmniShield AdBlocker",
     "omnishield.desc": "Le bloqueur ultime pour YouTube et Twitch. Saut automatique des publicités YouTube à vitesse x16, contournement total des publicités Twitch via le moteur VAFT (v37.0.0) pour continuer le live sans coupure ni écran noir, et amplificateur audio jusqu'à 300%.",
     "omnishield.feat1": "Twitch VAFT : contournement des pubs sans coupure de flux",
@@ -174,7 +174,7 @@ const OMNI_TRANSLATIONS = {
 
     // OmniShield Card & Modal
     "omnishield.tag": "Web Extension • Chrome / Brave / Edge",
-    "omnishield.status": "v1.5.0 Available",
+    "omnishield.status": "v1.6.0 Available",
     "omnishield.title": "OmniShield AdBlocker",
     "omnishield.desc": "The ultimate ad blocker for YouTube and Twitch. Instant x16 auto-skip for YouTube ads, seamless Twitch ad bypass with VAFT engine v37.0.0 (uninterrupted stream with zero blackouts), and audio booster up to 300%.",
     "omnishield.feat1": "Twitch VAFT: live stream ad bypass with zero interruption",
