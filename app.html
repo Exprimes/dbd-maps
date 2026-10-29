@@ -909,7 +909,338 @@
       margin-left: 4px;
     }
 
-  </style>
+  
+    /* ==========================================================================
+       NOUVEAU DESIGN MOBILE & ERGONOMIE (DBDLeague, Segmented Bar, Bottom Nav)
+       ========================================================================== */
+    :root {
+      --accent-red: #e74c3c;
+      --accent-amber: #f59e0b;
+      --bg-dark: #0a0d14;
+      --card-bg: #131722;
+      --card-border: #232a3b;
+    }
+    
+    body {
+      background-color: var(--bg-dark);
+      padding-bottom: max(75px, calc(env(safe-area-inset-bottom, 0px) + 70px)) !important;
+    }
+    
+    header {
+      background: linear-gradient(180deg, rgba(19, 23, 34, 0.98) 0%, rgba(10, 13, 20, 0.95) 100%) !important;
+      border-bottom: 1px solid #1e2536 !important;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    
+    .btn-header-lang {
+      background: #1b2130;
+      border: 1px solid #2d374d;
+      color: #fff;
+      border-radius: 9px;
+      padding: 5px 9px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s;
+    }
+    .btn-header-lang:active {
+      transform: scale(0.94);
+      background: #252e42;
+    }
+
+    /* SEGMENTED BAR POUR CARTES FR / EN */
+    .lang-segmented-bar {
+      display: flex;
+      background: #10141e;
+      border: 1px solid #1f2738;
+      border-radius: 12px;
+      padding: 3px;
+      gap: 4px;
+      margin-top: 10px;
+    }
+    .seg-btn {
+      flex: 1;
+      padding: 7px 10px;
+      border: none;
+      border-radius: 9px;
+      background: transparent;
+      color: #8b949e;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .seg-btn.active {
+      background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(231, 76, 60, 0.35);
+    }
+    .seg-badge {
+      font-size: 0.65rem;
+      padding: 1px 6px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.18);
+      font-weight: 800;
+    }
+
+    /* MODERN MAP CARDS */
+    .maps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
+      gap: 12px !important;
+    }
+    .map-card {
+      background-color: var(--card-bg) !important;
+      border: 1px solid var(--card-border) !important;
+      border-radius: 14px !important;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+      transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s !important;
+      display: flex;
+      flex-direction: column;
+    }
+    .map-card:active {
+      transform: scale(0.96) !important;
+      border-color: var(--accent-red) !important;
+    }
+    .map-thumb-wrap {
+      width: 100%;
+      aspect-ratio: 16 / 11;
+      background: #06080d;
+      position: relative;
+      overflow: hidden;
+    }
+    .map-thumb-wrap img, .map-card-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .map-card-badge {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      background: rgba(0, 0, 0, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 0.62rem;
+      font-weight: 800;
+      color: #e6edf3;
+      z-index: 2;
+    }
+    .map-card-info {
+      padding: 8px 10px 10px 10px !important;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      background: var(--card-bg);
+      flex: 1;
+    }
+    .map-card-name {
+      font-size: 0.82rem !important;
+      font-weight: 800 !important;
+      color: #ffffff !important;
+      line-height: 1.25 !important;
+      white-space: normal !important;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    .map-card-meta {
+      font-size: 0.68rem !important;
+      color: #8b949e !important;
+      margin-top: 3px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* BOTTOM NAVIGATION BAR (FIXE ERGONOMIQUE) */
+    .bottom-nav-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: max(60px, calc(env(safe-area-inset-bottom, 0px) + 54px));
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      background: rgba(13, 17, 26, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid #21283b;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 400;
+      box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.5);
+    }
+    .bnav-btn {
+      flex: 1;
+      height: 100%;
+      background: transparent;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      color: #8b949e;
+      cursor: pointer;
+      font-size: 0.68rem;
+      font-weight: 700;
+      transition: all 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .bnav-btn.active {
+      color: #ff5252;
+    }
+    .bnav-btn.active.league-active {
+      color: #f59e0b;
+    }
+    .bnav-icon-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bnav-icon {
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+    .bnav-dot {
+      position: absolute;
+      top: -2px;
+      right: -4px;
+      width: 7px;
+      height: 7px;
+      background: #f59e0b;
+      border-radius: 50%;
+      border: 1px solid #0d111a;
+    }
+    .bnav-dot-green {
+      position: absolute;
+      top: -2px;
+      right: -4px;
+      width: 7px;
+      height: 7px;
+      background: #2ea043;
+      border-radius: 50%;
+      border: 1px solid #0d111a;
+    }
+
+    /* VUE DBDLEAGUE */
+    #dbdLeagueView {
+      padding: 14px 16px 30px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .league-card {
+      background: #111622;
+      border: 1px solid #232c40;
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+    .league-card.highlight {
+      border-color: rgba(245, 158, 11, 0.35);
+      background: linear-gradient(180deg, #161c2b 0%, #101420 100%);
+    }
+    .digital-clock {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 2.3rem;
+      font-weight: 900;
+      color: #f59e0b;
+      letter-spacing: 2px;
+      text-align: center;
+      padding: 10px 0;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 12px;
+      border: 1px solid #242b3b;
+      margin: 8px 0;
+    }
+    .btn-chrono-main {
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .btn-chrono-main:active {
+      transform: scale(0.95);
+    }
+    .btn-chrono-start {
+      background: #f59e0b;
+      color: #000;
+    }
+    .btn-chrono-pause {
+      background: #e74c3c;
+      color: #fff;
+    }
+    .btn-chrono-sub {
+      background: #1c2333;
+      color: #e6edf3;
+      border: 1px solid #2d384e;
+    }
+    .duel-player-box {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid #1f2738;
+      border-radius: 12px;
+      padding: 10px;
+    }
+    .duel-time-val {
+      font-family: ui-monospace, monospace;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #f59e0b;
+    }
+
+    /* MODAL BOTTOM SHEET LANGUE */
+    .sheet-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 600;
+      display: none;
+      align-items: flex-end;
+    }
+    .sheet-card {
+      background: #131722;
+      border-top: 1px solid #2d374d;
+      border-radius: 24px 24px 0 0;
+      width: 100%;
+      padding: 18px 20px max(24px, env(safe-area-inset-bottom, 0px)) 20px;
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.7);
+      animation: slideUp 0.25s ease-out;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+</style>
 </head>
 <body>
 
@@ -931,34 +1262,44 @@
         </div>
       </div>
       <div class="header-actions">
-        
-        
+        <!-- Sélecteur de Langue d'application -->
+        <button class="btn-header-lang" id="btnHeaderLang" onclick="openLangSheet()" title="Changer la langue">
+          <span id="headerLangFlag">🇫🇷</span>
+          <span id="headerLangText">FR</span>
+        </button>
         <button class="btn-header-lobby" id="btnHeaderLobby">
           <span id="lobbyStatusDot">⚪</span>
           <span id="lobbyStatusText">Lobby</span>
         </button>
         <button class="btn-header-oled" id="btnHeaderOled" title="Mode Éco Batterie OLED (Noir Pur 100%)">🌙</button>
         <button class="btn-header-sync" id="btnHeaderSync" title="Vérifier nouvelles cartes">🔄</button>
-        <button class="btn-header-update" id="btnHeaderUpdate" title="Vérifier les mises à jour">🚀</button>
       </div>
     </div>
 
+    <!-- Barre de recherche rapide -->
     <div class="search-box">
       <span class="search-icon">🔍</span>
       <input type="text" id="searchInput" placeholder="Rechercher une carte..." autocomplete="off">
       <button class="clear-btn" id="clearBtn">✕</button>
     </div>
 
-    <div class="lang-selector-bar">
-      <div class="lang-selector-wrapper">
-        <span class="lang-icon">🌐</span>
-        <select id="mapLangSelect" class="lang-dropdown">
-          <option value="FR">🇫🇷 Cartes Françaises (44 cartes)</option>
-          <option value="EN">🇬🇧 Cartes Anglaises / English (44 maps)</option>
-        </select>
-        <span class="dropdown-chevron">▼</span>
-      </div>
+    <!-- Sélecteur Segmenté 44 Cartes FR / 44 Cartes EN -->
+    <div class="lang-segmented-bar" id="langSegmentedBar">
+      <button class="seg-btn active" id="segBtnFr" onclick="selectMapLanguage('FR')">
+        <span>🇫🇷 Cartes FR</span>
+        <span class="seg-badge">44</span>
+      </button>
+      <button class="seg-btn" id="segBtnEn" onclick="selectMapLanguage('EN')">
+        <span>🇬🇧 Cartes EN</span>
+        <span class="seg-badge">44</span>
+      </button>
     </div>
+
+    <!-- Dropdown caché pour compatibilité JS existante -->
+    <select id="mapLangSelect" style="display:none;">
+      <option value="FR" selected>FR</option>
+      <option value="EN">EN</option>
+    </select>
   </header>
 
   <main>
@@ -974,6 +1315,163 @@
       Aucune carte ne correspond à votre recherche.
     </div>
   </main>
+  <!-- ==================== VUE DÉDIÉE DBDLEAGUE & CHRONOMÈTRE ==================== -->
+  <div id="dbdLeagueView" style="display:none;">
+    
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:1.1rem;">⚔️</span>
+        <h2 style="font-size:1rem; font-weight:800; color:#f59e0b; letter-spacing:0.5px;">DBDLEAGUE COMPÉTITION</h2>
+      </div>
+      <span style="font-size:0.7rem; font-weight:800; padding:3px 8px; border-radius:12px; background:rgba(245,158,11,0.15); color:#f59e0b; border:1px solid rgba(245,158,11,0.3);">Pool 57 Maps</span>
+    </div>
+
+    <!-- SECTION 1 : CHRONOMÈTRE DE MATCH -->
+    <div class="league-card highlight">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:0.78rem; font-weight:700; color:#8b949e; text-transform:uppercase;">Chronomètre de Match</span>
+        <span id="leagueChronoBadge" style="font-size:0.68rem; font-weight:800; padding:2px 7px; border-radius:6px; background:#1c2333; color:#8b949e;">ARRÊTÉ</span>
+      </div>
+
+      <div class="digital-clock" id="leagueChronoClock">00:00.00</div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:8px;">
+        <button class="btn-chrono-main btn-chrono-start" id="btnChronoToggle" onclick="toggleLeagueChrono()">
+          <span id="chronoIcon">▶</span>
+          <span id="chronoText">Lancer</span>
+        </button>
+        <button class="btn-chrono-main btn-chrono-sub" onclick="recordLeagueLap()">
+          <span>⏱️ Tour / Lap</span>
+        </button>
+        <button class="btn-chrono-main btn-chrono-sub" onclick="resetLeagueChrono()">
+          <span>🔄 Reset</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- SECTION 2 : DUEL 1V1 (MANCHE 1 VS MANCHE 2) -->
+    <div class="league-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <span style="font-size:0.8rem; font-weight:800; color:#fff; display:flex; align-items:center; gap:6px;">
+          <span>🎯</span> Duel 1v1 DBDLeague
+        </span>
+        <button onclick="resetDuelMatch()" style="background:none; border:none; color:#8b949e; font-size:0.72rem; cursor:pointer; font-weight:700;">Réinitialiser Match</button>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+        <!-- Joueur 1 -->
+        <div class="duel-player-box">
+          <div style="font-size:0.7rem; font-weight:800; color:#60a5fa; margin-bottom:4px;">👤 Joueur 1 (Tueur A)</div>
+          <input type="text" id="duelP1Name" value="Joueur 1" style="width:100%; box-sizing:border-box; background:#161c28; border:1px solid #28344a; border-radius:6px; color:#fff; font-size:0.75rem; padding:4px 6px; font-weight:700; margin-bottom:6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:0.7rem; color:#8b949e;">Manche 1 :</span>
+            <span class="duel-time-val" id="duelM1Time">--:--.--</span>
+          </div>
+          <button onclick="captureM1()" style="width:100%; margin-top:6px; background:rgba(96,165,250,0.15); border:1px solid rgba(96,165,250,0.3); color:#93c5fd; border-radius:6px; padding:5px; font-size:0.72rem; font-weight:800; cursor:pointer;">Valider M1</button>
+        </div>
+
+        <!-- Joueur 2 -->
+        <div class="duel-player-box">
+          <div style="font-size:0.7rem; font-weight:800; color:#f43f5e; margin-bottom:4px;">👤 Joueur 2 (Tueur B)</div>
+          <input type="text" id="duelP2Name" value="Joueur 2" style="width:100%; box-sizing:border-box; background:#161c28; border:1px solid #28344a; border-radius:6px; color:#fff; font-size:0.75rem; padding:4px 6px; font-weight:700; margin-bottom:6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:0.7rem; color:#8b949e;">Manche 2 :</span>
+            <span class="duel-time-val" id="duelM2Time">--:--.--</span>
+          </div>
+          <button onclick="captureM2()" style="width:100%; margin-top:6px; background:rgba(244,63,94,0.15); border:1px solid rgba(244,63,94,0.3); color:#fda4af; border-radius:6px; padding:5px; font-size:0.72rem; font-weight:800; cursor:pointer;">Valider M2</button>
+        </div>
+      </div>
+
+      <!-- Différentiel de temps -->
+      <div id="duelDiffBox" style="margin-top:10px; background:rgba(0,0,0,0.4); border:1px solid #21293a; border-radius:8px; padding:8px 10px; text-align:center;">
+        <span style="font-size:0.72rem; color:#8b949e;">Résultat du Duel : </span>
+        <span id="duelDiffText" style="font-size:0.8rem; font-family:monospace; font-weight:800; color:#e6edf3;">En attente des deux manches</span>
+      </div>
+    </div>
+
+    <!-- SECTION 3 : POOL DE MAPS DBDLEAGUE (57 CARTES) -->
+    <div class="league-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <span style="font-size:0.8rem; font-weight:800; color:#fff; display:flex; align-items:center; gap:6px;">
+          <span>🗺️</span> Maps de Compétition
+        </span>
+        <span id="leagueMapCountBadge" style="font-size:0.7rem; color:#f59e0b; font-weight:800;">57 Cartes</span>
+      </div>
+
+      <div style="position:relative; margin-bottom:12px;">
+        <input type="text" id="leagueSearchInput" onkeyup="filterLeagueMaps()" placeholder="Filtrer une map compétitive..." style="width:100%; box-sizing:border-box; background:#0b0e14; border:1px solid #232c40; border-radius:10px; padding:8px 12px; color:#fff; font-size:0.8rem; outline:none;">
+      </div>
+
+      <div class="maps-grid" id="leagueMapsGrid">
+        <!-- Rempli en JS avec les 57 maps de dbdleague -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==================== BARRE DE NAVIGATION BASSE (ONE-THUMB) ==================== -->
+  <nav class="bottom-nav-bar" id="bottomNavBar">
+    <button class="bnav-btn active" id="bnavMaps" onclick="switchMainTab('maps')">
+      <span class="bnav-icon">🗺️</span>
+      <span class="bnav-label">88 Cartes</span>
+    </button>
+    
+    <button class="bnav-btn" id="bnavLeague" onclick="switchMainTab('league')">
+      <div class="bnav-icon-wrap">
+        <span class="bnav-icon">⚔️</span>
+        <span class="bnav-dot"></span>
+      </div>
+      <span class="bnav-label">DBDLeague</span>
+    </button>
+    
+    <button class="bnav-btn" id="bnavLobby" onclick="openLobbyModal()">
+      <div class="bnav-icon-wrap">
+        <span class="bnav-icon">📡</span>
+        <span id="bnavLobbyDot" class="bnav-dot-green" style="display:none;"></span>
+      </div>
+      <span class="bnav-label">Lobby</span>
+    </button>
+    
+    <button class="bnav-btn" id="bnavUpdates" onclick="openUpdateModal()">
+      <span class="bnav-icon">🚀</span>
+      <span class="bnav-label">Mises à jour</span>
+    </button>
+  </nav>
+
+  <!-- ==================== BOTTOM SHEET LANGUE D'APPLICATION ==================== -->
+  <div class="sheet-overlay" id="langSheetOverlay" onclick="closeLangSheet(event)">
+    <div class="sheet-card" onclick="event.stopPropagation()">
+      <div style="width:36px; height:4px; background:#2d374d; border-radius:4px; margin:0 auto 14px auto;"></div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="font-size:0.95rem; font-weight:800; color:#fff;">Langue de l'application</h3>
+        <button onclick="closeLangSheet()" style="background:none; border:none; color:#8b949e; font-size:1.1rem; cursor:pointer;">✕</button>
+      </div>
+      
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button onclick="setAppGlobalLanguage('FR')" class="btn" style="display:flex; align-items:center; justify-content:space-between; background:#1b2232; border:1px solid #e74c3c; border-radius:12px; padding:12px 14px; text-align:left;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:1.4rem;">🇫🇷</span>
+            <div>
+              <div style="font-size:0.85rem; font-weight:800; color:#fff;">Français</div>
+              <div style="font-size:0.7rem; color:#8b949e;">Interface et Cartes Françaises par défaut</div>
+            </div>
+          </div>
+          <span style="color:#e74c3c; font-weight:800;">✓</span>
+        </button>
+
+        <button onclick="setAppGlobalLanguage('EN')" class="btn" style="display:flex; align-items:center; justify-content:space-between; background:#161b28; border:1px solid #2d384e; border-radius:12px; padding:12px 14px; text-align:left;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:1.4rem;">🇬🇧</span>
+            <div>
+              <div style="font-size:0.85rem; font-weight:800; color:#fff;">English</div>
+              <div style="font-size:0.7rem; color:#8b949e;">Interface & English Maps by default</div>
+            </div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
 
   <footer>
     <span id="footerVersionText">DBD MAP OMNI • By Exprimes</span>
@@ -998,7 +1496,7 @@
         <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px; margin-bottom:14px;">
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <span style="font-size:0.8rem; color:#8b949e; font-weight:600;">Version actuelle installée :</span>
-            <span class="badge" id="currentVersionBadge" style="background:#238636; color:#fff; font-size:0.8rem; font-weight:800; padding:2px 8px; border-radius:10px;">v2.1.3</span>
+            <span class="badge" id="currentVersionBadge" style="background:#238636; color:#fff; font-size:0.8rem; font-weight:800; padding:2px 8px; border-radius:10px;">v2.2.0</span>
           </div>
           <div style="margin-top:8px; font-size:0.75rem; color:#8b949e;" id="updateLastCheckTxt">
             Dernière vérification : non effectuée
@@ -2331,7 +2829,7 @@
       return 0;
     }
 
-    const BASE_MOBILE_VERSION = "2.1.3.4";
+    const BASE_MOBILE_VERSION = "2.2.0.0";
     function toDisplayVer(v) {
       if (!v) return "2.1.3";
       const parts = (v + "").replace(/^v/i, "").split(".");
@@ -2343,7 +2841,7 @@
       ? savedAppliedVer
       : BASE_MOBILE_VERSION;
 
-    // Synchronisation automatique et dynamique de tous les indicateurs de version (affiche 3 chiffres ex: v2.1.3)
+    // Synchronisation automatique et dynamique de tous les indicateurs de version (affiche 3 chiffres ex: v2.2.0)
     function refreshVersionDisplays() {
       const disp = toDisplayVer(CURRENT_MOBILE_VERSION);
       const badgeEl = document.getElementById("currentVersionBadge");
@@ -2616,6 +3114,313 @@
       const iosBanner = document.getElementById("iosInstallBanner");
       if (iosBanner) iosBanner.style.display = "flex";
     }
-  </script>
+  
+    // ==========================================================================
+    // LOGIQUE NOUVEAU DESIGN : SEGMENTED BAR, NAVIGATION BASSE & DBDLEAGUE
+    // ==========================================================================
+
+    window.selectMapLanguage = function(lang) {
+      currentLanguage = lang;
+      try { localStorage.setItem("dbd_mobile_lang", lang); } catch (e) {}
+
+      const segFr = document.getElementById("segBtnFr");
+      const segEn = document.getElementById("segBtnEn");
+      const mapSelect = document.getElementById("mapLangSelect");
+
+      if (lang === "FR") {
+        if (segFr) segFr.classList.add("active");
+        if (segEn) segEn.classList.remove("active");
+        if (mapSelect) mapSelect.value = "FR";
+      } else {
+        if (segEn) segEn.classList.add("active");
+        if (segFr) segFr.classList.remove("active");
+        if (mapSelect) mapSelect.value = "EN";
+      }
+      filterMaps();
+    };
+
+    window.switchMainTab = function(tab) {
+      const viewMaps = document.querySelector("main");
+      const viewLeague = document.getElementById("dbdLeagueView");
+      const bnavMaps = document.getElementById("bnavMaps");
+      const bnavLeague = document.getElementById("bnavLeague");
+      const langBar = document.getElementById("langSegmentedBar");
+
+      if (tab === "maps") {
+        if (viewMaps) viewMaps.style.display = "block";
+        if (viewLeague) viewLeague.style.display = "none";
+        if (langBar) langBar.style.display = "flex";
+        if (bnavMaps) bnavMaps.className = "bnav-btn active";
+        if (bnavLeague) bnavLeague.className = "bnav-btn";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (tab === "league") {
+        if (viewMaps) viewMaps.style.display = "none";
+        if (viewLeague) viewLeague.style.display = "flex";
+        if (langBar) langBar.style.display = "none";
+        if (bnavMaps) bnavMaps.className = "bnav-btn";
+        if (bnavLeague) bnavLeague.className = "bnav-btn active league-active";
+        initLeagueMaps();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    };
+
+    window.openLangSheet = function() {
+      const sheet = document.getElementById("langSheetOverlay");
+      if (sheet) sheet.style.display = "flex";
+    };
+
+    window.closeLangSheet = function() {
+      const sheet = document.getElementById("langSheetOverlay");
+      if (sheet) sheet.style.display = "none";
+    };
+
+    window.setAppGlobalLanguage = function(lang) {
+      selectMapLanguage(lang);
+      const flagEl = document.getElementById("headerLangFlag");
+      const textEl = document.getElementById("headerLangText");
+      if (flagEl) flagEl.textContent = lang === "FR" ? "🇫🇷" : "🇬🇧";
+      if (textEl) textEl.textContent = lang;
+      closeLangSheet();
+      showToast(lang === "FR" ? "Langue : Français activé" : "Language: English activated");
+    };
+
+    // 57 Maps DBDLeague
+    const DBDLEAGUE_MAPS_DATA = [
+      { name: "Azarov's Resting Place", file: "Azarovs Resting Place.png", realm: "Autohaven Wreckers" },
+      { name: "Badham Preschool I", file: "badham_preschool_1.png", realm: "Springwood" },
+      { name: "Badham Preschool II", file: "Preschool2.png", realm: "Springwood" },
+      { name: "Badham Preschool III", file: "Preschool3.png", realm: "Springwood" },
+      { name: "Badham Preschool IV", file: "Preschool4.png", realm: "Springwood" },
+      { name: "Badham Preschool V", file: "Preschool5.png", realm: "Springwood" },
+      { name: "Blood Lodge", file: "Blood Lodge.png", realm: "Autohaven Wreckers" },
+      { name: "Coal Tower", file: "Coal Tower.png", realm: "MacMillan Estate" },
+      { name: "Coal Tower II", file: "Coal Tower II.png", realm: "MacMillan Estate" },
+      { name: "Dead Dawg Saloon", file: "Dead Dawg Saloon.png", realm: "Grave of Glenvale" },
+      { name: "Dead Sands", file: "Dead Sands.png", realm: "The Decimated Borgo" },
+      { name: "Disturbed Ward", file: "Disturbed Ward.png", realm: "Crotus Prenn Asylum" },
+      { name: "Eyrie of Crows", file: "Eyrie of Crows.png", realm: "Forsaken Boneyard" },
+      { name: "Fallen Refuge", file: "Fallen Refuge.png", realm: "Dvarka Deepwood" },
+      { name: "Family Residence", file: "Family Residence.png", realm: "Yamaoka Estate" },
+      { name: "Family Residence II", file: "Family Residence II.png", realm: "Yamaoka Estate" },
+      { name: "Father Campbell's Chapel", file: "father_campbells_chapel.png", realm: "Crotus Prenn Asylum" },
+      { name: "Forgotten Ruins", file: "Forgotten Ruins.png", realm: "Decimated Borgo" },
+      { name: "Fractured Cowshed", file: "Fractured Cowshed.png", realm: "Coldwind Farm" },
+      { name: "Freddy Fazbear's Pizza", file: "Freddy Fazbears Pizza.png", realm: "Five Nights" },
+      { name: "Garden of Joy", file: "Garden of Joy.png", realm: "Withered Isle" },
+      { name: "Gas Heaven", file: "Gas Heaven.png", realm: "Autohaven Wreckers" },
+      { name: "Greenville Square", file: "Greenville Square.png", realm: "Withered Isle" },
+      { name: "Grim Pantry", file: "Grim Pantry.png", realm: "Backwater Swamp" },
+      { name: "Groaning Storehouse", file: "Groaning Storehouse.png", realm: "MacMillan Estate" },
+      { name: "Groaning Storehouse II", file: "Groaning Storehouse II.png", realm: "MacMillan Estate" },
+      { name: "Ironworks of Misery", file: "ironworks_of_misery.png", realm: "MacMillan Estate" },
+      { name: "Ironworks of Misery II", file: "Ironworks Of Misery II.png", realm: "MacMillan Estate" },
+      { name: "Midwich Elementary School", file: "Midwich elementary school.gif", realm: "Silent Hill" },
+      { name: "Mother's Dwelling", file: "Mothers Dwelling.png", realm: "Red Forest" },
+      { name: "Mount Ormond Resort", file: "mount Ormond resort.png", realm: "Ormond" },
+      { name: "Nostromo Wreckage", file: "Nostromo Wreckage.png", realm: "Dvarka Deepwood" },
+      { name: "Ormond II", file: "Ormond II.png", realm: "Ormond" },
+      { name: "Ormond III", file: "Ormond III.png", realm: "Ormond" },
+      { name: "Ormond Lake Mine", file: "Ormond Lake Mine.png", realm: "Ormond" },
+      { name: "Pale Rose", file: "Pale Rose.png", realm: "Backwater Swamp" },
+      { name: "RPD East Wing", file: "raccoon_city_police_station_east_wing.png", realm: "Raccoon City" },
+      { name: "RPD West Wing", file: "raccoon city police station west wing.png", realm: "Raccoon City" },
+      { name: "Rancid Abattoir", file: "Rancid Abbatoir.png", realm: "Coldwind Farm" },
+      { name: "Rotten Fields", file: "Rotten Fields.png", realm: "Coldwind Farm" },
+      { name: "Sanctum of Wrath", file: "Sanctum of Wrath.png", realm: "Yamaoka Estate" },
+      { name: "Sanctum of Wrath II", file: "Sanctum of Wrath II.png", realm: "Yamaoka Estate" },
+      { name: "Shelter Woods", file: "Shelter Woods.png", realm: "MacMillan Estate" },
+      { name: "Shelter Woods II", file: "Shelter Woods II.png", realm: "MacMillan Estate" },
+      { name: "Suffocation Pit", file: "Suffocation Pit.png", realm: "MacMillan Estate" },
+      { name: "Suffocation Pit II", file: "Suffocation Pit II.png", realm: "MacMillan Estate" },
+      { name: "Temple of Purgation", file: "Temple of Purgation.png", realm: "Red Forest" },
+      { name: "The Game", file: "The Game.png", realm: "Gideon Meat Plant" },
+      { name: "The Shattered Square", file: "the Shattered Square.png", realm: "Decimated Borgo" },
+      { name: "The Thompson House", file: "The Thompson House.png", realm: "Coldwind Farm" },
+      { name: "The Underground Complex", file: "the_underground_complex.png", realm: "Hawkins Lab" },
+      { name: "Toba Landing", file: "Toba Landing.png", realm: "Dvarka Deepwood" },
+      { name: "Torment Creek", file: "Torment Creek.png", realm: "Coldwind Farm" },
+      { name: "Treatment Theatre", file: "treatment_theater.png", realm: "Léry's Memorial Hospital" },
+      { name: "Trickster's Delusion", file: "Tricksters Delusion.png", realm: "All-Kill" },
+      { name: "Wreckers' Yard", file: "Wreckers' yard.png", realm: "Autohaven Wreckers" },
+      { name: "Wretched Shop", file: "Wretched Shop.png", realm: "Autohaven Wreckers" }
+    ];
+
+    let leagueMapsInitialized = false;
+    window.initLeagueMaps = function() {
+      if (leagueMapsInitialized) return;
+      leagueMapsInitialized = true;
+      renderLeagueMaps(DBDLEAGUE_MAPS_DATA);
+    };
+
+    window.renderLeagueMaps = function(mapsList) {
+      const grid = document.getElementById("leagueMapsGrid");
+      if (!grid) return;
+      grid.innerHTML = "";
+      const frag = document.createDocumentFragment();
+
+      mapsList.forEach(m => {
+        const card = document.createElement("div");
+        card.className = "map-card";
+
+        const thumbWrap = document.createElement("div");
+        thumbWrap.className = "map-thumb-wrap";
+
+        const badge = document.createElement("div");
+        badge.className = "map-card-badge";
+        badge.textContent = "COMPÉTITION";
+
+        const img = document.createElement("img");
+        img.className = "map-card-thumb";
+        img.loading = "lazy";
+        img.alt = m.name;
+        img.src = "maps/dbdleague/" + m.file;
+
+        thumbWrap.appendChild(badge);
+        thumbWrap.appendChild(img);
+
+        const info = document.createElement("div");
+        info.className = "map-card-info";
+
+        const name = document.createElement("div");
+        name.className = "map-card-name";
+        name.textContent = m.name;
+
+        const meta = document.createElement("div");
+        meta.className = "map-card-meta";
+        meta.textContent = m.realm + " • DBDLeague";
+
+        info.appendChild(name);
+        info.appendChild(meta);
+
+        card.appendChild(thumbWrap);
+        card.appendChild(info);
+
+        const mapObj = {
+          name: m.name + " (DBDLeague)",
+          src: "maps/dbdleague/" + m.file,
+          creator: "DBDLeague"
+        };
+        card.addEventListener("click", () => openViewer(mapObj, false));
+        frag.appendChild(card);
+      });
+
+      grid.appendChild(frag);
+    };
+
+    window.filterLeagueMaps = function() {
+      const q = (document.getElementById("leagueSearchInput")?.value || "").toLowerCase().trim();
+      const filtered = DBDLEAGUE_MAPS_DATA.filter(m => m.name.toLowerCase().includes(q) || m.realm.toLowerCase().includes(q));
+      renderLeagueMaps(filtered);
+      const countEl = document.getElementById("leagueMapCountBadge");
+      if (countEl) countEl.textContent = `${filtered.length} Cartes`;
+    };
+
+    // ==================== CHRONOMÈTRE DE MATCH ====================
+    let chronoInterval = null;
+    let chronoStart = 0;
+    let chronoElapsed = 0;
+    let chronoRunning = false;
+
+    function formatChrono(ms) {
+      const mins = Math.floor(ms / 60000);
+      const secs = Math.floor((ms % 60000) / 1000);
+      const centis = Math.floor((ms % 1000) / 10);
+      return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}.${String(centis).padStart(2, "0")}`;
+    }
+
+    window.toggleLeagueChrono = function() {
+      const btn = document.getElementById("btnChronoToggle");
+      const icon = document.getElementById("chronoIcon");
+      const text = document.getElementById("chronoText");
+      const badge = document.getElementById("leagueChronoBadge");
+
+      if (!chronoRunning) {
+        chronoStart = Date.now() - chronoElapsed;
+        chronoInterval = setInterval(() => {
+          chronoElapsed = Date.now() - chronoStart;
+          document.getElementById("leagueChronoClock").textContent = formatChrono(chronoElapsed);
+        }, 30);
+        chronoRunning = true;
+        btn.className = "btn-chrono-main btn-chrono-pause";
+        icon.textContent = "⏸";
+        text.textContent = "Pause";
+        badge.textContent = "EN COURS";
+        badge.style.background = "rgba(245,158,11,0.2)";
+        badge.style.color = "#f59e0b";
+      } else {
+        clearInterval(chronoInterval);
+        chronoRunning = false;
+        btn.className = "btn-chrono-main btn-chrono-start";
+        icon.textContent = "▶";
+        text.textContent = "Reprendre";
+        badge.textContent = "EN PAUSE";
+        badge.style.background = "#1c2333";
+        badge.style.color = "#e6edf3";
+      }
+    };
+
+    window.resetLeagueChrono = function() {
+      clearInterval(chronoInterval);
+      chronoRunning = false;
+      chronoElapsed = 0;
+      document.getElementById("leagueChronoClock").textContent = "00:00.00";
+      const btn = document.getElementById("btnChronoToggle");
+      const icon = document.getElementById("chronoIcon");
+      const text = document.getElementById("chronoText");
+      const badge = document.getElementById("leagueChronoBadge");
+      btn.className = "btn-chrono-main btn-chrono-start";
+      icon.textContent = "▶";
+      text.textContent = "Lancer";
+      badge.textContent = "ARRÊTÉ";
+      badge.style.background = "#1c2333";
+      badge.style.color = "#8b949e";
+    };
+
+    window.recordLeagueLap = function() {
+      if (m1Ms === 0) captureM1();
+      else if (m2Ms === 0) captureM2();
+      else showToast("Tour enregistré : " + formatChrono(chronoElapsed));
+    };
+
+    let m1Ms = 0;
+    let m2Ms = 0;
+
+    window.captureM1 = function() {
+      m1Ms = chronoElapsed;
+      document.getElementById("duelM1Time").textContent = formatChrono(m1Ms);
+      showToast("Manche 1 validée : " + formatChrono(m1Ms));
+      calcDuelDifference();
+    };
+
+    window.captureM2 = function() {
+      m2Ms = chronoElapsed;
+      document.getElementById("duelM2Time").textContent = formatChrono(m2Ms);
+      showToast("Manche 2 validée : " + formatChrono(m2Ms));
+      calcDuelDifference();
+    };
+
+    function calcDuelDifference() {
+      if (m1Ms > 0 && m2Ms > 0) {
+        const diff = Math.abs(m1Ms - m2Ms);
+        const p1Name = document.getElementById("duelP1Name")?.value || "Joueur 1";
+        const p2Name = document.getElementById("duelP2Name")?.value || "Joueur 2";
+        const leader = m1Ms < m2Ms ? p1Name : p2Name;
+        const diffText = document.getElementById("duelDiffText");
+        diffText.textContent = `🏆 ${leader} gagne de ${formatChrono(diff)}`;
+        diffText.style.color = "#f59e0b";
+      }
+    }
+
+    window.resetDuelMatch = function() {
+      m1Ms = 0;
+      m2Ms = 0;
+      document.getElementById("duelM1Time").textContent = "--:--.--";
+      document.getElementById("duelM2Time").textContent = "--:--.--";
+      const diffText = document.getElementById("duelDiffText");
+      diffText.textContent = "En attente des deux manches";
+      diffText.style.color = "#e6edf3";
+      showToast("Match réinitialisé.");
+    };
+</script>
 </body>
 </html>
