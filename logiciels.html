@@ -149,13 +149,16 @@
 </head>
 <body class="bg-grid relative">
 
+  <!-- Conteneur qui empêche les auras de déborder et de créer un défilement horizontal -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
   <div class="violet-nebula-top"></div>
   <div class="violet-nebula-right"></div>
+  </div>
   <div id="sparkles-container"></div>
 
   <!-- NAVIGATION DOCK FLOTTANTE -->
   <header class="sticky top-5 z-50 px-4 w-full flex justify-center">
-    <nav class="nav-dock rounded-full py-3 px-7 flex items-center justify-between gap-8 max-w-5xl w-full">
+    <nav class="nav-dock rounded-full py-3 px-4 sm:px-7 flex items-center justify-between gap-3 sm:gap-8 max-w-5xl w-full">
       
       <!-- LOGO OMNI -->
       <a href="index.html" class="flex items-center gap-3 group">
@@ -163,7 +166,7 @@
           <div class="absolute inset-0 bg-purple-500/30 rounded-full blur-md group-hover:bg-fuchsia-500/50 transition duration-300"></div>
           <img src="assets_omni/omni_icone_logiciel.png" alt="OMNI" class="relative w-9 h-9 object-contain drop-shadow-[0_0_12px_rgba(168,85,247,0.8)] group-hover:scale-110 transition duration-300">
         </div>
-        <span class="font-black text-xl tracking-wider text-white">OMNI<span class="text-fuchsia-400">.</span></span>
+        <span class="hidden sm:inline font-black text-xl tracking-wider text-white">OMNI<span class="text-fuchsia-400">.</span></span>
       </a>
 
       <!-- Liens rapides -->
@@ -190,9 +193,9 @@
         </div>
 
         <!-- Bouton Discord -->
-        <a href="https://discord.gg/3tvRuWHjRy" target="_blank" rel="noopener" class="btn-violet text-white text-xs font-black tracking-wide px-5 py-2.5 rounded-full flex items-center gap-2">
+        <a href="https://discord.gg/3tvRuWHjRy" target="_blank" rel="noopener" class="btn-violet text-white text-xs font-black tracking-wide px-3 sm:px-5 py-2.5 whitespace-nowrap rounded-full flex items-center gap-2">
           <span data-i18n="nav.btn_discord">DISCORD</span>
-          <span>&rarr;</span>
+          <span class="hidden sm:inline">&rarr;</span>
         </a>
       </div>
 
@@ -374,7 +377,7 @@
             <div class="flex items-center justify-between mb-3 px-1">
               <div class="flex items-center gap-2">
                 <button onclick="showOmniShieldTab('video')" id="tab-omnishield-video" class="media-tab active flex items-center gap-1.5">
-                  <span>▶ Vidéo de Présentation</span>
+                  <span data-i18n="omnishield.tab_video">▶ Vidéo de Présentation</span>
                 </button>
                 <button onclick="showOmniShieldTab('interface')" id="tab-omnishield-ui" class="media-tab flex items-center gap-1.5">
                   <span>🔮 Interface & Modules</span>

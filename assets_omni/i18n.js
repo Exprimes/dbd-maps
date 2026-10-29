@@ -60,6 +60,7 @@ const OMNI_TRANSLATIONS = {
     "dbd.btn_web_sub": "Sur navigateur / 2nd écran",
 
     // OmniShield Card & Modal
+    "omnishield.tab_video": "▶ Vidéo de Présentation",
     "omnishield.tag": "Extension Web • Chrome / Brave / Edge",
     "omnishield.status": "v1.7.0 Disponible",
     "omnishield.title": "OmniShield AdBlocker",
@@ -173,6 +174,7 @@ const OMNI_TRANSLATIONS = {
     "dbd.btn_web_sub": "In browser / 2nd screen",
 
     // OmniShield Card & Modal
+    "omnishield.tab_video": "▶ Presentation Video",
     "omnishield.tag": "Web Extension • Chrome / Brave / Edge",
     "omnishield.status": "v1.7.0 Available",
     "omnishield.title": "OmniShield AdBlocker",
