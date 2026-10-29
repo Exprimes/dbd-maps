@@ -1025,6 +1025,11 @@
       object-fit: cover;
       display: block;
     }
+    /* Image posée directement dans la carte (sans .map-thumb-wrap) : 100 % d'une hauteur non fixée donnait 0 -> image invisible */
+    .map-card > .map-card-thumb {
+      height: auto;
+      aspect-ratio: 16 / 11;
+    }
     .map-card-badge {
       position: absolute;
       top: 6px;
@@ -2926,9 +2931,10 @@
       updateModal.style.display = "none";
     }
 
-    btnHeaderUpdate.addEventListener("click", openUpdateModal);
-    btnFooterUpdate.addEventListener("click", openUpdateModal);
-    btnCloseUpdate.addEventListener("click", closeUpdateModal);
+    // Le nouveau design n'a plus de bouton dans l'en-tête : sans « ?. » tout le code qui suit (barre du bas, FR/EN, DBDLeague) ne se chargeait pas.
+    btnHeaderUpdate?.addEventListener("click", openUpdateModal);
+    btnFooterUpdate?.addEventListener("click", openUpdateModal);
+    btnCloseUpdate?.addEventListener("click", closeUpdateModal);
     if (btnCheckUpdateManual) {
       btnCheckUpdateManual.addEventListener("click", () => checkUpdates(false));
     }
@@ -3121,7 +3127,11 @@
 
     window.selectMapLanguage = function(lang) {
       currentLanguage = lang;
-      try { localStorage.setItem("dbd_mobile_lang", lang); } catch (e) {}
+      // Même clé que celle lue au démarrage, sinon le choix était oublié.
+      try { localStorage.setItem("dbd_map_lang", lang); } catch (e) {}
+      // Recharger la liste de la langue choisie (avant : seul le compteur changeait, les cartes restaient en FR).
+      MAPS = getActiveMaps();
+      updateLanguageUI();
 
       const segFr = document.getElementById("segBtnFr");
       const segEn = document.getElementById("segBtnEn");
