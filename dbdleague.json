@@ -1,0 +1,344 @@
+[
+    {
+        "creator": "DBDLeague",
+        "name": "Azarovs Resting Place",
+        "src": "maps/dbdleague/Azarovs Resting Place.png",
+        "size": 708296
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Blood Lodge",
+        "src": "maps/dbdleague/Blood Lodge.png",
+        "size": 459442
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Coal Tower II",
+        "src": "maps/dbdleague/Coal Tower II.png",
+        "size": 557234
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Coal Tower",
+        "src": "maps/dbdleague/Coal Tower.png",
+        "size": 560766
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Dead Dawg Saloon",
+        "src": "maps/dbdleague/Dead Dawg Saloon.png",
+        "size": 553811
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Dead Sands",
+        "src": "maps/dbdleague/Dead Sands.png",
+        "size": 513710
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Disturbed Ward",
+        "src": "maps/dbdleague/Disturbed Ward.png",
+        "size": 557328
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Eyrie of Crows",
+        "src": "maps/dbdleague/Eyrie of Crows.png",
+        "size": 516250
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Fallen Refuge",
+        "src": "maps/dbdleague/Fallen Refuge.png",
+        "size": 448860
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Family Residence II",
+        "src": "maps/dbdleague/Family Residence II.png",
+        "size": 704681
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Family Residence",
+        "src": "maps/dbdleague/Family Residence.png",
+        "size": 688490
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Forgotten Ruins",
+        "src": "maps/dbdleague/Forgotten Ruins.png",
+        "size": 547975
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Fractured Cowshed",
+        "src": "maps/dbdleague/Fractured Cowshed.png",
+        "size": 539921
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Freddy Fazbears Pizza",
+        "src": "maps/dbdleague/Freddy Fazbears Pizza.png",
+        "size": 506860
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Garden of Joy",
+        "src": "maps/dbdleague/Garden of Joy.png",
+        "size": 550098
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Gas Heaven",
+        "src": "maps/dbdleague/Gas Heaven.png",
+        "size": 601326
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Greenville Square",
+        "src": "maps/dbdleague/Greenville Square.png",
+        "size": 630827
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Grim Pantry",
+        "src": "maps/dbdleague/Grim Pantry.png",
+        "size": 542951
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Groaning Storehouse II",
+        "src": "maps/dbdleague/Groaning Storehouse II.png",
+        "size": 610560
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Groaning Storehouse",
+        "src": "maps/dbdleague/Groaning Storehouse.png",
+        "size": 675374
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Ironworks Of Misery II",
+        "src": "maps/dbdleague/Ironworks Of Misery II.png",
+        "size": 489930
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Midwich elementary school",
+        "src": "maps/dbdleague/Midwich elementary school.png",
+        "size": 33759
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Mothers Dwelling",
+        "src": "maps/dbdleague/Mothers Dwelling.png",
+        "size": 670190
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Nostromo Wreckage",
+        "src": "maps/dbdleague/Nostromo Wreckage.png",
+        "size": 587542
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Ormond II",
+        "src": "maps/dbdleague/Ormond II.png",
+        "size": 514891
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Ormond III",
+        "src": "maps/dbdleague/Ormond III.png",
+        "size": 569545
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Ormond Lake Mine",
+        "src": "maps/dbdleague/Ormond Lake Mine.png",
+        "size": 518333
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Pale Rose",
+        "src": "maps/dbdleague/Pale Rose.png",
+        "size": 634534
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Preschool2",
+        "src": "maps/dbdleague/Preschool2.png",
+        "size": 541375
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Preschool3",
+        "src": "maps/dbdleague/Preschool3.png",
+        "size": 553982
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Preschool4",
+        "src": "maps/dbdleague/Preschool4.png",
+        "size": 610646
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Preschool5",
+        "src": "maps/dbdleague/Preschool5.png",
+        "size": 578298
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Rancid Abbatoir",
+        "src": "maps/dbdleague/Rancid Abbatoir.png",
+        "size": 552640
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Rotten Fields",
+        "src": "maps/dbdleague/Rotten Fields.png",
+        "size": 553627
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Sanctum of Wrath II",
+        "src": "maps/dbdleague/Sanctum of Wrath II.png",
+        "size": 629233
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Sanctum of Wrath",
+        "src": "maps/dbdleague/Sanctum of Wrath.png",
+        "size": 696843
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Shelter Woods II",
+        "src": "maps/dbdleague/Shelter Woods II.png",
+        "size": 529672
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Shelter Woods",
+        "src": "maps/dbdleague/Shelter Woods.png",
+        "size": 523152
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Suffocation Pit II",
+        "src": "maps/dbdleague/Suffocation Pit II.png",
+        "size": 710514
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Suffocation Pit",
+        "src": "maps/dbdleague/Suffocation Pit.png",
+        "size": 676037
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Temple of Purgation",
+        "src": "maps/dbdleague/Temple of Purgation.png",
+        "size": 560839
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "The Game",
+        "src": "maps/dbdleague/The Game.png",
+        "size": 543382
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "The Thompson House",
+        "src": "maps/dbdleague/The Thompson House.png",
+        "size": 563523
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Toba Landing",
+        "src": "maps/dbdleague/Toba Landing.png",
+        "size": 652774
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Torment Creek",
+        "src": "maps/dbdleague/Torment Creek.png",
+        "size": 547129
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Tricksters Delusion",
+        "src": "maps/dbdleague/Tricksters Delusion.png",
+        "size": 593413
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Wreckers' yard",
+        "src": "maps/dbdleague/Wreckers' yard.png",
+        "size": 666072
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "Wretched Shop",
+        "src": "maps/dbdleague/Wretched Shop.png",
+        "size": 542710
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "badham_preschool_1",
+        "src": "maps/dbdleague/badham_preschool_1.png",
+        "size": 190795
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "father_campbells_chapel",
+        "src": "maps/dbdleague/father_campbells_chapel.png",
+        "size": 198683
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "ironworks_of_misery",
+        "src": "maps/dbdleague/ironworks_of_misery.png",
+        "size": 203746
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "mount Ormond resort",
+        "src": "maps/dbdleague/mount Ormond resort.png",
+        "size": 602765
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "raccoon city police station west wing",
+        "src": "maps/dbdleague/raccoon city police station west wing.png",
+        "size": 766082
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "raccoon_city_police_station_east_wing",
+        "src": "maps/dbdleague/raccoon_city_police_station_east_wing.png",
+        "size": 301117
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "the Shattered Square",
+        "src": "maps/dbdleague/the Shattered Square.png",
+        "size": 552344
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "the_underground_complex",
+        "src": "maps/dbdleague/the_underground_complex.png",
+        "size": 326235
+    },
+    {
+        "creator": "DBDLeague",
+        "name": "treatment_theater",
+        "src": "maps/dbdleague/treatment_theater.png",
+        "size": 304837
+    }
+]
