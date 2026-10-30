@@ -1,19 +1,20 @@
 {
-    "version": "2.2.0.0",
-    "display_version": "2.2.0",
-    "exe_size": 129336180,
-    "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.exe",
+    "version": "2.2.1.0",
+    "display_version": "2.2.1",
+    "exe_size": 154781196,
+    "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.2.1/DBDMapsOmni.exe",
     "apk_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.apk",
     "relay_base_url": "https://ntfy.tedomum.fr/",
-    "changelog": "Version 2.2.0 Mobile : Nouveau design moderne ergonomique, onglet DBDLeague avec Chronomètre Duel 1v1, bascule rapide 44 Cartes FR / 44 Cartes EN et barre de navigation au pouce.",
-    "changelog_en": "Version 2.2.0 Mobile : New ergonomic modern design, dedicated DBDLeague tab with 1v1 Duel Stopwatch, instant 44 FR / 44 EN map switcher and thumb navigation bar.",
+    "changelog": "Version 2.2.1 : nouveau moteur .NET 10 plus léger (moins de CPU, FPS préservés), traducteur du chat réparé avec secours automatique et nouvelle carte Écrire un message, Lobby Manager stable entre PC et mobile, mise à jour automatique sécurisée, synchronisation des cartes fiable, logiciel entièrement en FR/EN et nouvel onglet Crédits pour soutenir le projet.",
+    "changelog_en": "Version 2.2.1: new lighter .NET 10 engine (less CPU, FPS preserved), fixed chat translator with automatic backup and new Write a message card, stable Lobby Manager between PC and mobile, secured auto-update, reliable map sync, fully FR/EN software and new Credits tab to support the project.",
     "discord_url": "https://discord.gg/sHVttN4ZdZ",
-    "mobile_version": "2.2.0",
+    "mobile_version": "2.2.1",
     "admin_alert": {
         "enabled": true,
-        "min_version": "2.1.3.4",
-        "message": "La mise à jour v2.1.3 de DBD MAP OMNI est disponible ! Elle maintient désormais les joueurs mobile dans le lobby même lorsqu'ils passent en arrière-plan sans fermer l'application.",
-        "message_en": "DBD MAP OMNI update v2.1.3 is available! It now keeps mobile players in the lobby even when backgrounded without closing the application.",
-        "date": "28/10/2026 00:33"
-    }
+        "min_version": "2.2.1.0",
+        "message": "La mise à jour v2.2.1 de DBD MAP OMNI est disponible ! Nouveau moteur plus léger, traducteur du chat réparé, Lobby Manager stable entre PC et mobile, et de nombreux correctifs.",
+        "message_en": "DBD MAP OMNI update v2.2.1 is available! Lighter new engine, fixed chat translator, stable Lobby Manager between PC and mobile, and many fixes.",
+        "date": "30/10/2026 02:30"
+    },
+    "exe_sha256": "9B8A95EA585DC0FEA9806AC9DD235F60EE4E5B9561ED1B9DE9CC7FD6FB8F1B23"
 }

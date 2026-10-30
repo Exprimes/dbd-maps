@@ -2385,16 +2385,16 @@
       memberHeartbeatTimer = setInterval(() => {
         sendHeartbeat();
         pruneExpiredMembers();
-      }, 8000);
+      }, 15000); // 15 s : avec la relecture ci-dessous, reste sous la limite des relais ntfy (~12 requêtes/min, sinon erreur 429)
 
-      // Polling hybride actif toutes les 3 secondes (garantit la présence même si SSE est coupé sur iOS/Android)
+      // Polling de secours toutes les 20 s (garantit la présence même si SSE est coupé sur iOS/Android) ; 3 s déclenchait des 429
       fetchRecentMembers(code);
       memberPollTimer = setInterval(() => {
         if (currentLobbyCode) {
           fetchRecentMembers(currentLobbyCode);
           pruneExpiredMembers();
         }
-      }, 3000);
+      }, 20000);
 
       // Écouter également via SSE pour temps réel
       try {
@@ -2489,7 +2489,7 @@
 
       startMemberPresence(currentLobbyCode);
       pollLobbyOnce();
-      lobbyPollTimer = setInterval(pollLobbyOnce, 3000);
+      lobbyPollTimer = setInterval(pollLobbyOnce, 20000); // secours si le flux SSE est coupé
 
       // Flux SSE temps réel pour synchronisation instantanée des cartes
       try {
@@ -2834,7 +2834,7 @@
       return 0;
     }
 
-    const BASE_MOBILE_VERSION = "2.2.0.0";
+    const BASE_MOBILE_VERSION = "2.2.1.0";
     function toDisplayVer(v) {
       if (!v) return "2.1.3";
       const parts = (v + "").replace(/^v/i, "").split(".");
