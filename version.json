@@ -11,10 +11,10 @@
   "mobile_version": "2.2.1",
   "exe_sha256": "9B8A95EA585DC0FEA9806AC9DD235F60EE4E5B9561ED1B9DE9CC7FD6FB8F1B23",
   "admin_alert": {
-    "enabled": false,
+    "enabled": true,
     "min_version": "2.2.1.0",
-    "message": "",
-    "message_en": "",
+    "message": "Une nouvelle mise \u00E0 jour importante de DBD MAP est disponible ! Veuillez mettre \u00E0 jour le logiciel pour continuer \u00E0 profiter de toutes les cartes et fonctionnalit\u00E9s.",
+    "message_en": "A new important update for DBD MAP is available! Please update the software to continue enjoying all maps and features.",
     "date": "30/10/2026 15:47"
   }
 }
