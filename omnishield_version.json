@@ -1,7 +1,7 @@
 {
-  "version": "1.7.0",
+  "version": "1.7.1",
   "name": "OmniShield AdBlocker",
   "download_url": "https://exprimes.github.io/dbd-maps/OmniShield.zip",
-  "changelog": "Version 1.7.0 : Nouveau moteur natif YouTube (élimination définitive des écrans noirs via interception JSON uBlock + accélération 16x fluide).",
-  "release_date": "28/10/2026"
+  "changelog": "Version 1.7.1 : correction des vidéos YouTube qui restaient bloquées au démarrage (qualité max appliquée trop tôt) et l'interrupteur OFF désactive désormais complètement le blocage YouTube.",
+  "release_date": "30/10/2026"
 }
