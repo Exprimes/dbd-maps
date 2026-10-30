@@ -1028,7 +1028,7 @@
     /* Image posée directement dans la carte (sans .map-thumb-wrap) : 100 % d'une hauteur non fixée donnait 0 -> image invisible */
     .map-card > .map-card-thumb {
       height: auto;
-      aspect-ratio: 16 / 11;
+      aspect-ratio: 1 / 1;
     }
     .map-card-badge {
       position: absolute;
@@ -1271,10 +1271,6 @@
         <button class="btn-header-lang" id="btnHeaderLang" onclick="openLangSheet()" title="Changer la langue">
           <span id="headerLangFlag">🇫🇷</span>
           <span id="headerLangText">FR</span>
-        </button>
-        <button class="btn-header-lobby" id="btnHeaderLobby">
-          <span id="lobbyStatusDot">⚪</span>
-          <span id="lobbyStatusText">Lobby</span>
         </button>
         <button class="btn-header-oled" id="btnHeaderOled" title="Mode Éco Batterie OLED (Noir Pur 100%)">🌙</button>
         <button class="btn-header-sync" id="btnHeaderSync" title="Vérifier nouvelles cartes">🔄</button>
@@ -1652,7 +1648,7 @@
       { fr: "Terrain de la Casse", en: "Wreckers Yard", aliases: "Wrecker's Yard", fileFr: "Terrain de la Casse.png", fileEn: "Wrecker's Yard.png" },
       { fr: "Vallon des Tourments", en: "Torment Creek", fileFr: "Vallon des Tourments.png", fileEn: "Torment Creek.png" },
       { fr: "École Maternelle de Badham", en: "Badham Preschool 1", aliases: "Badham Preschool", fileFr: "École Maternelle de Badham.png", fileEn: "Badham Preschool.png" },
-      { fr: "École Primaire Midwich", en: "Midwich Elementary School", fileFr: "ecole_primaire_midwich.gif", fileEn: "Midwich Elementary School.gif" },
+      { fr: "École Primaire Midwich", en: "Midwich Elementary School", fileFr: "ecole_primaire_midwich.png", fileEn: "Midwich Elementary School.png" },
       { fr: "Épave du Nostromo", en: "Nostromo Wreckage", fileFr: "Épave du Nostromo.png", fileEn: "Nostromo Wreckage.png" },
       { fr: "Étable en Ruine", en: "Fractured Cowshed", fileFr: "Étable en Ruine.png", fileEn: "Fractured Cowshed.png" }
     ];
@@ -2104,23 +2100,23 @@
       lobbyModal.style.display = "none";
     }
 
-    btnHeaderLobby.addEventListener("click", openLobbyModal);
+    btnHeaderLobby?.addEventListener("click", openLobbyModal);
     btnCloseLobby.addEventListener("click", closeLobbyModal);
 
     function updateLobbyUI() {
       if (currentLobbyCode) {
-        lobbyStatusDot.textContent = "🟢";
-        lobbyStatusText.textContent = currentLobbyCode;
-        btnHeaderLobby.classList.add("active");
+        if (lobbyStatusDot) lobbyStatusDot.textContent = "🟢";
+        if (lobbyStatusText) lobbyStatusText.textContent = currentLobbyCode;
+        btnHeaderLobby?.classList.add("active");
         lobbyActiveBox.style.display = "block";
         lobbyJoinForm.style.display = "none";
         lobbyCodeDisplay.textContent = currentLobbyCode;
         if (inputActivePseudo) inputActivePseudo.value = getLocalPlayerName();
         updateSquadUI();
       } else {
-        lobbyStatusDot.textContent = "⚪";
-        lobbyStatusText.textContent = "Lobby";
-        btnHeaderLobby.classList.remove("active");
+        if (lobbyStatusDot) lobbyStatusDot.textContent = "⚪";
+        if (lobbyStatusText) lobbyStatusText.textContent = "Lobby";
+        btnHeaderLobby?.classList.remove("active");
         lobbyActiveBox.style.display = "none";
         lobbyJoinForm.style.display = "block";
         if (inputPlayerPseudo) inputPlayerPseudo.value = getLocalPlayerName();
@@ -2780,7 +2776,8 @@
               fullSrc = "https://exprimes.github.io/dbd-maps/" + fullSrc.replace(/^\/+/, "");
             }
             const existing = MAPS.find(m => cleanStr(m.name) === cleanStr(rm.name));
-            if (existing) {
+            // Les GIF animés (Midwich) ne s'affichent pas bien sur téléphone : on garde l'image fixe locale.
+            if (existing && !/\.gif$/i.test(fullSrc)) {
               existing.src = fullSrc;
             }
           });
@@ -2975,7 +2972,7 @@
         updateLastCheckTxt.textContent = "Dernière vérification : aujourd'hui à " + timeStr;
 
         if (hasNew) {
-          btnHeaderUpdate.classList.add("has-update");
+          btnHeaderUpdate?.classList.add("has-update");
           updateResultArea.style.display = "block";
 
           let alertBanner = "";
@@ -3018,7 +3015,7 @@
             openUpdateModal();
           }
         } else {
-          btnHeaderUpdate.classList.remove("has-update");
+          btnHeaderUpdate?.classList.remove("has-update");
           updateResultArea.style.display = "block";
           updateResultArea.innerHTML = `
             <div style="background: rgba(35, 134, 54, 0.15); border: 1px solid #238636; border-radius: 10px; padding: 14px; text-align: center;">
@@ -3224,7 +3221,7 @@
       { name: "Groaning Storehouse II", file: "Groaning Storehouse II.png", realm: "MacMillan Estate" },
       { name: "Ironworks of Misery", file: "ironworks_of_misery.png", realm: "MacMillan Estate" },
       { name: "Ironworks of Misery II", file: "Ironworks Of Misery II.png", realm: "MacMillan Estate" },
-      { name: "Midwich Elementary School", file: "Midwich elementary school.gif", realm: "Silent Hill" },
+      { name: "Midwich Elementary School", file: "Midwich elementary school.png", realm: "Silent Hill" },
       { name: "Mother's Dwelling", file: "Mothers Dwelling.png", realm: "Red Forest" },
       { name: "Mount Ormond Resort", file: "mount Ormond resort.png", realm: "Ormond" },
       { name: "Nostromo Wreckage", file: "Nostromo Wreckage.png", realm: "Dvarka Deepwood" },
