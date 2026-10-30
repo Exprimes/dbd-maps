@@ -1,0 +1,34 @@
+# Garde la liste de tous les appareils (PC + mobile) dans la branche "telemetry",
+# car les relais ntfy n'en gardent que quelques heures. Lue par Omnidbdadmin.
+name: Compteur de joueurs
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency: players
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Collecter les appareils
+        run: |
+          git fetch -q origin telemetry || true
+          git show origin/telemetry:players.json > /tmp/players.json 2>/dev/null || echo '[]' > /tmp/players.json
+          cp /tmp/players.json /tmp/players.old.json
+          python3 .github/scripts/collect_players.py /tmp/players.json
+          cmp -s /tmp/players.old.json /tmp/players.json && { echo "Aucun changement"; exit 0; }
+          # Branche réduite à un seul commit, réécrit à chaque passage, pour ne pas accumuler d'historique.
+          git checkout -q --orphan telemetry-new
+          git rm -rfq --cached .
+          cp /tmp/players.json players.json
+          git add players.json
+          git -c user.name="github-actions[bot]" -c user.email="41898283+github-actions[bot]@users.noreply.github.com" commit -qm "Joueurs"
+          git push -qf origin telemetry-new:telemetry
