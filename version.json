@@ -1,20 +1,20 @@
 {
-    "version": "2.2.2.0",
-    "display_version": "2.2.2",
-    "exe_size": 154781547,
-    "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.2.2/DBDMapsOmni.exe",
+    "version": "2.2.3.0",
+    "display_version": "2.2.3",
+    "exe_size": 154783202,
+    "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.2.3/DBDMapsOmni.exe",
     "apk_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.apk",
     "relay_base_url": "https://ntfy.tedomum.fr/",
-    "changelog": "Version 2.2.2 : les 57 cartes DBDLeague se téléchargent maintenant automatiquement (au démarrage et avec Synchroniser), même sur une nouvelle installation. Midwich DBDLeague en cyan. Sur mobile : vignettes entières, Midwich visible et vérification des mises à jour réparée.",
-    "changelog_en": "Version 2.2.2: the 57 DBDLeague maps now download automatically (at startup and with Sync), even on a fresh install. Cyan Midwich in DBDLeague. On mobile: full thumbnails, visible Midwich and fixed update check.",
+    "changelog": "Version 2.2.3 : la carte reconnue reste en pause pendant toute la partie, même en ouvrant l'écran TAB / Options. Elle ne bascule plus sur Forêt Profonde à l'écran de fin des cartes de Dvarka (Toba, Nostromo). Un peu moins de CPU pendant la partie.",
+    "changelog_en": "Version 2.2.3: the recognized map now stays paused for the whole match, even when opening the TAB / Options screen. It no longer switches to Shelter Woods on the end screen of Dvarka maps (Toba, Nostromo). Slightly less CPU during the match.",
     "discord_url": "https://discord.gg/sHVttN4ZdZ",
-    "mobile_version": "2.2.2",
-    "exe_sha256": "3FFFFA206564AAE5A557CA3B472F0EB660224FE4AC3248DBC785A70B21A164E4",
+    "mobile_version": "2.2.3",
+    "exe_sha256": "02D40FC3713CD7443EE754A8CA8C83EB84433C6A9CA44369EC8B536A234DC31E",
     "admin_alert": {
         "enabled": true,
-        "min_version": "2.2.2.0",
-        "message": "La mise à jour v2.2.2 de DBD MAP OMNI est disponible ! Elle télécharge automatiquement les 57 cartes DBDLeague et corrige l'application mobile.",
-        "message_en": "DBD MAP OMNI update v2.2.2 is available! It automatically downloads the 57 DBDLeague maps and fixes the mobile app.",
-        "date": "30/10/2026"
+        "min_version": "2.2.3.0",
+        "message": "La mise à jour v2.2.3 de DBD MAP OMNI est disponible ! La détection automatique de la carte ne change plus de carte en pleine partie (écran TAB / Options).",
+        "message_en": "DBD MAP OMNI update v2.2.3 is available! Automatic map detection no longer switches maps mid-match (TAB / Options screen).",
+        "date": "31/10/2026"
     }
 }
