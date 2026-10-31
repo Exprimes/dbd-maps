@@ -101,6 +101,20 @@ const OMNI_TRANSLATIONS = {
     "unin.feat3": "Zéro pub, zéro abonnement, légèreté absolue",
     "unin.beta_btn": "BÊTA PRIVÉE BIENTÔT DISPONIBLE",
 
+    // OmniVencord
+    "ovc.mockup_title": "Discord • Paramètres → Plugins",
+    "ovc.mockup_p1": "Emojis & stickers partout • Stream 1080p 60 FPS • Aura néon",
+    "ovc.mockup_p2": "Tes images & GIF en fond d'écran Discord",
+    "ovc.mockup_p3": "Ta note sur la personne à côté de son profil",
+    "ovc.tag": "Mod Discord • Windows",
+    "ovc.status": "Disponible",
+    "ovc.desc": "Vencord avec les plugins Omni déjà inclus, installé en un clic. Les mises à jour arrivent directement dans Discord (Paramètres → Updater), pour les plugins Omni comme pour Vencord.",
+    "ovc.feat1": "Installateur automatique : rien d'autre à installer",
+    "ovc.feat2": "Mises à jour depuis Discord, réglages conservés",
+    "ovc.feat3": "Code source public sur GitHub",
+    "ovc.note": "Lance le fichier et tape 1 pour installer (ou 2 pour désinstaller). Si Windows affiche « Windows a protégé votre ordinateur » : Informations complémentaires → Exécuter quand même. Ensuite, active les plugins Omni dans Paramètres → Plugins. Les mods Discord sont contraires aux conditions d'utilisation de Discord : à utiliser à tes risques.",
+    "ovc.dl_btn": "Télécharger OmniInstaller (.exe)",
+
     // Modal iOS
     "ios.title": "Installer sur iPhone & iPad",
     "ios.subtitle": "Apple iOS • Application Plein Écran",
@@ -215,6 +229,20 @@ const OMNI_TRANSLATIONS = {
     "unin.feat2": "Deep registry cleaning without touching core system files",
     "unin.feat3": "Zero ads, zero subscriptions, ultra-clean footprint",
     "unin.beta_btn": "PRIVATE BETA COMING SOON",
+
+    // OmniVencord
+    "ovc.mockup_title": "Discord • Settings → Plugins",
+    "ovc.mockup_p1": "Emojis & stickers everywhere • 1080p 60 FPS streaming • Neon aura",
+    "ovc.mockup_p2": "Your own images & GIFs as Discord background",
+    "ovc.mockup_p3": "Your note on someone, right next to their profile",
+    "ovc.tag": "Discord Mod • Windows",
+    "ovc.status": "Available",
+    "ovc.desc": "Vencord with the Omni plugins built in, installed in one click. Updates arrive right inside Discord (Settings → Updater), for both the Omni plugins and Vencord.",
+    "ovc.feat1": "Automatic installer: nothing else to install",
+    "ovc.feat2": "Updates from inside Discord, settings kept",
+    "ovc.feat3": "Public source code on GitHub",
+    "ovc.note": "Run the file and type 1 to install (or 2 to uninstall). If Windows shows \"Windows protected your PC\": More info → Run anyway. Then enable the Omni plugins in Settings → Plugins. Discord mods break Discord's Terms of Service: use at your own risk.",
+    "ovc.dl_btn": "Download OmniInstaller (.exe)",
 
     // Modal iOS
     "ios.title": "Install on iPhone & iPad",
