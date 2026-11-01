@@ -236,7 +236,7 @@
       <!-- Liens rapides -->
       <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-gray-300">
         <a href="index.html" data-i18n="nav.home" class="text-fuchsia-400 font-bold border-b border-fuchsia-400 pb-0.5">Accueil</a>
-        <a href="logiciels.html" data-i18n="nav.software" class="hover:text-fuchsia-300 transition">Nos Logiciels</a>
+        <a href="logiciels.html" onclick="openCatModal(event)" data-i18n="nav.software" class="hover:text-fuchsia-300 transition">Nos Logiciels</a>
         <a href="https://discord.gg/3tvRuWHjRy" target="_blank" rel="noopener" class="hover:text-fuchsia-300 transition flex items-center gap-1.5 text-purple-300">
           <span data-i18n="nav.discord">Discord</span>
           <span class="text-xs">&nearr;</span>
@@ -257,7 +257,7 @@
         </div>
 
         <!-- Bouton d'action -->
-        <a href="logiciels.html" class="btn-violet text-white text-xs font-black tracking-wide px-3 sm:px-5 py-2.5 whitespace-nowrap rounded-full flex items-center gap-2">
+        <a href="logiciels.html" onclick="openCatModal(event)" class="btn-violet text-white text-xs font-black tracking-wide px-3 sm:px-5 py-2.5 whitespace-nowrap rounded-full flex items-center gap-2">
           <span data-i18n="nav.btn_software">NOS LOGICIELS</span>
           <span class="hidden sm:inline">&rarr;</span>
         </a>
@@ -295,7 +295,7 @@
 
     <!-- Boutons d'appel à l'action (Aucun bouton de téléchargement sur l'accueil) -->
     <div class="flex flex-wrap items-center justify-center gap-4 mb-20">
-      <a href="logiciels.html" class="btn-violet text-white text-sm font-extrabold px-9 py-4 rounded-2xl flex items-center gap-3">
+      <a href="logiciels.html" onclick="openCatModal(event)" class="btn-violet text-white text-sm font-extrabold px-9 py-4 rounded-2xl flex items-center gap-3">
         <span data-i18n="index.cta_software">NOS LOGICIELS</span>
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
       </a>
@@ -342,8 +342,39 @@
     </div>
   </footer>
 
+  <!-- ================= FENÊTRE CATÉGORIES "NOS LOGICIELS" ================= -->
+  <div id="cat-modal" onclick="if (event.target === this) closeCatModal()" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden">
+    <div role="dialog" aria-modal="true" aria-labelledby="cat-modal-title" class="relative w-full max-w-lg bg-[#120c22] border border-purple-500/40 rounded-3xl p-6 sm:p-8 shadow-[0_0_60px_rgba(168,85,247,0.45)] text-left">
+      <button onclick="closeCatModal()" aria-label="Fermer" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-gray-300 flex items-center justify-center font-bold text-sm transition">✕</button>
+      <h3 id="cat-modal-title" data-i18n="cat.title" class="text-xl font-black text-white mb-1">Nos Logiciels</h3>
+      <p data-i18n="cat.sub" class="text-xs text-purple-300 mb-6">Choisis une catégorie</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <a href="logiciels.html#dbd-map" class="block p-5 rounded-2xl bg-white/[0.03] border border-purple-500/30 hover:border-fuchsia-400 hover:bg-purple-600/10 transition">
+          <div class="text-3xl mb-3">🔦</div>
+          <div class="font-black text-white">Dead by Daylight</div>
+          <div data-i18n="cat.dbd_desc" class="text-xs text-gray-400 mt-1">Compagnon DBDMapsOmni : cartes HD en overlay</div>
+        </a>
+        <a href="logiciels.html#omnishield" class="block p-5 rounded-2xl bg-white/[0.03] border border-purple-500/30 hover:border-fuchsia-400 hover:bg-purple-600/10 transition">
+          <div class="text-3xl mb-3">🖥️</div>
+          <div data-i18n="cat.pc" class="font-black text-white">Outils PC</div>
+          <div data-i18n="cat.pc_desc" class="text-xs text-gray-400 mt-1">OmniShield, OmniVencord, Uninstaller</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
   <script src="assets_omni/i18n.js"></script>
   <script>
+    // Fenêtre des catégories "Nos Logiciels"
+    function openCatModal(e) {
+      e.preventDefault();
+      document.getElementById('cat-modal').classList.remove('hidden');
+    }
+    function closeCatModal() {
+      document.getElementById('cat-modal').classList.add('hidden');
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCatModal(); });
+
     // Particules violettes
     const container = document.getElementById('sparkles-container');
     for (let i = 0; i < 30; i++) {

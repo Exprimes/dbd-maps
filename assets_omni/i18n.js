@@ -15,6 +15,11 @@ const OMNI_TRANSLATIONS = {
     "index.tag": "OMNI SUITE • CRÉATIONS LOGICIELLES INDÉPENDANTES",
     "index.hero_title_sub": "L'excellence logicielle. Sans compromis.",
     "index.hero_desc": "Des outils interactifs puissants taillés pour les joueurs et les utilisateurs Windows : compagnons tactiques immersifs, utilitaires système ultra-légers et zéro artifice.",
+    "cat.title": "Nos Logiciels",
+    "cat.sub": "Choisis une catégorie",
+    "cat.dbd_desc": "Compagnon DBDMapsOmni : cartes HD en overlay",
+    "cat.pc": "Outils PC",
+    "cat.pc_desc": "OmniShield, OmniVencord, Uninstaller",
     "index.cta_software": "NOS LOGICIELS",
     "index.cta_discord": "REJOINDRE LE DISCORD",
 
@@ -144,6 +149,11 @@ const OMNI_TRANSLATIONS = {
     "index.tag": "OMNI SUITE • INDEPENDENT SOFTWARE CREATIONS",
     "index.hero_title_sub": "Software excellence. No compromise.",
     "index.hero_desc": "Powerful interactive tools built for gamers and Windows users: immersive tactical companions, ultra-lightweight system utilities and zero bloat.",
+    "cat.title": "Our Software",
+    "cat.sub": "Pick a category",
+    "cat.dbd_desc": "DBDMapsOmni companion: HD maps overlay",
+    "cat.pc": "PC Tools",
+    "cat.pc_desc": "OmniShield, OmniVencord, Uninstaller",
     "index.cta_software": "OUR SOFTWARE",
     "index.cta_discord": "JOIN DISCORD",
 
