@@ -173,7 +173,7 @@
       <!-- Liens rapides -->
       <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-gray-300">
         <a href="index.html" data-i18n="nav.home" class="hover:text-fuchsia-300 transition">Accueil</a>
-        <a href="logiciels.html" data-i18n="nav.software" class="text-fuchsia-400 font-bold border-b border-fuchsia-400 pb-0.5">Nos Logiciels</a>
+        <a href="logiciels.html" onclick="openCatMenu(event)" data-i18n="nav.software" class="text-fuchsia-400 font-bold border-b border-fuchsia-400 pb-0.5">Nos Logiciels</a>
         <a href="https://discord.gg/3tvRuWHjRy" target="_blank" rel="noopener" class="hover:text-fuchsia-300 transition flex items-center gap-1.5 text-purple-300">
           <span data-i18n="nav.discord">Discord</span>
           <span class="text-xs">&nearr;</span>
@@ -229,7 +229,7 @@
     <div class="space-y-12">
 
       <!-- ================= LOGICIEL 1 : DBDMAPSOMNI ================= -->
-      <article id="dbd-map" class="showcase-card">
+      <article id="dbd-map" data-cat="dbd" class="showcase-card">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
           
           <!-- LECTEUR VIDÉO ET CAPTURE D'ÉCRAN (7 colonnes) -->
@@ -371,7 +371,7 @@
 
       
       <!-- ================= LOGICIEL 2 : OMNISHIELD ADBLOCKER ================= -->
-      <article id="omnishield" class="showcase-card">
+      <article id="omnishield" data-cat="pc" class="showcase-card">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
           
           <!-- LECTEUR VIDÉO DE PRÉSENTATION OMNISHIELD (7 colonnes) -->
@@ -547,7 +547,7 @@
       </article>
 
       <!-- ================= LOGICIEL 3 : OMNIVENCORD ================= -->
-      <article id="omnivencord" class="showcase-card">
+      <article id="omnivencord" data-cat="pc" class="showcase-card">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
 
           <div class="lg:col-span-7 bg-[#0b0714] p-6 sm:p-8 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-purple-900/30">
@@ -658,7 +658,7 @@
       </article>
 
       <!-- ================= LOGICIEL 4 : OMNI UNINSTALLER ================= -->
-      <article id="uninstaller" class="showcase-card">
+      <article id="uninstaller" data-cat="pc" class="showcase-card">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
           
           <div class="lg:col-span-7 bg-[#0b0714] p-6 sm:p-8 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-purple-900/30">
@@ -900,8 +900,15 @@
     </div>
   </div>
 
+  <script src="assets_omni/cat-menu.js"></script>
   <script src="assets_omni/i18n.js"></script>
   <script>
+    // Filtre par catégorie depuis le menu "Nos Logiciels" (logiciels.html?cat=dbd ou ?cat=pc)
+    const omniCat = new URLSearchParams(location.search).get('cat');
+    if (omniCat) document.querySelectorAll('.showcase-card[data-cat]').forEach(card => {
+      if (card.dataset.cat !== omniCat) card.style.display = 'none';
+    });
+
     const container = document.getElementById('sparkles-container');
     for (let i = 0; i < 30; i++) {
       const sparkle = document.createElement('div');
