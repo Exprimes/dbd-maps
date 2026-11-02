@@ -1648,7 +1648,7 @@
       { fr: "Terrain de la Casse", en: "Wreckers Yard", aliases: "Wrecker's Yard", fileFr: "Terrain de la Casse.png", fileEn: "Wrecker's Yard.png" },
       { fr: "Vallon des Tourments", en: "Torment Creek", fileFr: "Vallon des Tourments.png", fileEn: "Torment Creek.png" },
       { fr: "École Maternelle de Badham", en: "Badham Preschool 1", aliases: "Badham Preschool", fileFr: "École Maternelle de Badham.png", fileEn: "Badham Preschool.png" },
-      { fr: "École Primaire Midwich", en: "Midwich Elementary School", fileFr: "ecole_primaire_midwich.png", fileEn: "Midwich Elementary School.png" },
+      { fr: "École Primaire Midwich", en: "Midwich Elementary School", fileFr: "ecole_primaire_midwich_mobile.gif", fileEn: "Midwich Elementary School mobile.gif" },
       { fr: "Épave du Nostromo", en: "Nostromo Wreckage", fileFr: "Épave du Nostromo.png", fileEn: "Nostromo Wreckage.png" },
       { fr: "Étable en Ruine", en: "Fractured Cowshed", fileFr: "Étable en Ruine.png", fileEn: "Fractured Cowshed.png" }
     ];
@@ -2776,7 +2776,7 @@
               fullSrc = "https://exprimes.github.io/dbd-maps/" + fullSrc.replace(/^\/+/, "");
             }
             const existing = MAPS.find(m => cleanStr(m.name) === cleanStr(rm.name));
-            // Les GIF animés (Midwich) ne s'affichent pas bien sur téléphone : on garde l'image fixe locale.
+            // Les GIF de maps.json (Midwich, 2000 px, 1re image transparente) s'affichent mal sur téléphone : on garde la version « mobile ».
             if (existing && !/\.gif$/i.test(fullSrc)) {
               existing.src = fullSrc;
             }
@@ -3221,7 +3221,7 @@
       { name: "Groaning Storehouse II", file: "Groaning Storehouse II.png", realm: "MacMillan Estate" },
       { name: "Ironworks of Misery", file: "ironworks_of_misery.png", realm: "MacMillan Estate" },
       { name: "Ironworks of Misery II", file: "Ironworks Of Misery II.png", realm: "MacMillan Estate" },
-      { name: "Midwich Elementary School", file: "Midwich elementary school.png", realm: "Silent Hill" },
+      { name: "Midwich Elementary School", file: "Midwich elementary school.gif", realm: "Silent Hill" },
       { name: "Mother's Dwelling", file: "Mothers Dwelling.png", realm: "Red Forest" },
       { name: "Mount Ormond Resort", file: "mount Ormond resort.png", realm: "Ormond" },
       { name: "Nostromo Wreckage", file: "Nostromo Wreckage.png", realm: "Dvarka Deepwood" },
