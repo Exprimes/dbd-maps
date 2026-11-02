@@ -1,20 +1,20 @@
 {
-    "version": "2.2.3.0",
-    "display_version": "2.2.3",
-    "exe_size": 154785439,
-    "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.2.3/DBDMapsOmni.exe",
+    "version": "2.2.4.0",
+    "display_version": "2.2.4",
+    "exe_size": 154790208,
+    "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.2.4/DBDMapsOmni.exe",
     "apk_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.apk",
     "relay_base_url": "https://ntfy.tedomum.fr/",
-    "changelog": "Version 2.2.3 : la carte reconnue reste en pause pendant toute la partie, même en ouvrant l'écran TAB / bouton Affichage de la manette. Elle ne bascule plus sur Forêt Profonde à l'écran de fin des cartes de Dvarka (Toba, Nostromo). Les prochaines mises à jour s'afficheront toutes seules, même si le logiciel est déjà ouvert (jamais en pleine partie).",
-    "changelog_en": "Version 2.2.3: the recognized map now stays paused for the whole match, even when opening the TAB / controller View button screen. It no longer switches to Shelter Woods on the end screen of Dvarka maps (Toba, Nostromo). Future updates will pop up on their own, even if the software is already open (never mid-match).",
+    "changelog": "Version 2.2.4 : la carte et le chrono s'affichent enfin sur les écrans 4K et les écrans avec une mise à l'échelle Windows (150 %, 200 %). Midwich animée avec ses deux étages (BOTTOM et TOP) dans DBDLeague, en cyan.",
+    "changelog_en": "Version 2.2.4: the map and the stopwatch now show up on 4K screens and screens with Windows scaling (150%, 200%). Animated Midwich with both floors (BOTTOM and TOP) in DBDLeague, in cyan.",
     "discord_url": "https://discord.gg/sHVttN4ZdZ",
-    "mobile_version": "2.2.3",
-    "exe_sha256": "FDD073349F5E9A79FBBF1462E72052F9088897110EB9A111B0A448497EF004C2",
+    "mobile_version": "2.2.4",
+    "exe_sha256": "D07AA38DEDC0C519A5B72F9229DD361CB1BD3D4D9F97C105C688482FD198F7B4",
     "admin_alert": {
         "enabled": true,
-        "min_version": "2.2.3.0",
-        "message": "La mise à jour v2.2.3 de DBD MAP OMNI est disponible ! La détection automatique de la carte ne change plus de carte en pleine partie (écran TAB / bouton Affichage de la manette).",
-        "message_en": "DBD MAP OMNI update v2.2.3 is available! Automatic map detection no longer switches maps mid-match (TAB / controller View button screen).",
-        "date": "31/10/2026"
+        "min_version": "2.2.4.0",
+        "message": "La mise à jour v2.2.4 de DBD MAP OMNI est disponible ! La carte s'affiche maintenant sur les écrans 4K et avec la mise à l'échelle Windows.",
+        "message_en": "DBD MAP OMNI update v2.2.4 is available! The map now shows up on 4K screens and with Windows scaling.",
+        "date": "02/11/2026"
     }
 }
