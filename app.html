@@ -4,20 +4,20 @@
   <meta charset="UTF-8">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="DBD MAP">
-  <link rel="apple-touch-icon" href="app_icon.png?v=2.1.3.1">
+  <meta name="apple-mobile-web-app-title" content="DBDMapsOmni">
+  <link rel="apple-touch-icon" href="app_icon.png?v=2.2.5">
   <link rel="manifest" href="manifest.json">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>DBD MAP OMNI • 44 Cartes HD Mobile & Console</title>
-  <meta name="description" content="DBD MAP Web App • Explorez en direct les 44 cartes HD officielles de Dead by Daylight avec lobby synchronisé en temps réel et callouts d'horloge 1 à 12.">
+  <title>DBDMapsOmni • 44 Cartes HD Mobile & Console</title>
+  <meta name="description" content="DBDMapsOmni • Explorez en direct les 44 cartes HD officielles de Dead by Daylight avec lobby synchronisé en temps réel et callouts d'horloge 1 à 12.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://exprimes.github.io/dbd-maps/app.html">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Omni Community • DBD MAP">
-  <meta property="og:title" content="DBD MAP Web App • 44 Cartes HD en direct">
+  <meta property="og:site_name" content="Omni Community • DBDMapsOmni">
+  <meta property="og:title" content="DBDMapsOmni • 44 Cartes HD en direct">
   <meta property="og:description" content="Application web compagnon pour Dead by Daylight avec 44 cartes HD et Lobby synchronisé.">
   <meta property="og:url" content="https://exprimes.github.io/dbd-maps/app.html">
   <meta property="og:image" content="https://exprimes.github.io/dbd-maps/omni_logo.jpg">
@@ -1296,9 +1296,9 @@
   <header>
     <div class="top-bar">
       <div class="brand">
-        <img src="app_icon.png?v=2.1.3.1" alt="Logo">
+        <img src="app_icon.png?v=2.2.5" alt="Logo">
         <div class="title-group">
-          <h1>DBD MAP<span class="brand-omni-tag"> OMNI</span></h1>
+          <h1>DBDMapsOmni</h1>
         </div>
       </div>
       <div class="header-actions">
@@ -1510,7 +1510,7 @@
 
 
   <footer>
-    <span id="footerVersionText">DBD MAP OMNI • By Exprimes</span>
+    <span id="footerVersionText">DBDMapsOmni • By Exprimes</span>
     <button class="footer-update-btn" id="btnFooterUpdate">
       <span>🚀</span>
       <span>Vérifier les mises à jour</span>
@@ -1526,7 +1526,7 @@
       </div>
       <div class="modal-body">
         <p class="lobby-desc" style="margin-bottom:12px;">
-          Vérifiez si une nouvelle version de l'application DBD MAP Mobile est disponible.
+          Vérifiez si une nouvelle version de l'application DBDMapsOmni est disponible.
         </p>
 
         <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px; margin-bottom:14px;">
@@ -2869,7 +2869,7 @@
       return 0;
     }
 
-    const BASE_MOBILE_VERSION = "2.2.4.0";
+    const BASE_MOBILE_VERSION = "2.2.5.0";
     function toDisplayVer(v) {
       if (!v) return "2.1.3";
       const parts = (v + "").replace(/^v/i, "").split(".");
@@ -2887,7 +2887,7 @@
       const badgeEl = document.getElementById("currentVersionBadge");
       if (badgeEl) badgeEl.textContent = "v" + disp;
       const footerVerEl = document.getElementById("footerVersionText");
-      if (footerVerEl) footerVerEl.textContent = "DBD MAP Mobile • v" + disp;
+      if (footerVerEl) footerVerEl.textContent = "DBDMapsOmni • v" + disp;
     }
     refreshVersionDisplays();
 
