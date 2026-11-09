@@ -1,20 +1,20 @@
 {
-    "version": "2.2.4.0",
-    "display_version": "2.2.4",
-    "exe_size": 154790208,
-    "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.2.4/DBDMapsOmni.exe",
+    "version": "2.2.5.0",
+    "display_version": "2.2.5",
+    "exe_size": 154816653,
+    "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.2.5/DBDMapsOmni.exe",
     "apk_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.apk",
     "relay_base_url": "https://ntfy.tedomum.fr/",
-    "changelog": "Version 2.2.4 : la carte et le chrono s'affichent enfin sur les écrans 4K et les écrans avec une mise à l'échelle Windows (150 %, 200 %). Midwich animée avec ses deux étages (BOTTOM et TOP) dans DBDLeague, en cyan.",
-    "changelog_en": "Version 2.2.4: the map and the stopwatch now show up on 4K screens and screens with Windows scaling (150%, 200%). Animated Midwich with both floors (BOTTOM and TOP) in DBDLeague, in cyan.",
+    "changelog": "Version 2.2.5 : la carte est trouvée même quand DBD est caché derrière une autre fenêtre (DBD en plein écran fenêtré) et même avec un filtre jaune, blanc ou sombre. Carte ratée au spawn ? Ouvrez l'écran Affichage (TAB) : elle apparaît en 1 seconde. Raccourcis clavier réparés, actifs aussi hors du jeu. Traducteur corrigé sur les écrans ultra-larges et 16:10. Mobile : zoom avec les boutons + et -, nouveau nom DBDMapsOmni et logo du PC.",
+    "changelog_en": "Version 2.2.5: the map is found even when DBD is hidden behind another window (DBD in windowed fullscreen) and even with a yellow, white or dark filter. Map missed at spawn? Open the Details screen (TAB): it shows up within 1 second. Keyboard shortcuts fixed, now also active outside the game. Translator fixed on ultrawide and 16:10 screens. Mobile: zoom with the + and - buttons, new DBDMapsOmni name and PC logo.",
     "discord_url": "https://discord.gg/sHVttN4ZdZ",
-    "mobile_version": "2.2.4",
-    "exe_sha256": "D07AA38DEDC0C519A5B72F9229DD361CB1BD3D4D9F97C105C688482FD198F7B4",
+    "mobile_version": "2.2.5",
+    "exe_sha256": "3E49FC824EF360B219E580429135F66B0C739BA67AC9D746AFE2AAEC5044C23D",
     "admin_alert": {
         "enabled": true,
-        "min_version": "2.2.4.0",
-        "message": "La mise à jour v2.2.4 de DBD MAP OMNI est disponible ! La carte s'affiche maintenant sur les écrans 4K et avec la mise à l'échelle Windows.",
-        "message_en": "DBD MAP OMNI update v2.2.4 is available! The map now shows up on 4K screens and with Windows scaling.",
-        "date": "02/11/2026"
+        "min_version": "2.2.5.0",
+        "message": "La mise à jour v2.2.5 de DBD MAP OMNI est disponible ! La carte est trouvée même avec DBD caché ou un filtre, et l'écran Affichage (TAB) rattrape une carte ratée.",
+        "message_en": "DBD MAP OMNI update v2.2.5 is available! The map is found even with DBD hidden or a filter, and the Details screen (TAB) catches a missed map.",
+        "date": "09/11/2026"
     }
 }
