@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-title" content="DBD MAP">
   <link rel="apple-touch-icon" href="app_icon.png?v=2.1.3.1">
   <link rel="manifest" href="manifest.json">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -764,6 +764,41 @@
       transform-origin: center center;
       will-change: transform;
       transition: transform 0.05s ease-out;
+    }
+    .viewer-zoom-btns {
+      position: absolute;
+      right: 16px;
+      bottom: max(16px, calc(env(safe-area-inset-bottom, 0px) + 14px));
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 20;
+    }
+    .btn-zoom {
+      width: 48px;
+      height: 48px;
+      border-radius: 24px;
+      background: rgba(22, 27, 34, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid #30363d;
+      color: #f0f6fc;
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-zoom:active {
+      transform: scale(0.92);
+      background: #30363d;
+    }
+    .btn-zoom:disabled {
+      opacity: 0.35;
     }
     .viewer-footer-tip {
       position: absolute;
@@ -1587,13 +1622,15 @@
         <span class="viewer-badge-sync" id="viewerSyncBadge" style="display:none;">⚡ Synchronisé via Lobby</span>
       </div>
       <div class="viewer-actions">
-        <button class="btn-icon" id="btnResetZoom" title="Réinitialiser zoom">↺</button>
         <button class="btn-icon" id="btnCloseViewer" title="Fermer">✕</button>
       </div>
     </div>
     <div class="viewer-body" id="viewerBody">
       <img id="viewerImg" src="" alt="Carte">
-      <div class="viewer-footer-tip">💡 Pincez pour zoomer • Glissez pour bouger</div>
+      <div class="viewer-zoom-btns">
+        <button class="btn-zoom" id="btnZoomIn" title="Zoomer" aria-label="Zoomer">＋</button>
+        <button class="btn-zoom" id="btnZoomOut" title="Dézoomer" aria-label="Dézoomer">－</button>
+      </div>
       <button class="btn-floating-back" id="btnFloatingBack" title="Retour aux cartes">
         <span>⬅️</span>
         <span>Retour aux cartes</span>
@@ -1715,7 +1752,6 @@
     const btnCloseViewer = document.getElementById("btnCloseViewer");
     const btnBackViewer = document.getElementById("btnBackViewer");
     const btnFloatingBack = document.getElementById("btnFloatingBack");
-    const btnResetZoom = document.getElementById("btnResetZoom");
     const viewerBody = document.getElementById("viewerBody");
 
     const lobbyModal = document.getElementById("lobbyModal");
@@ -1967,14 +2003,13 @@
     renderMaps(MAPS);
 
     // Zoom & Pan Viewer
+    const ZOOM_MAX_LIMIT = 5;
     let scale = 1;
     let translateX = 0;
     let translateY = 0;
     let isDragging = false;
     let startX = 0;
     let startY = 0;
-    let initialDistance = 0;
-    let initialScale = 1;
 
     function openViewer(map, fromSync) {
       viewerTitle.textContent = map.name;
@@ -2016,47 +2051,59 @@
       translateX = 0;
       translateY = 0;
       updateTransform();
-      showToast("🔍 Zoom réinitialisé");
     }
 
     function updateTransform() {
       // translate3d force l'accélération matérielle GPU (120Hz ProMotion sur iOS et écrans fluides Android)
       viewerImg.style.transform = `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale})`;
+      const zIn = document.getElementById("btnZoomIn");
+      const zOut = document.getElementById("btnZoomOut");
+      if (zIn) zIn.disabled = scale >= ZOOM_MAX_LIMIT;
+      if (zOut) zOut.disabled = scale <= 1;
     }
 
     btnCloseViewer.addEventListener("click", closeViewer);
     if (btnBackViewer) btnBackViewer.addEventListener("click", closeViewer);
     if (btnFloatingBack) btnFloatingBack.addEventListener("click", closeViewer);
-    btnResetZoom.addEventListener("click", resetZoom);
 
-    // Touch events pour zoomer et glisser
-    let lastTap = 0;
-    viewerBody.addEventListener("touchend", (e) => {
-      const now = Date.now();
-      if (now - lastTap < 300) {
-        if (scale > 1.2) {
-          resetZoom();
-        } else {
-          scale = 2.2;
-          updateTransform();
-          showToast("🔍 Zoom 2.2x");
-        }
+    // Zoom uniquement par les boutons ＋ / － (le double tap et le pincement se déclenchaient par accident).
+    const ZOOM_STEP = 1.5;
+    const ZOOM_MAX = ZOOM_MAX_LIMIT;
+    const btnZoomIn = document.getElementById("btnZoomIn");
+    const btnZoomOut = document.getElementById("btnZoomOut");
+
+    function zoomBy(factor) {
+      const next = Math.min(Math.max(scale * factor, 1), ZOOM_MAX);
+      if (next <= 1.001) {
+        scale = 1;
+        translateX = 0;
+        translateY = 0;
+      } else {
+        // Garde au centre de l'écran le même endroit de la carte.
+        translateX *= next / scale;
+        translateY *= next / scale;
+        scale = next;
       }
-      lastTap = now;
-    });
+      updateTransform();
+    }
 
+    btnZoomIn?.addEventListener("click", () => zoomBy(ZOOM_STEP));
+    btnZoomOut?.addEventListener("click", () => zoomBy(1 / ZOOM_STEP));
+
+    // Pas de zoom à deux doigts : ni le navigateur (iOS ignore user-scalable=no) ni la carte.
+    viewerModal.addEventListener("gesturestart", (e) => e.preventDefault());
+    viewerBody.addEventListener("touchmove", (e) => {
+      if (e.touches.length > 1) e.preventDefault();
+    }, { passive: false });
+
+    // Un doigt : déplacer la carte quand elle est zoomée.
     viewerBody.addEventListener("touchstart", (e) => {
       if (e.touches.length === 1) {
         isDragging = true;
         startX = e.touches[0].clientX - translateX;
         startY = e.touches[0].clientY - translateY;
-      } else if (e.touches.length === 2) {
+      } else {
         isDragging = false;
-        initialDistance = Math.hypot(
-          e.touches[0].clientX - e.touches[1].clientX,
-          e.touches[0].clientY - e.touches[1].clientY
-        );
-        initialScale = scale;
       }
     }, { passive: true });
 
@@ -2065,15 +2112,6 @@
         translateX = e.touches[0].clientX - startX;
         translateY = e.touches[0].clientY - startY;
         updateTransform();
-      } else if (e.touches.length === 2) {
-        const dist = Math.hypot(
-          e.touches[0].clientX - e.touches[1].clientX,
-          e.touches[0].clientY - e.touches[1].clientY
-        );
-        if (initialDistance > 0) {
-          scale = Math.min(Math.max(initialScale * (dist / initialDistance), 1), 5);
-          updateTransform();
-        }
       }
     }, { passive: true });
 
