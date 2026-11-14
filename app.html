@@ -2150,10 +2150,11 @@
     btnCloseViewer.addEventListener("click", closeViewer);
 
     // =========================================================================
-    // SCAN DE LA MAP À L'APPAREIL PHOTO : seulement dans l'appli Android (elle ajoute « DBDMapsOmniApp »
-    // à son user agent et autorise la caméra). ?scan=1 l'affiche aussi pour tester dans un navigateur.
+    // SCAN DE LA MAP À L'APPAREIL PHOTO : dans l'appli Android (elle ajoute « DBDMapsOmniApp » à son user agent
+    // et autorise la caméra) et sur iPhone / iPad. ?scan=1 l'affiche aussi pour tester dans un navigateur.
     // =========================================================================
-    const SCAN_ENABLED = /DBDMapsOmniApp/.test(navigator.userAgent) || /[?&]scan=1/.test(location.search);
+    const IS_IOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+    const SCAN_ENABLED = /DBDMapsOmniApp/.test(navigator.userAgent) || IS_IOS || /[?&]scan=1/.test(location.search);
     const btnScan = document.getElementById("btnScan");
     const scanModal = document.getElementById("scanModal");
     const scanVideo = document.getElementById("scanVideo");
@@ -2188,6 +2189,12 @@
         });
         scanVideo.srcObject = scanStream;
         await scanVideo.play();
+        // Image un cran plus sombre si le téléphone le permet : le nom blanc ne « brûle » plus (Android ; ignoré ailleurs).
+        const track = scanStream.getVideoTracks()[0];
+        const caps = track.getCapabilities ? track.getCapabilities() : {};
+        if (caps.exposureCompensation) {
+          track.applyConstraints({ advanced: [{ exposureCompensation: Math.max(caps.exposureCompensation.min, -1) }] }).catch(() => {});
+        }
       } catch (e) {
         scanTip.textContent = "Impossible d'ouvrir l'appareil photo. Autorisez la caméra pour DBDMapsOmni dans les réglages du téléphone.";
       }
@@ -2247,6 +2254,32 @@
       return c;
     }
 
+    // Nom éblouissant sur un fond très clair : on garde les pixels presque sans couleur et parmi les plus clairs
+    // (le fond brûlé reste jaune / orange, le texte reste blanc).
+    function neutralWhiteForOcr(src) {
+      const scale = Math.min(3, Math.max(1, 220 / src.height));
+      const w = Math.round(src.width * scale), h = Math.round(src.height * scale);
+      const c = document.createElement("canvas");
+      c.width = w; c.height = h;
+      const ctx = c.getContext("2d");
+      ctx.drawImage(src, 0, 0, w, h);
+      const img = ctx.getImageData(0, 0, w, h), d = img.data;
+      const grey = [];
+      for (let i = 0; i < w * h; i++) {
+        const mn = Math.min(d[i * 4], d[i * 4 + 1], d[i * 4 + 2]), mx = Math.max(d[i * 4], d[i * 4 + 1], d[i * 4 + 2]);
+        if (mx - mn < 40) grey.push(mn);
+      }
+      grey.sort((a, b) => a - b);
+      const t = Math.max(140, grey.length ? grey[Math.floor(grey.length * 0.8)] : 200);
+      for (let i = 0; i < w * h; i++) {
+        const mn = Math.min(d[i * 4], d[i * 4 + 1], d[i * 4 + 2]), mx = Math.max(d[i * 4], d[i * 4 + 1], d[i * 4 + 2]);
+        d[i * 4] = d[i * 4 + 1] = d[i * 4 + 2] = (mx - mn < 40 && mn >= t) ? 0 : 255;
+        d[i * 4 + 3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+      return c;
+    }
+
     function levenshtein(a, b) {
       const prev = new Array(b.length + 1).fill(0).map((_, j) => j);
       for (let i = 1; i <= a.length; i++) {
@@ -2286,7 +2319,8 @@
     async function scanAndOpen(sourceCanvas) {
       const worker = await loadOcrWorker();
       let lastText = "";
-      for (const img of [prepareForOcr(sourceCanvas), sourceCanvas]) {
+      for (const prep of [prepareForOcr, neutralWhiteForOcr, (c) => c]) {
+        const img = prep(sourceCanvas);
         const { data } = await worker.recognize(img);
         lastText = data.text;
         const pair = findScannedMap(data.text);
