@@ -1,0 +1,272 @@
+[
+ {
+  "ClientId": "PC-63C3CB4A",
+  "Version": "2.2.5.0",
+  "Os": "win",
+  "Timestamp": 1794648231
+ },
+ {
+  "ClientId": "PC-67A5B8B5",
+  "Version": "2.2.5.0",
+  "Os": "win",
+  "Timestamp": 1794620590
+ },
+ {
+  "ClientId": "PC-ADMIN",
+  "Version": "2.2.5.0",
+  "Os": "win",
+  "Timestamp": 1794620417
+ },
+ {
+  "ClientId": "PC-EA1252E3",
+  "Version": "2.2.5.0",
+  "Os": "win",
+  "Timestamp": 1794614643
+ },
+ {
+  "ClientId": "PC-687FFADD",
+  "Version": "2.2.5.0",
+  "Os": "win",
+  "Timestamp": 1794610590
+ },
+ {
+  "ClientId": "PC-563B3EF1",
+  "Version": "2.2.5.0",
+  "Os": "win",
+  "Timestamp": 1794608959
+ },
+ {
+  "ClientId": "PC-2D8683A3",
+  "Version": "2.2.5.0",
+  "Os": "win",
+  "Timestamp": 1794608794
+ },
+ {
+  "ClientId": "PC-8D2BCC05",
+  "Version": "2.2.5.0",
+  "Os": "win",
+  "Timestamp": 1794608788
+ },
+ {
+  "ClientId": "IOS-4014",
+  "Version": "2.2.5.0",
+  "Os": "ios",
+  "Timestamp": 1794607163
+ },
+ {
+  "ClientId": "PC-29F4D9B2",
+  "Version": "2.2.5.0",
+  "Os": "win",
+  "Timestamp": 1794546429
+ },
+ {
+  "ClientId": "AND-2242",
+  "Version": "2.2.5.0",
+  "Os": "android",
+  "Timestamp": 1794532642
+ },
+ {
+  "ClientId": "PC-64E5B96B",
+  "Version": "2.2.5.0",
+  "Os": "win",
+  "Timestamp": 1794524018
+ },
+ {
+  "ClientId": "IOS-2004",
+  "Version": "2.2.5.0",
+  "Os": "ios",
+  "Timestamp": 1794520903
+ },
+ {
+  "ClientId": "AND-7726",
+  "Version": "2.2.5.0",
+  "Os": "android",
+  "Timestamp": 1794520058
+ },
+ {
+  "ClientId": "PC-F8202195",
+  "Version": "2.2.2.0",
+  "Os": "win",
+  "Timestamp": 1794453667
+ },
+ {
+  "ClientId": "IOS-6342",
+  "Version": "2.2.5.0",
+  "Os": "ios",
+  "Timestamp": 1794423933
+ },
+ {
+  "ClientId": "PC-4625C940",
+  "Version": "2.2.5.0",
+  "Os": "win",
+  "Timestamp": 1794418779
+ },
+ {
+  "ClientId": "PC-2937E339",
+  "Version": "2.2.4.0",
+  "Os": "win",
+  "Timestamp": 1794364242
+ },
+ {
+  "ClientId": "AND-7777",
+  "Version": "2.2.5.0",
+  "Os": "android",
+  "Timestamp": 1794351899
+ },
+ {
+  "ClientId": "PC-F0F0DDB9",
+  "Version": "2.2.4.0",
+  "Os": "win",
+  "Timestamp": 1794351797
+ },
+ {
+  "ClientId": "AND-7827",
+  "Version": "2.2.5.0",
+  "Os": "android",
+  "Timestamp": 1794349827
+ },
+ {
+  "ClientId": "PC-394065C9",
+  "Version": "2.2.5.0",
+  "Os": "win",
+  "Timestamp": 1794326179
+ },
+ {
+  "ClientId": "WEB-7417",
+  "Version": "2.2.5.0",
+  "Os": "web",
+  "Timestamp": 1794271276
+ },
+ {
+  "ClientId": "AND-2071",
+  "Version": "2.2.5.0",
+  "Os": "web",
+  "Timestamp": 1794261165
+ },
+ {
+  "ClientId": "IOS-7537",
+  "Version": "2.2.4.0",
+  "Os": "ios",
+  "Timestamp": 1794247860
+ },
+ {
+  "ClientId": "AND-8689",
+  "Version": "2.2.4.0",
+  "Os": "android",
+  "Timestamp": 1794177908
+ },
+ {
+  "ClientId": "AND-5237",
+  "Version": "2.2.4.0",
+  "Os": "android",
+  "Timestamp": 1794155904
+ },
+ {
+  "ClientId": "PC-9ACC99D3",
+  "Version": "2.2.4.0",
+  "Os": "win",
+  "Timestamp": 1794079722
+ },
+ {
+  "ClientId": "PC-89A77AA0",
+  "Version": "2.2.4.0",
+  "Os": "win",
+  "Timestamp": 1794057124
+ },
+ {
+  "ClientId": "WEB-2005",
+  "Version": "2.2.4.0",
+  "Os": "web",
+  "Timestamp": 1794052888
+ },
+ {
+  "ClientId": "PC-608D44E1",
+  "Version": "2.2.3.0",
+  "Os": "win",
+  "Timestamp": 1794010693
+ },
+ {
+  "ClientId": "PC-CE3747A8",
+  "Version": "2.2.4.0",
+  "Os": "win",
+  "Timestamp": 1793999484
+ },
+ {
+  "ClientId": "PC-98B64D75",
+  "Version": "2.2.4.0",
+  "Os": "win",
+  "Timestamp": 1793913980
+ },
+ {
+  "ClientId": "PC-51CB151E",
+  "Version": "2.2.4.0",
+  "Os": "win",
+  "Timestamp": 1793753612
+ },
+ {
+  "ClientId": "AND-5912",
+  "Version": "2.2.4.0",
+  "Os": "android",
+  "Timestamp": 1793743836
+ },
+ {
+  "ClientId": "AND-6593",
+  "Version": "2.2.4.0",
+  "Os": "android",
+  "Timestamp": 1793738597
+ },
+ {
+  "ClientId": "AND-7314",
+  "Version": "2.2.3.0",
+  "Os": "web",
+  "Timestamp": 1793658484
+ },
+ {
+  "ClientId": "PC-6B801E98",
+  "Version": "2.2.4.0",
+  "Os": "win",
+  "Timestamp": 1793658095
+ },
+ {
+  "ClientId": "AND-6185",
+  "Version": "2.2.3.0",
+  "Os": "android",
+  "Timestamp": 1793632987
+ },
+ {
+  "ClientId": "PC-AAB7F2C7",
+  "Version": "2.1.2.2",
+  "Os": "win",
+  "Timestamp": 1793619632
+ },
+ {
+  "ClientId": "PC-356C8B7D",
+  "Version": "2.2.2.0",
+  "Os": "win",
+  "Timestamp": 1793406704
+ },
+ {
+  "ClientId": "PC-B557239F",
+  "Version": "2.1.3.1",
+  "Os": "win",
+  "Timestamp": 1793390900
+ },
+ {
+  "ClientId": "AND-8846",
+  "Version": "2.2.1.0",
+  "Os": "android",
+  "Timestamp": 1793371894
+ },
+ {
+  "ClientId": "IOS-3927",
+  "Version": "2.2.1.0",
+  "Os": "ios",
+  "Timestamp": 1793338137
+ },
+ {
+  "ClientId": "AND-1373",
+  "Version": "2.2.1.0",
+  "Os": "web",
+  "Timestamp": 1793334990
+ }
+]
