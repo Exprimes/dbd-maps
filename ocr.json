@@ -1,0 +1,7 @@
+{
+    "_aide": "Listes ajoutées à celles du logiciel DBDMapsOmni (2.2.6 et +), lues au démarrage. royaumes : noms de royaume à ignorer avant de chercher la carte. autres_noms : autres écritures d'une carte (clé = nom exact de la carte, FR ou EN). mots_fin_bas_gauche / mots_fin_bas_droite : mots de fin de partie ou de lobby qui relancent la recherche. Une entrée trop courte ou contenue dans un nom de carte est ignorée.",
+    "royaumes": [],
+    "autres_noms": {},
+    "mots_fin_bas_gauche": [],
+    "mots_fin_bas_droite": []
+}

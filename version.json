@@ -1,20 +1,20 @@
 {
-    "version": "2.2.5.0",
-    "display_version": "2.2.5",
-    "exe_size": 154816653,
-    "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.2.5/DBDMapsOmni.exe",
-    "apk_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.0.1/DBDMapsOmni.apk",
+    "version": "2.2.6.0",
+    "display_version": "2.2.6",
+    "exe_size": 154881290,
+    "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.2.6/DBDMapsOmni.exe",
+    "apk_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.2.6/DBDMapsOmni.apk",
     "relay_base_url": "https://ntfy.tedomum.fr/",
-    "changelog": "Version 2.2.5 : la carte est trouvée même quand DBD est caché derrière une autre fenêtre (DBD en plein écran fenêtré) et même avec un filtre jaune, blanc ou sombre. Carte ratée au spawn ? Ouvrez l'écran Affichage (TAB) : elle apparaît en 1 seconde. Raccourcis clavier réparés, actifs aussi hors du jeu. Traducteur corrigé sur les écrans ultra-larges et 16:10. Mobile : zoom avec les boutons + et -, nouveau nom DBDMapsOmni et logo du PC.",
-    "changelog_en": "Version 2.2.5: the map is found even when DBD is hidden behind another window (DBD in windowed fullscreen) and even with a yellow, white or dark filter. Map missed at spawn? Open the Details screen (TAB): it shows up within 1 second. Keyboard shortcuts fixed, now also active outside the game. Translator fixed on ultrawide and 16:10 screens. Mobile: zoom with the + and - buttons, new DBDMapsOmni name and PC logo.",
+    "changelog": "Version 2.2.6 : les cartes du Borgo sont reconnues (Ruines Oubliées, La Place Dévastée). Les raccourcis ne réagissent plus à Ctrl, Alt ou Windows (la carte ne disparaît plus avec OmniFilter). Les petits correctifs s'installeront désormais tout seuls à la fermeture du logiciel, et la détection des cartes pourra être corrigée sans mise à jour. Mobile : scan de la carte à l'appareil photo et nouvelle appli Android DBDMapsOmni (désinstallez l'ancienne appli DBD MAP avant).",
+    "changelog_en": "Version 2.2.6: Borgo maps are recognized (Forgotten Ruins, The Shattered Square). Shortcuts no longer react to Ctrl, Alt or Windows (the map no longer disappears with OmniFilter). Small fixes will now install by themselves when you close the app, and map detection can be fixed without an update. Mobile: scan the map with the camera and new DBDMapsOmni Android app (uninstall the old DBD MAP app first).",
     "discord_url": "https://discord.gg/sHVttN4ZdZ",
-    "mobile_version": "2.2.5",
-    "exe_sha256": "3E49FC824EF360B219E580429135F66B0C739BA67AC9D746AFE2AAEC5044C23D",
+    "mobile_version": "2.2.6",
+    "exe_sha256": "E5C68C6EFD6369DB86E24DB5E670B033BD08366E2690A908B31F0865F059E08A",
     "admin_alert": {
         "enabled": true,
-        "min_version": "2.2.5.0",
-        "message": "La mise à jour v2.2.5 de DBD MAP OMNI est disponible ! La carte est trouvée même avec DBD caché ou un filtre, et l'écran Affichage (TAB) rattrape une carte ratée.",
-        "message_en": "DBD MAP OMNI update v2.2.5 is available! The map is found even with DBD hidden or a filter, and the Details screen (TAB) catches a missed map.",
-        "date": "09/11/2026"
+        "min_version": "2.2.6.0",
+        "message": "La mise à jour v2.2.6 de DBD MAP OMNI est disponible ! Borgo reconnu, raccourcis compatibles OmniFilter, et les prochains petits correctifs s'installeront tout seuls.",
+        "message_en": "DBD MAP OMNI update v2.2.6 is available! Borgo recognized, shortcuts compatible with OmniFilter, and future small fixes will install by themselves.",
+        "date": "14/11/2026"
     }
 }
