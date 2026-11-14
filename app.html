@@ -362,6 +362,76 @@
       background: #21262d;
       transform: scale(0.96);
     }
+    .btn-scan-open {
+      width: 100%;
+      margin-top: 8px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #7c3aed;
+      background: rgba(124, 58, 237, 0.18);
+      color: #e9d5ff;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-scan-open[hidden] { display: none; }
+    #scanModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      background: #000;
+      flex-direction: column;
+    }
+    .scan-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      padding-top: max(10px, calc(env(safe-area-inset-top, 0px) + 8px));
+      color: #f0f6fc;
+      font-weight: 700;
+    }
+    .scan-view {
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+    }
+    #scanVideo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .scan-frame {
+      position: absolute;
+      left: 5%;
+      width: 90%;
+      top: 39%;
+      height: 22%;
+      border: 3px solid #a855f7;
+      border-radius: 10px;
+      box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.55);
+    }
+    .scan-tip {
+      color: #c9d1d9;
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 10px 16px 4px;
+    }
+    .btn-scan-shoot {
+      margin: 10px 16px;
+      margin-bottom: max(16px, calc(env(safe-area-inset-bottom, 0px) + 12px));
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      background: #7c3aed;
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+    .btn-scan-shoot:disabled { opacity: 0.5; }
     .search-box {
       position: relative;
       display: flex;
@@ -1318,6 +1388,7 @@
       <input type="text" id="searchInput" placeholder="Rechercher une carte..." autocomplete="off">
       <button class="clear-btn" id="clearBtn">✕</button>
     </div>
+    <button class="btn-scan-open" id="btnScan" hidden>📷 Scanner la map</button>
 
     <!-- Sélecteur Segmenté 44 Cartes FR / 44 Cartes EN -->
     <div class="lang-segmented-bar" id="langSegmentedBar">
@@ -1608,6 +1679,20 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- SCAN DE LA MAP À L'APPAREIL PHOTO (appli Android uniquement) -->
+  <div id="scanModal">
+    <div class="scan-header">
+      <span class="scan-title">📷 Scanner la map</span>
+      <button class="btn-icon" id="btnCloseScan" title="Fermer">✕</button>
+    </div>
+    <div class="scan-view" id="scanView">
+      <video id="scanVideo" playsinline muted autoplay></video>
+      <div class="scan-frame" id="scanFrame"></div>
+    </div>
+    <div class="scan-tip" id="scanTip">Cadrez le nom de la map dans le rectangle (au spawn ou sur l'écran Affichage), puis appuyez sur Scanner.</div>
+    <button class="btn-scan-shoot" id="btnScanShoot">Scanner</button>
   </div>
 
   <!-- MODAL PLEIN ÉCRAN CARTE -->
@@ -2063,6 +2148,188 @@
     }
 
     btnCloseViewer.addEventListener("click", closeViewer);
+
+    // =========================================================================
+    // SCAN DE LA MAP À L'APPAREIL PHOTO : seulement dans l'appli Android (elle ajoute « DBDMapsOmniApp »
+    // à son user agent et autorise la caméra). ?scan=1 l'affiche aussi pour tester dans un navigateur.
+    // =========================================================================
+    const SCAN_ENABLED = /DBDMapsOmniApp/.test(navigator.userAgent) || /[?&]scan=1/.test(location.search);
+    const btnScan = document.getElementById("btnScan");
+    const scanModal = document.getElementById("scanModal");
+    const scanVideo = document.getElementById("scanVideo");
+    const scanFrame = document.getElementById("scanFrame");
+    const scanTip = document.getElementById("scanTip");
+    const btnScanShoot = document.getElementById("btnScanShoot");
+    const SCAN_TIP = scanTip.textContent;
+    let scanStream = null;
+    let ocrWorkerPromise = null;
+    if (SCAN_ENABLED) btnScan.hidden = false;
+
+    function loadOcrWorker() {
+      if (!ocrWorkerPromise) {
+        ocrWorkerPromise = new Promise((resolve, reject) => {
+          const sc = document.createElement("script");
+          sc.src = "https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js";
+          sc.onload = () => Tesseract.createWorker(["fra", "eng"]).then(resolve, reject);
+          sc.onerror = reject;
+          document.head.appendChild(sc);
+        }).catch((e) => { ocrWorkerPromise = null; throw e; });
+      }
+      return ocrWorkerPromise;
+    }
+
+    async function openScan() {
+      scanTip.textContent = SCAN_TIP;
+      scanModal.style.display = "flex";
+      loadOcrWorker().catch(() => {});
+      try {
+        scanStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "environment", width: { ideal: 1920 }, height: { ideal: 1080 } }, audio: false
+        });
+        scanVideo.srcObject = scanStream;
+        await scanVideo.play();
+      } catch (e) {
+        scanTip.textContent = "Impossible d'ouvrir l'appareil photo. Autorisez la caméra pour DBDMapsOmni dans les réglages du téléphone.";
+      }
+    }
+
+    function closeScan() {
+      scanModal.style.display = "none";
+      if (scanStream) scanStream.getTracks().forEach((t) => t.stop());
+      scanStream = null;
+      scanVideo.srcObject = null;
+      btnScanShoot.disabled = false;
+    }
+
+    // Découpe la zone du rectangle dans l'image de la caméra (affichée en « cover »).
+    function grabScanFrame() {
+      const vw = scanVideo.videoWidth, vh = scanVideo.videoHeight;
+      if (!vw || !vh) return null;
+      const box = scanVideo.getBoundingClientRect(), fr = scanFrame.getBoundingClientRect();
+      const k = Math.max(box.width / vw, box.height / vh);
+      const offX = (box.width - vw * k) / 2, offY = (box.height - vh * k) / 2;
+      const sx = Math.max(0, (fr.left - box.left - offX) / k), sy = Math.max(0, (fr.top - box.top - offY) / k);
+      const sw = Math.min(vw - sx, fr.width / k), sh = Math.min(vh - sy, fr.height / k);
+      const c = document.createElement("canvas");
+      c.width = Math.round(sw); c.height = Math.round(sh);
+      c.getContext("2d").drawImage(scanVideo, sx, sy, sw, sh, 0, 0, c.width, c.height);
+      return c;
+    }
+
+    // Même idée que l'OCR du PC : texte = ce qui est plus « blanc » (min R,G,B) que son voisinage,
+    // quelle que soit la couleur du fond. Sortie : texte noir sur blanc, à une hauteur lisible.
+    function prepareForOcr(src) {
+      const scale = Math.min(3, Math.max(1, 220 / src.height));
+      const w = Math.round(src.width * scale), h = Math.round(src.height * scale);
+      const c = document.createElement("canvas");
+      c.width = w; c.height = h;
+      const ctx = c.getContext("2d");
+      ctx.drawImage(src, 0, 0, w, h);
+      const img = ctx.getImageData(0, 0, w, h), d = img.data;
+      const v = new Float64Array(w * h), sum = new Float64Array((w + 1) * (h + 1));
+      for (let i = 0; i < w * h; i++) v[i] = Math.min(d[i * 4], d[i * 4 + 1], d[i * 4 + 2]);
+      for (let y = 0; y < h; y++) {
+        let row = 0;
+        for (let x = 0; x < w; x++) { row += v[y * w + x]; sum[(y + 1) * (w + 1) + x + 1] = sum[y * (w + 1) + x + 1] + row; }
+      }
+      const r = Math.max(8, Math.round(h / 12));
+      for (let y = 0; y < h; y++) {
+        const ya = Math.max(0, y - r), yb = Math.min(h, y + r + 1);
+        for (let x = 0; x < w; x++) {
+          const xa = Math.max(0, x - r), xb = Math.min(w, x + r + 1);
+          const mean = (sum[yb * (w + 1) + xb] - sum[ya * (w + 1) + xb] - sum[yb * (w + 1) + xa] + sum[ya * (w + 1) + xa]) / ((xb - xa) * (yb - ya));
+          const out = v[y * w + x] - mean > 20 ? 0 : 255;
+          const i = (y * w + x) * 4;
+          d[i] = d[i + 1] = d[i + 2] = out; d[i + 3] = 255;
+        }
+      }
+      ctx.putImageData(img, 0, 0);
+      return c;
+    }
+
+    function levenshtein(a, b) {
+      const prev = new Array(b.length + 1).fill(0).map((_, j) => j);
+      for (let i = 1; i <= a.length; i++) {
+        let diag = prev[0]; prev[0] = i;
+        for (let j = 1; j <= b.length; j++) {
+          const t = prev[j];
+          prev[j] = Math.min(prev[j] + 1, prev[j - 1] + 1, diag + (a[i - 1] === b[j - 1] ? 0 : 1));
+          diag = t;
+        }
+      }
+      return prev[b.length];
+    }
+
+    // Quelle map (nom FR, EN ou autre nom) est écrite dans le texte lu, même avec quelques lettres mal lues.
+    function findScannedMap(text) {
+      const t = cleanStr(text);
+      let best = null, bestScore = 0;
+      for (const p of MAP_PAIRS) {
+        const names = [p.fr, p.en].concat((p.aliases || "").split(",")).map(cleanStr).filter((n) => n.length >= 5);
+        for (const n of names) {
+          let score = 0;
+          if (t.includes(n)) score = 2 + n.length / 100;
+          else if (n.length >= 7) {
+            for (let len = n.length - 2; len <= n.length + 2; len++) {
+              for (let i = 0; i + len <= t.length; i++) {
+                const sim = 1 - levenshtein(t.substr(i, len), n) / Math.max(len, n.length);
+                if (sim >= 0.8 && sim > score) score = sim;
+              }
+            }
+          }
+          if (score > bestScore) { bestScore = score; best = p; }
+        }
+      }
+      return best;
+    }
+
+    async function scanAndOpen(sourceCanvas) {
+      const worker = await loadOcrWorker();
+      let lastText = "";
+      for (const img of [prepareForOcr(sourceCanvas), sourceCanvas]) {
+        const { data } = await worker.recognize(img);
+        lastText = data.text;
+        const pair = findScannedMap(data.text);
+        if (pair) return { pair, text: data.text };
+      }
+      return { pair: null, text: lastText };
+    }
+
+    btnScanShoot.addEventListener("click", async () => {
+      const shot = grabScanFrame();
+      if (!shot) return;
+      btnScanShoot.disabled = true;
+      scanTip.textContent = "Lecture en cours…";
+      try {
+        const { pair, text } = await scanAndOpen(shot);
+        if (pair) {
+          const wanted = currentLanguage === "EN" ? pair.en : pair.fr;
+          const map = MAPS.find((m) => m.name === wanted);
+          closeScan();
+          if (map) openViewer(map, false);
+          return;
+        }
+        const seen = (text || "").replace(/\s+/g, " ").trim();
+        scanTip.textContent = "Map non reconnue" + (seen ? " (lu : « " + seen.slice(0, 60) + " »)" : "") + ". Rapprochez-vous et réessayez.";
+      } catch (e) {
+        scanTip.textContent = "La lecture n'a pas pu démarrer (connexion internet nécessaire la première fois).";
+      }
+      btnScanShoot.disabled = false;
+    });
+
+    btnScan.addEventListener("click", openScan);
+    document.getElementById("btnCloseScan").addEventListener("click", closeScan);
+    // Test : même lecture sur une image, sans caméra (window.__scanTest(urlImage)).
+    window.__scanTest = (url) => new Promise((resolve) => {
+      const im = new Image();
+      im.onload = async () => {
+        const c = document.createElement("canvas"); c.width = im.width; c.height = im.height;
+        c.getContext("2d").drawImage(im, 0, 0);
+        const r = await scanAndOpen(c);
+        resolve({ map: r.pair ? r.pair.fr : null, text: r.text });
+      };
+      im.src = url;
+    });
     if (btnBackViewer) btnBackViewer.addEventListener("click", closeViewer);
     if (btnFloatingBack) btnFloatingBack.addEventListener("click", closeViewer);
 
