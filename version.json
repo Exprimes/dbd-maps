@@ -13,8 +13,8 @@
     "admin_alert": {
         "enabled": true,
         "min_version": "2.2.6.0",
-        "message": "La mise à jour v2.2.6 de DBD MAP OMNI est disponible ! Carte sur le stream via OBS, Borgo reconnu, raccourcis compatibles OmniFilter, et les prochains petits correctifs s'installeront tout seuls.",
-        "message_en": "DBD MAP OMNI update v2.2.6 is available! Map on stream via OBS, Borgo recognized, shortcuts compatible with OmniFilter, and future small fixes will install by themselves.",
+        "message": "La mise à jour v2.2.6 de DBDMapsOmni est disponible ! Carte sur le stream via OBS, Borgo reconnu, raccourcis compatibles OmniFilter, et les prochains petits correctifs s'installeront tout seuls.",
+        "message_en": "DBDMapsOmni update v2.2.6 is available! Map on stream via OBS, Borgo recognized, shortcuts compatible with OmniFilter, and future small fixes will install by themselves.",
         "date": "14/11/2026"
     }
 }
