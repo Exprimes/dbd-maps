@@ -1,20 +1,20 @@
 {
     "version": "2.2.6.0",
     "display_version": "2.2.6",
-    "exe_size": 154881290,
+    "exe_size": 154898963,
     "pc_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.2.6/DBDMapsOmni.exe",
     "apk_download_url": "https://github.com/Exprimes/dbd-maps/releases/download/v2.2.6/DBDMapsOmni.apk",
     "relay_base_url": "https://ntfy.tedomum.fr/",
-    "changelog": "Version 2.2.6 : les cartes du Borgo sont reconnues (Ruines Oubliées, La Place Dévastée). Les raccourcis ne réagissent plus à Ctrl, Alt ou Windows (la carte ne disparaît plus avec OmniFilter). Les petits correctifs s'installeront désormais tout seuls à la fermeture du logiciel, et la détection des cartes pourra être corrigée sans mise à jour. Mobile : scan de la carte à l'appareil photo et nouvelle appli Android DBDMapsOmni (désinstallez l'ancienne appli DBD MAP avant).",
-    "changelog_en": "Version 2.2.6: Borgo maps are recognized (Forgotten Ruins, The Shattered Square). Shortcuts no longer react to Ctrl, Alt or Windows (the map no longer disappears with OmniFilter). Small fixes will now install by themselves when you close the app, and map detection can be fixed without an update. Mobile: scan the map with the camera and new DBDMapsOmni Android app (uninstall the old DBD MAP app first).",
+    "changelog": "Version 2.2.6 : les cartes du Borgo sont reconnues (Ruines Oubliées, La Place Dévastée). Les raccourcis ne réagissent plus à Ctrl, Alt ou Windows (la carte ne disparaît plus avec OmniFilter). Les petits correctifs s'installeront désormais tout seuls à la fermeture du logiciel, et la détection des cartes pourra être corrigée sans mise à jour. Streamers : la carte peut s'afficher sur votre stream avec une source Navigateur OBS (Paramètres, Overlay), sans capturer tout l'écran. Mobile : scan de la carte à l'appareil photo et nouvelle appli Android DBDMapsOmni (désinstallez l'ancienne appli DBD MAP avant).",
+    "changelog_en": "Version 2.2.6: Borgo maps are recognized (Forgotten Ruins, The Shattered Square). Shortcuts no longer react to Ctrl, Alt or Windows (the map no longer disappears with OmniFilter). Small fixes will now install by themselves when you close the app, and map detection can be fixed without an update. Streamers: the map can show on your stream with an OBS Browser source (Settings, Overlay), without capturing your whole screen. Mobile: scan the map with the camera and new DBDMapsOmni Android app (uninstall the old DBD MAP app first).",
     "discord_url": "https://discord.gg/sHVttN4ZdZ",
     "mobile_version": "2.2.6",
-    "exe_sha256": "E5C68C6EFD6369DB86E24DB5E670B033BD08366E2690A908B31F0865F059E08A",
+    "exe_sha256": "A059DF657AA087D8286FD38425759BBF755D7500299518C89491DC11E600596B",
     "admin_alert": {
         "enabled": true,
         "min_version": "2.2.6.0",
-        "message": "La mise à jour v2.2.6 de DBD MAP OMNI est disponible ! Borgo reconnu, raccourcis compatibles OmniFilter, et les prochains petits correctifs s'installeront tout seuls.",
-        "message_en": "DBD MAP OMNI update v2.2.6 is available! Borgo recognized, shortcuts compatible with OmniFilter, and future small fixes will install by themselves.",
+        "message": "La mise à jour v2.2.6 de DBD MAP OMNI est disponible ! Carte sur le stream via OBS, Borgo reconnu, raccourcis compatibles OmniFilter, et les prochains petits correctifs s'installeront tout seuls.",
+        "message_en": "DBD MAP OMNI update v2.2.6 is available! Map on stream via OBS, Borgo recognized, shortcuts compatible with OmniFilter, and future small fixes will install by themselves.",
         "date": "14/11/2026"
     }
 }
