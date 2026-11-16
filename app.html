@@ -3769,15 +3769,17 @@
     };
 </script>
 <script>
-  // Ancienne appli Android « DBD MAP » (avant la 2.2.6) : elle ouvre app.html?v=1.3.5 dans une WebView (« wv ») sans
-  // la marque « DBDMapsOmniApp » de la nouvelle appli. Écran bloquant, impossible à fermer, avec le lien vers la nouvelle appli.
-  // Script séparé : s'affiche même si le reste de la page plante. Les navigateurs (Chrome, Safari) n'ont pas « wv » et ne sont jamais bloqués.
+  // Anciennes applis Android (avant la 2.2.6) : WebView (« wv ») sans la marque « DBDMapsOmniApp » de la nouvelle appli.
+  // v1.3.5 à v2.0.1 ouvrent app.html?v=1.3.5, v1.0.x ouvrent app.html sans rien après. Écran bloquant, impossible à fermer,
+  // avec le lien vers la nouvelle appli. Script séparé : s'affiche même si le reste de la page plante.
+  // Jamais bloqués : Chrome / Safari (pas de « wv ») et les navigateurs intégrés des réseaux sociaux (lien du site ouvert dans Instagram, etc.).
   (function () {
     var ua = navigator.userAgent;
     if (!/; wv\)/.test(ua) || /DBDMapsOmniApp/.test(ua)) return;
+    if (/FBAN|FBAV|FB_IAB|Instagram|Snapchat|TikTok|musical_ly|BytedanceWebview|Twitter|Line\/|Pinterest|Reddit|GSA\/|Discord|WhatsApp|Messenger/i.test(ua)) return;
     var flagged = false;
     try { flagged = localStorage.getItem("dbd_old_apk") === "1"; } catch (e) {}
-    if (!flagged && !/[?&]v=1\.3\.5(&|$)/.test(location.search)) return;
+    if (!flagged && location.search !== "" && !/[?&]v=1\.3\.5(&|$)/.test(location.search)) return;
     try { localStorage.setItem("dbd_old_apk", "1"); } catch (e) {}
     var fr = !/^en/i.test(navigator.language || "");
     var t = fr ? {
