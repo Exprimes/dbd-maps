@@ -18,17 +18,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Collecter les appareils
+      - name: Fin automatique de l'alerte admin
+        run: |
+          python3 .github/scripts/expire_alert.py version.json
+          git diff --quiet version.json && exit 0
+          git -c user.name="github-actions[bot]" -c user.email="41898283+github-actions[bot]@users.noreply.github.com" commit -qm "Fin automatique de l'alerte admin" version.json
+          # Si l'admin a modifié version.json entre-temps, le push est refusé : nouvel essai au passage suivant.
+          git push -q origin HEAD:main || echo "::warning::Push refusé, nouvel essai dans 15 min"
+
+      - name: Collecter les appareils et l'utilisation
         run: |
           git fetch -q origin telemetry || true
           git show origin/telemetry:players.json > /tmp/players.json 2>/dev/null || echo '[]' > /tmp/players.json
+          git show origin/telemetry:usage.json > /tmp/usage.json 2>/dev/null || echo '{}' > /tmp/usage.json
           cp /tmp/players.json /tmp/players.old.json
+          cp /tmp/usage.json /tmp/usage.old.json
           python3 .github/scripts/collect_players.py /tmp/players.json
-          cmp -s /tmp/players.old.json /tmp/players.json && { echo "Aucun changement"; exit 0; }
+          python3 .github/scripts/collect_usage.py /tmp/usage.json || echo "::warning::usage.json non mis à jour"
+          cmp -s /tmp/players.old.json /tmp/players.json && cmp -s /tmp/usage.old.json /tmp/usage.json && { echo "Aucun changement"; exit 0; }
           # Branche réduite à un seul commit, réécrit à chaque passage, pour ne pas accumuler d'historique.
           git checkout -q --orphan telemetry-new
           git rm -rfq --cached .
           cp /tmp/players.json players.json
-          git add players.json
+          cp /tmp/usage.json usage.json
+          git add players.json usage.json
           git -c user.name="github-actions[bot]" -c user.email="41898283+github-actions[bot]@users.noreply.github.com" commit -qm "Joueurs"
           git push -qf origin telemetry-new:telemetry
