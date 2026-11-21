@@ -1,7 +1,7 @@
 {
-  "version": "1.7.1",
+  "version": "1.7.2",
   "name": "OmniShield AdBlocker",
   "download_url": "https://exprimes.github.io/dbd-maps/OmniShield.zip",
-  "changelog": "Version 1.7.1 : correction des vidéos YouTube qui restaient bloquées au démarrage (qualité max appliquée trop tôt) et l'interrupteur OFF désactive désormais complètement le blocage YouTube.",
-  "release_date": "30/10/2026"
+  "changelog": "Version 1.7.2 : nouveau bloqueur de popups publicitaires sur tous les sites (les onglets de pub qui s'ouvrent quand on clique sur une page) et suppression du compteur 999+ sur l'icône.",
+  "release_date": "21/11/2026"
 }
