@@ -6,7 +6,7 @@ document.body.insertAdjacentHTML('beforeend', `
       <span class="text-2xl">🔦</span>
       <span>
         <span class="block font-black text-white text-sm">Dead by Daylight</span>
-        <span data-i18n="cat.dbd_desc" class="block text-xs text-gray-400">Compagnon DBDMapsOmni : cartes HD en overlay</span>
+        <span data-i18n="cat.dbd_desc" class="block text-xs text-gray-400">DBDMapsOmni et pack de filtres ReShade</span>
       </span>
     </a>
     <a href="logiciels.html?cat=pc" role="menuitem" class="flex items-center gap-3 p-3 rounded-xl hover:bg-purple-600/20 transition">
