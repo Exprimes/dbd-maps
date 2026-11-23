@@ -1,8 +1,8 @@
 {
-  "version": "1.0.2",
+  "version": "1.0.3",
   "url": "https://github.com/Exprimes/dbd-maps/releases/download/windtreak-1.0.1/DBDWinstreak.exe",
-  "size": 69680148,
-  "sha256": "4DB4C4B3759FDB74E773BDECD01EC20BAB3B1E6EFA5DC76D6317027E83D631D2",
-  "changelog": "Logiciel en anglais : bouton FR/EN en haut de la fenêtre. Sauvegarde plus sûre des winstreaks killer et survivants.",
-  "changelog_en": "English version: FR/EN button at the top of the window. Safer saving of killer and survivor winstreaks."
+  "size": 69680660,
+  "sha256": "C278032D91AEC999F81235D7FD9CB077FC5E0B75746A237280224DD56D25F2B1",
+  "changelog": "Choix de la langue plus clair : boutons FR et EN en haut de la fenêtre, la langue active est en couleur.",
+  "changelog_en": "Clearer language choice: FR and EN buttons at the top of the window, the active language is highlighted."
 }
