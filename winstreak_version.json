@@ -1,8 +1,8 @@
 {
-  "version": "1.0.5",
+  "version": "1.0.6",
   "url": "https://github.com/Exprimes/dbd-maps/releases/download/windtreak-1.0.1/DBDWinstreak.exe",
   "size": 71746580,
-  "sha256": "96E31BBEE363CFAC0D552DEA67BD97E3AD0CAC090206D15C2A3DA536C41057D6",
-  "changelog": "Bouton Event : une winstreak d'event à part de la normale, pour les killers et les survivants. Survivants : boutons Solo, Duo, Trio, Squad, équipes avec nom (au hasard si vide) et pseudos facultatifs, image du survivant au choix. Team Winstreak sur l'overlay. Nouveaux portraits, avec Art the Clown (The Terrifier) et 7 nouveaux survivants.",
-  "changelog_en": "Event button: an event winstreak apart from the normal one, for killers and survivors. Survivors: Solo, Duo, Trio, Squad buttons, teams with a name (random if empty) and optional player names, pick a survivor image. Team Winstreak on the overlay. New portraits, with Art the Clown (The Terrifier) and 7 new survivors."
+  "sha256": "CADBE82D568D8A394FA3F8EEBF5390E41E2829BAC1B9FB9C4FB41D7DC79C58E7",
+  "changelog": "Le record est plus gros et plus lisible sur l'overlay OBS et sur l'overlay à l'écran.",
+  "changelog_en": "The record is bigger and easier to read on the OBS overlay and the on-screen overlay."
 }
